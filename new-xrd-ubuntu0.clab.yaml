@@ -15,43 +15,43 @@ topology:
     core-1:
       kind: xrd
       mgmt-ipv4: 172.31.0.201
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-core-1.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-core-1.txt
     core-2:
       kind: xrd
       mgmt-ipv4: 172.31.0.202
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-core-2.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-core-2.txt
     core-3:
       kind: xrd
       mgmt-ipv4: 172.31.0.203
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-core-3.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-core-3.txt
     core-4:
       kind: xrd
       mgmt-ipv4: 172.31.0.204
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-core-4.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-core-4.txt
     edge-5:
       kind: xrd
       mgmt-ipv4: 172.31.0.205
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-edge-5.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-edge-5.txt
     edge-6:
       kind: xrd
       mgmt-ipv4: 172.31.0.206
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-edge-6.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-edge-6.txt
     edge-7:
       kind: xrd
       mgmt-ipv4: 172.31.0.207
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-edge-7.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-edge-7.txt
     edge-8:
       kind: xrd
       mgmt-ipv4: 172.31.0.208
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-edge-8.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-edge-8.txt
     dc-10:
       kind: xrd
       mgmt-ipv4: 172.31.0.210
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-dc-10.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-dc-10.txt
     dc-11:
       kind: xrd
       mgmt-ipv4: 172.31.0.211
-      startup-config: /home/ubuntu/last-config-ccnp/clab-xrd-lab1-dc-11.txt
+      startup-config: last-config-ccnp/clab-xrd-lab1-dc-11.txt
 
 
   links:
