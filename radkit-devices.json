@@ -1,11 +1,11 @@
 [
   {
-    "name": "met-0",
-    "host": "192.168.255.10",
+    "name": "c8000-p5",
+    "host": "192.168.255.15",
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -14,12 +14,26 @@
     }
   },
   {
-    "name": "met-1",
+    "name": "c8000-p6",
+    "host": "192.168.255.15",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "c8000-pe1",
     "host": "192.168.255.11",
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -28,12 +42,40 @@
     }
   },
   {
-    "name": "met-2",
+    "name": "c8000-pe2",
     "host": "192.168.255.12",
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "c8000-pe3",
+    "host": "192.168.255.13",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "c8000-pe4",
+    "host": "192.168.255.14",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -47,7 +89,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -61,7 +103,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -75,7 +117,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -89,7 +131,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -103,7 +145,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -117,7 +159,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -131,7 +173,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -145,7 +187,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -159,7 +201,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -173,7 +215,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -183,11 +225,11 @@
   },
   {
     "name": "dc-12",
-    "host": "192.168.255.212",
+    "host": "192.168.255.120",
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -197,11 +239,11 @@
   },
   {
     "name": "dc-13",
-    "host": "192.168.255.213",
+    "host": "192.168.255.130",
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -215,21 +257,7 @@
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
-    "terminal": {
-      "port": 22,
-      "connectionMethod": "SSH",
-      "username": "clab",
-      "password": "clab@123"
-    }
-  },
-  {
-    "name": "ix-man",
-    "host": "192.168.255.99",
-    "deviceType": "IOS_XE",
-    "labels": [],
-    "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -243,7 +271,7 @@
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "e4ea065d-ec76-4c88-aa19-a9cb3435dc49",
+    "jumphostUuid": "43d9aa22-7459-4cc9-8fb6-e6da05e428b2",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
