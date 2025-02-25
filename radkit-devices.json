@@ -15,7 +15,7 @@
   },
   {
     "name": "c8000-p6",
-    "host": "192.168.255.15",
+    "host": "192.168.255.16",
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
