@@ -154,7 +154,9 @@ router ospf CCNP
  dead-interval 9
  hello-interval 3
  redistribute connected route-policy external-ospf
- area 1
+ mpls ldp auto-config
+ area 0
+  mpls traffic-eng
   interface Bundle-Ether2
   !
   interface Bundle-Ether3
@@ -227,6 +229,31 @@ l2vpn
   !
  !
 !
+rsvp
+  interface Bundle-Ether2
+  !
+  interface Bundle-Ether3
+  !
+  interface Bundle-Ether5
+  !
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0.95
+
+mpls traffic-eng
+  interface Bundle-Ether2
+  !
+  interface Bundle-Ether3
+  !
+  interface Bundle-Ether5
+  !
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0.95
+
+mpls ldp 
+router-id 172.16.0.5
+
 mpls oam
 !
 lldp

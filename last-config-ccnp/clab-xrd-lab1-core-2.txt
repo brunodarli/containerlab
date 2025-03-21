@@ -88,7 +88,9 @@ router static
 router ospf CCNP
  dead-interval 9
  hello-interval 3
+ mpls ldp auto-config
  area 0
+  mpls traffic-eng
   interface Bundle-Ether3
   !
   interface Bundle-Ether4
@@ -97,8 +99,6 @@ router ospf CCNP
   !
   interface Loopback0
   !
- !
- area 2
   interface Bundle-Ether5
   !
   interface Bundle-Ether6
@@ -146,6 +146,39 @@ router bgp 100
   !
  !
 !
+rsvp 
+interface Bundle-Ether3
+  !
+  interface Bundle-Ether4
+  !
+  interface Bundle-Ether100
+  !
+  interface Loopback0
+  !
+  interface Bundle-Ether5
+  !
+  interface Bundle-Ether6
+  !
+  interface GigabitEthernet0/0/0/1
+  
+mpls traffic-eng
+  interface Bundle-Ether3
+  !
+  interface Bundle-Ether4
+  !
+  interface Bundle-Ether100
+  !
+  interface Loopback0
+  !
+  interface Bundle-Ether5
+  !
+  interface Bundle-Ether6
+  !
+  interface GigabitEthernet0/0/0/1
+
+mpls ldp 
+ router-id 172.16.0.2
+
 lldp
 !
 ssh server v2
