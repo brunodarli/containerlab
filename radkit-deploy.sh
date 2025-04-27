@@ -93,7 +93,7 @@ echo "Captured ubuntu0 UUID: $UBUNTU0_UUID"
 
 # STEP 7 - Update radkit-devices.json inside container
 echo "Replacing jumphostUuid inside container radkit-devices.json..."
-docker exec radkit bash -c "sed -i 's/\"jumphostUuid\": \"[^\"]*\"/\"$UBUNTU0_UUID\"/g' /radkit-devices.json"
+docker exec radkit bash -c "sed -i 's/\"jumphostUuid\": \"[^\"]*\"/\"jumphostUuid\": \"$UBUNTU0_UUID\"/g' /radkit-devices.json"
 
 echo "Updated radkit-devices.json successfully."
 sleep 1
