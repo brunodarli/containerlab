@@ -26,7 +26,7 @@ sleep 1
 
 # STEP 3 - Copy radkit-devices.json into container
 echo "Copying radkit-devices.json into radkit container..."
-docker cp radkit-devices.json radkit:/
+docker cp ~/containerlab/radkit-devices.json radkit:/
 sleep 1
 
 # STEP 4 - Define function to run docker exec with expect
