@@ -29,70 +29,58 @@ echo "Copying radkit-devices.json into radkit container..."
 docker cp radkit-devices.json radkit:/
 sleep 1
 
-# STEP 4 - Enter radkit container and run commands
-echo "Entering radkit container..."
-
-docker exec -i radkit bash << 'EOF'
-echo "Setting proxy..."
-export -n RADKIT_CLOUD_CLIENT_PROXY_URL
-
-# Define the common password
-PASSWORD="Cisco123!"
-
-# Function to automate commands requiring password
-run_with_password() {
-    CMD="\$1"
+# STEP 4 - Define function to run docker exec with expect
+run_in_container_with_password() {
+    local CMD="$1"
     expect <<EOD
-spawn bash -c "\$CMD"
+spawn docker exec -it radkit bash -c "$CMD"
 expect "superadmin's password:"
-send "\$PASSWORD\r"
+send "Cisco123!\r"
 expect eof
 EOD
 }
 
-# 1. Enroll system
+# STEP 5 - Execute commands one-by-one
+echo "Setting proxy (no password needed)..."
+docker exec radkit bash -c "export -n RADKIT_CLOUD_CLIENT_PROXY_URL"
+
 echo "Enrolling system with provided PROD value..."
-run_with_password "radkit-control system enroll '"$PROD_VALUE"'"
+run_in_container_with_password "radkit-control system enroll $PROD_VALUE"
 
-# 2. Create user
 echo "Creating user bdarlida@cisco.com..."
-run_with_password "radkit-control user create bdarlida@cisco.com --full-name bruno --active forever"
+run_in_container_with_password "radkit-control user create bdarlida@cisco.com --full-name bruno --active forever"
 
-# 3. Create radkit-service device
 echo "Creating radkit-service device..."
-run_with_password "radkit-control device create radkit-service localhost RADKIT_SERVICE --forwarded-tcp-ports 8081"
+run_in_container_with_password "radkit-control device create radkit-service localhost RADKIT_SERVICE --forwarded-tcp-ports 8081"
 
-# 4. Create ubuntu0 jump host
-echo "Creating ubuntu0 jump host..."
-UBUNTU0_OUTPUT=\$(expect <<EOD
-spawn bash -c "radkit-control device create ubuntu0 172.17.0.1 Linux --description ubuntu0 --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --forwarded-tcp-ports 22 --active true"
+# STEP 6 - Create ubuntu0 jump host and capture UUID
+echo "Creating ubuntu0 jump host and capturing UUID..."
+UBUNTU0_OUTPUT=$(expect <<EOD
+spawn docker exec -it radkit bash -c "radkit-control device create ubuntu0 172.17.0.1 Linux --description ubuntu0 --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --forwarded-tcp-ports 22 --active true"
 expect "superadmin's password:"
-send "\$PASSWORD\r"
+send "Cisco123!\r"
 expect eof
 EOD
 )
 
 echo "Ubuntu0 created. Output:"
-echo "\$UBUNTU0_OUTPUT"
+echo "$UBUNTU0_OUTPUT"
 
 # Extract UUID from output
-UBUNTU0_UUID=\$(echo "\$UBUNTU0_OUTPUT" | grep -o '"uuid": "[^"]*' | awk -F'"' '{print \$4}')
+UBUNTU0_UUID=$(echo "$UBUNTU0_OUTPUT" | grep -o '"uuid": "[^"]*' | awk -F'"' '{print $4}')
 
-if [[ -z "\$UBUNTU0_UUID" ]]; then
+if [[ -z "$UBUNTU0_UUID" ]]; then
     echo "Failed to capture ubuntu0 UUID. Exiting."
     exit 1
 fi
 
-echo "Captured ubuntu0 UUID: \$UBUNTU0_UUID"
+echo "Captured ubuntu0 UUID: $UBUNTU0_UUID"
 
-# Update radkit-devices.json
-echo "Replacing jumphostUuid values in radkit-devices.json..."
-sed -i "s/\"jumphostUuid\": \"[^\"]*\"/\"jumphostUuid\": \"\$UBUNTU0_UUID\"/g" /radkit-devices.json
+# STEP 7 - Update radkit-devices.json inside container
+echo "Replacing jumphostUuid values inside radkit-devices.json in container..."
+docker exec radkit bash -c "sed -i 's/\"jumphostUuid\": \"[^\"]*\"/\"jumphostUuid\": \"$UBUNTU0_UUID\"/g' /radkit-devices.json"
 
 echo "Updated radkit-devices.json successfully."
-EOF
-
-echo "All steps completed!"
 
 echo "==========================================="
 echo "Automation finished! Logs saved at: $LOGFILE"
