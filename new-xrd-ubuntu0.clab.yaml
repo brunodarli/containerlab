@@ -87,7 +87,6 @@ topology:
     - endpoints: [edge-8:Gi0-0-0-0, macvlan:ens4]
     - endpoints: [edge-5:Gi0-0-0-0, macvlan:ens5]
     - endpoints: [edge-6:Gi0-0-0-0, macvlan:ens6]
-    - endpoints: [core-2:Gi0-0-0-1, macvlan:ens7]
-    - endpoints: [core-3:Gi0-0-0-5, macvlan:ens8]
+    - endpoints: [core-4:Gi0-0-0-7, macvlan:ens8]
     
     
