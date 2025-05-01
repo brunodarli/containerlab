@@ -98,6 +98,7 @@ docker exec radkit bash -c "sed -i 's/\"jumphostUuid\": \"[^\"]*\"/\"jumphostUui
 echo "Updated radkit-devices.json successfully."
 sleep 1
 
+
 # STEP 8 - Bulk import radkit-devices.json
 echo "Running the bulk import for the radkit-devices..."
 
