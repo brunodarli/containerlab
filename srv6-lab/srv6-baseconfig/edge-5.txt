@@ -1,0 +1,334 @@
+!! Building configuration
+!! IOS XR Configuration 25.1.1
+!! Last configuration change at Tue May 27 19:34:28 2025 by clab
+!
+hostname edge-5
+username clab
+ group root-lr
+ group cisco-support
+ secret 10 $6$M3GMLV2q3VR/L...$STNcninBlKeGQ8/Fu/B91DfkbqUdX9U.lHfGkQvCpmeGo5OBq5aaQujKbgJvNZmjDcFYiVWEsAQPDBKgbEbBN.
+!
+grpc
+ no-tls
+ address-family dual
+!
+vrf mgmt
+ address-family ipv4 unicast
+ !
+!
+line default
+ transport input ssh
+!
+lacp system mac 0010.0010.0010
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+netconf-yang agent
+ ssh
+!
+interface Bundle-Ether2
+ ipv4 address 192.168.51.5 255.255.255.0
+ ipv6 address 2001:100:100:51::5/64
+!
+interface Bundle-Ether3
+ ipv4 address 192.168.56.5 255.255.255.0
+ ipv6 address 2001:100:100:56::5/64
+!
+interface Bundle-Ether5
+ ipv4 address 192.168.54.5 255.255.255.0
+ ipv6 address 2001:100:100:54::5/64
+!
+interface Bundle-Ether10
+!
+interface Bundle-Ether10.1211 l2transport
+ encapsulation dot1q 1211
+!
+interface Loopback0
+ ipv4 address 172.16.0.5 255.255.255.255
+ ipv6 address 2001:100::5/128
+!
+interface Loopback1
+ ipv4 address 10.16.0.5 255.255.255.255
+!
+interface Loopback11
+ ipv4 address 10.111.0.5 255.255.255.0
+ shutdown
+!
+interface Loopback22
+ ipv4 address 10.222.0.5 255.255.255.0
+ shutdown
+!
+interface Loopback100
+ description internet
+ ipv4 address 100.0.0.5 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ vrf mgmt
+ ipv4 address 172.31.0.205 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0.10
+ description ix-rs
+ ipv4 address 23.0.0.5 255.255.255.0
+ encapsulation dot1q 10
+!
+interface GigabitEthernet0/0/0/0.11
+ description traditional-multicast-test-receiver
+ ipv4 address 100.222.1.5 255.255.255.0
+ encapsulation dot1q 11
+!
+interface GigabitEthernet0/0/0/0.95
+ description edge-9
+ ipv4 address 192.168.95.5 255.255.255.0
+ ipv6 address 2001:100:100:95::5/64
+ encapsulation dot1q 95
+!
+interface GigabitEthernet0/0/0/0.290
+ ipv4 address 192.168.99.5 255.255.255.0
+ encapsulation dot1q 290
+!
+interface GigabitEthernet0/0/0/0.291
+ ipv4 address 100.29.1.0 255.255.255.254
+ encapsulation dot1q 291
+!
+interface GigabitEthernet0/0/0/2
+ bundle id 2 mode on
+!
+interface GigabitEthernet0/0/0/3
+ bundle id 3 mode on
+!
+interface GigabitEthernet0/0/0/5
+ bundle id 5 mode on
+!
+interface GigabitEthernet0/0/0/8
+ bundle id 10 mode active
+!
+community-set no-export
+  no-export
+end-set
+!
+route-policy dc-10-in
+  set med 100
+  done
+end-policy
+!
+route-policy ix-test-in
+  if destination in (192.0.2.0/24) then
+    set local-preference 300
+    done
+  else
+    drop
+  endif
+end-policy
+!
+route-policy permit-all
+  done
+end-policy
+!
+route-policy ix-test-out
+  if destination in (100.0.0.0/8) then
+    done
+  else
+    drop
+  endif
+end-policy
+!
+route-policy external-ospf
+  if destination in (10.111.0.0/24) then
+    set metric-type type-1
+  endif
+  if destination in (10.222.0.0/24) then
+    set metric-type type-2
+  endif
+end-policy
+!
+route-policy no-export-comm
+  set community no-export additive
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  100.0.0.0/8 Null0
+ !
+ vrf mgmt
+  address-family ipv4 unicast
+   0.0.0.0/0 MgmtEth0/RP0/CPU0/0 172.31.0.1
+  !
+ !
+!
+router isis 1
+ is-type level-2-only
+ net 49.0001.0000.0000.0005.00
+ address-family ipv6 unicast
+  metric-style wide
+  segment-routing srv6
+   locator MAIN
+   !
+  !
+ !
+ interface Bundle-Ether1
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether2
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether3
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether4
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether5
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether6
+  address-family ipv6 unicast
+  !
+ !
+ interface Loopback0
+  address-family ipv6 unicast
+  !
+ !
+!
+router bgp 100
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ address-family ipv6 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ address-family ipv4 mdt
+ !
+ address-family ipv4 mvpn
+ !
+ address-family l2vpn evpn
+ !
+ neighbor-group rr-group
+  remote-as 100
+  update-source Loopback0
+  address-family ipv4 unicast
+   next-hop-self
+  !
+  address-family ipv4 mdt
+  !
+  address-family ipv4 mvpn
+  !
+ !
+ neighbor 172.16.0.1
+  use neighbor-group rr-group
+ !
+ neighbor 172.16.0.4
+  use neighbor-group rr-group
+ !
+ neighbor 100.5.10.10
+  remote-as 100010
+  address-family ipv4 unicast
+   route-policy dc-10-in in
+   route-policy permit-all out
+  !
+ !
+ neighbor 2001:100::1
+  remote-as 100
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+  address-family ipv6 unicast
+   next-hop-self
+  !
+  address-family vpnv6 unicast
+  !
+  address-family l2vpn evpn
+  !
+ !
+!
+evpn
+ evi 1010
+ !
+ evi 1211 segment-routing srv6
+  advertise-mac
+  !
+ !
+ group 1
+  core interface Bundle-Ether2
+  core interface Bundle-Ether3
+  core interface Bundle-Ether5
+ !
+ interface Bundle-Ether10
+  ethernet-segment
+   identifier type 0 10.10.10.10.10.10.10.10.10
+  !
+ !
+ interface Bundle-Ether100
+  ethernet-segment
+   identifier type 0 1.0.0.0.0.0.0.0.1
+  !
+ !
+ segment-routing srv6
+  locator MAIN
+  !
+ !
+!
+l2vpn
+ xconnect group test
+ !
+ xconnect group vpws
+ !
+ bridge group evpn
+  bridge-domain elan10
+   interface Bundle-Ether100.10
+   !
+   evi 1010
+   !
+  !
+ !
+ bridge group test1
+  bridge-domain test1
+   neighbor evpn evi 12 target 12
+  !
+ !
+ bridge group elan1211
+  bridge-domain 1211
+   interface Bundle-Ether10.1211
+   !
+   evi 1211 segment-routing srv6
+   !
+  !
+ !
+!
+mpls oam
+!
+multicast-routing
+ address-family ipv4
+  mdt source Loopback0
+  interface all enable
+ !
+!
+segment-routing
+ srv6
+  locators
+   locator MAIN
+    micro-segment behavior unode psp-usd
+    prefix fcbb:bb00:5::/48
+   !
+  !
+ !
+!
+lldp
+!
+ssh server v2
+ssh server vrf mgmt
+ssh server netconf vrf mgmt
+ssh server netconf vrf default
+end

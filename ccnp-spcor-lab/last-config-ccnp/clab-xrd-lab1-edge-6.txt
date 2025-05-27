@@ -1,0 +1,235 @@
+!! IOS XR Configuration 7.8.2
+!! Last configuration change at Fri Jan 17 22:33:30 2025 by clab
+!
+hostname edge-6
+username clab
+ group root-lr
+ group cisco-support
+ secret 10 $6$z8REY1G52t/FCY1.$.33PnoQEAukPb2VzLso6up49ukIKK2KiTo7mZCj4mN37Vze9jGyFlCwCyNVlkCoMn/ToGb9hTgvjcJFKWxBVk0
+!
+grpc
+ no-tls
+ address-family dual
+!
+explicit-path name to-edge7-dc10
+ index 1 next-address strict ipv4 unicast 172.16.0.4
+ index 2 next-address strict ipv4 unicast 172.16.0.2
+ index 3 next-address strict ipv4 unicast 172.16.0.7
+!
+vrf mgmt
+ address-family ipv4 unicast
+ !
+!
+line default
+ transport input ssh
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+control-plane
+ management-plane
+  inband
+   interface all
+    allow all peer
+     address ipv4 1.1.1.1
+     address ipv4 1.1.2.0/24
+    !
+   !
+  !
+ !
+!
+netconf-yang agent
+ ssh
+!
+interface Bundle-Ether1
+ ipv4 address 192.168.61.6 255.255.255.0
+ ipv6 address 2001:100:100:61::6/64
+!
+interface Bundle-Ether3
+ ipv4 address 192.168.56.6 255.255.255.0
+ ipv6 address 2001:100:100:56::6/64
+!
+interface Bundle-Ether6
+ ipv4 address 192.168.64.6 255.255.255.0
+ ipv6 address 2001:100:100:64::6/64
+!
+interface Loopback0
+ ipv4 address 172.16.0.6 255.255.255.255
+ ipv6 address 2001:100::6/128
+!
+interface Loopback11
+ ipv4 address 10.111.0.5 255.255.255.0
+!
+interface Loopback22
+ ipv4 address 10.222.0.5 255.255.255.0
+!
+interface Loopback100
+ description internet
+ ipv4 address 100.0.0.6 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ vrf mgmt
+ ipv4 address 172.31.0.206 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0.96
+ description edge-9
+ ipv4 address 192.168.96.6 255.255.255.0
+ ipv6 address 2001:100:100:96::6/64
+ encapsulation dot1q 96
+!
+interface GigabitEthernet0/0/0/1
+ bundle id 1 mode on
+!
+interface GigabitEthernet0/0/0/3
+ bundle id 3 mode on
+!
+interface GigabitEthernet0/0/0/6
+ bundle id 6 mode on
+!
+interface GigabitEthernet0/0/0/8
+ shutdown
+!
+community-set no-export
+  no-export
+end-set
+!
+route-policy ix-test-in
+  if destination in (192.0.2.0/24) then
+    done
+  else
+    done
+  endif
+end-policy
+!
+route-policy permit-all
+  done
+end-policy
+!
+route-policy ix-test-out
+  if destination in (100.0.0.0/8) then
+    done
+  else
+    drop
+  endif
+end-policy
+!
+route-policy external-ospf
+  if destination in (10.111.0.0/24) then
+    set metric-type type-1
+  endif
+  if destination in (10.222.0.0/24) then
+    set metric-type type-2
+  endif
+end-policy
+!
+route-policy no-export-comm
+  set community no-export additive
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  100.0.0.0/8 Null0
+ !
+ vrf mgmt
+  address-family ipv4 unicast
+   0.0.0.0/0 MgmtEth0/RP0/CPU0/0 172.31.0.1
+  !
+ !
+!
+router ospf CCNP
+ dead-interval 9
+ hello-interval 3
+ redistribute connected route-policy external-ospf
+ mpls ldp auto-config
+ area 0
+  mpls traffic-eng
+  interface Bundle-Ether1
+  !
+  interface Bundle-Ether3
+  !
+  interface Bundle-Ether6
+  !
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0.96
+  !
+ !
+!
+router ospf customer
+!
+router bgp 100
+ address-family ipv4 unicast
+ !
+ neighbor 172.16.0.1
+  remote-as 100
+  update-source Loopback0
+  address-family ipv4 unicast
+   next-hop-self
+  !
+ !
+ neighbor 172.16.0.4
+  remote-as 100
+  update-source Loopback0
+  address-family ipv4 unicast
+   next-hop-self
+  !
+ !
+!
+evpn
+ interface Bundle-Ether100
+  ethernet-segment
+   identifier type 0 1.0.0.0.0.0.0.0.1
+  !
+ !
+!
+l2vpn
+ bridge group evpn
+  bridge-domain elan10
+   interface Bundle-Ether100.10
+    static-mac-address 0001.0001.0001
+   !
+   evi 1010
+   !
+  !
+ !
+!
+rsvp
+  interface Bundle-Ether1
+  !
+  interface Bundle-Ether3
+  !
+  interface Bundle-Ether6
+  !
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0.96
+
+mpls traffic-eng
+  interface Bundle-Ether1
+  !
+  interface Bundle-Ether3
+  !
+  interface Bundle-Ether6
+  !
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0.96
+
+mpls ldp 
+ router-id 172.16.0.6
+
+mpls oam
+!
+lldp
+!
+ssh server v2
+ssh server vrf mgmt
+ssh server netconf vrf mgmt
+ssh server netconf vrf default
+end

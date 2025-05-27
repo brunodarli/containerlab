@@ -1,0 +1,92 @@
+name: srv6-lab
+
+mgmt:
+  network: clab_mgmt
+  ipv4-subnet: 172.31.0.0/24
+  external-access: false
+
+topology:
+  kinds:
+    xrd:
+      kind: cisco_xrd
+      image: ${XRD_IMAGE:=ios-xr/xrd-control-plane}:${XRD_VERSION:=25.1.1}
+
+  nodes:
+    core-1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.201
+      startup-config: srv6-baseconfig/core-1.txt
+    core-2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.202
+      startup-config: srv6-baseconfig/core-2.txt
+    core-3:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.203
+      startup-config: srv6-baseconfig/core-3.txt
+    core-4:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.204
+      startup-config: srv6-baseconfig/core-4.txt
+    edge-5:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.205
+      startup-config: srv6-baseconfig/edge-5.txt
+    edge-6:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.206
+      startup-config: srv6-baseconfig/edge-6.txt
+    edge-7:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.207
+      startup-config: srv6-baseconfig/edge-7.txt
+    edge-8:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.208
+      startup-config: srv6-baseconfig/edge-8.txt
+    dc-10:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.210
+      startup-config: srv6-baseconfig/dc-10.txt
+    dc-11:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.211
+      startup-config: srv6-baseconfig/dc-11.txt
+
+
+  links:
+    - endpoints: [edge-7:Gi0-0-0-2, core-3:Gi0-0-0-2]
+    - endpoints: [edge-7:Gi0-0-0-5, core-2:Gi0-0-0-5]
+    - endpoints: [edge-7:Gi0-0-0-7, dc-10:Gi0-0-0-7]
+    - endpoints: [edge-7:Gi0-0-0-3, edge-8:Gi0-0-0-3]
+
+    - endpoints: [edge-8:Gi0-0-0-6, core-2:Gi0-0-0-6]
+    - endpoints: [edge-8:Gi0-0-0-1, core-3:Gi0-0-0-1]
+    - endpoints: [edge-8:Gi0-0-0-7, dc-11:Gi0-0-0-7]
+
+    - endpoints: [core-2:Gi0-0-0-4, core-3:Gi0-0-0-4]
+    - endpoints: [core-2:Gi0-0-0-3, core-1:Gi0-0-0-3]
+    - endpoints: [core-2:Gi0-0-0-0, core-4:Gi0-0-0-0]
+
+    - endpoints: [core-3:Gi0-0-0-0, core-1:Gi0-0-0-0]
+    - endpoints: [core-3:Gi0-0-0-3, core-4:Gi0-0-0-3]
+
+    - endpoints: [core-1:Gi0-0-0-4, core-4:Gi0-0-0-4]
+    - endpoints: [core-1:Gi0-0-0-2, edge-5:Gi0-0-0-2]
+    - endpoints: [core-1:Gi0-0-0-1, edge-6:Gi0-0-0-1]
+
+    - endpoints: [core-4:Gi0-0-0-5, edge-5:Gi0-0-0-5]
+    - endpoints: [core-4:Gi0-0-0-6, edge-6:Gi0-0-0-6]
+
+    - endpoints: [edge-5:Gi0-0-0-3, edge-6:Gi0-0-0-3]
+    - endpoints: [edge-5:Gi0-0-0-8, dc-10:Gi0-0-0-8]
+
+    - endpoints: [edge-6:Gi0-0-0-8, dc-11:Gi0-0-0-8]
+
+    - endpoints: [edge-7:Gi0-0-0-0, macvlan:ens3]
+    - endpoints: [edge-8:Gi0-0-0-0, macvlan:ens4]
+    - endpoints: [edge-5:Gi0-0-0-0, macvlan:ens5]
+    - endpoints: [edge-6:Gi0-0-0-0, macvlan:ens6]
+    - endpoints: [core-4:Gi0-0-0-7, macvlan:ens8]
+    
+    
