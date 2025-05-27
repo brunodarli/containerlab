@@ -40,7 +40,7 @@ sleep 1
 
 # STEP 3 - Copy radkit-devices.json into container
 echo "Copying radkit-devices.json into radkit container..."
-docker cp ~/containerlab/radkit-devices.json radkit:/
+docker cp radkit-devices.json radkit:/
 sleep 1
 
 # STEP 4 - Define expect wrapper function
