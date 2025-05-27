@@ -67,7 +67,7 @@ nodes:
           - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-25.1.1
 
           - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
-
+          - chmod -R +x /home/ubuntu/containerlab
           - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
           - echo "alias ssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
           - git clone https://gitlab-sjc.cisco.com/jtac-xr/xrd_lab.git /home/ubuntu/xrd_lab
