@@ -1,0 +1,174 @@
+!! IOS XR Configuration 7.8.2
+!! Last configuration change at Fri Jan 17 22:33:46 2025 by clab
+!
+hostname core-1
+username clab
+ group root-lr
+ group cisco-support
+ secret 10 $6$/d7Z90OGtWIi690.$Rth0ELZ4AbKY6dVhYgXsv.sRq1m3fUHb1UlJXP80W8OwBAxapa6vmxmCIowQ7okb7KDIuqYAV/AM3alUZQHAO0
+!
+grpc
+ no-tls
+ address-family dual
+!
+vrf mgmt
+ address-family ipv4 unicast
+ !
+!
+line default
+ transport input ssh
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+netconf-yang agent
+ ssh
+!
+ipv4 access-list ldp-test
+ 10 permit ipv4 host 192.168.61.6 host 224.0.0.2
+ 20 permit ipv4 any any
+!
+interface Bundle-Ether1
+ ipv4 address 192.168.61.1 255.255.255.0
+ ipv6 address 2001:100:100:61::1/64
+ ipv4 access-group ldp-test ingress
+!
+interface Bundle-Ether2
+ ipv4 address 192.168.51.1 255.255.255.0
+ ipv6 address 2001:100:100:51::1/64
+!
+interface Bundle-Ether3
+ ipv4 address 192.168.12.1 255.255.255.0
+ ipv6 address 2001:100:100:12::1/64
+!
+interface Bundle-Ether4
+ ipv4 address 192.168.41.1 255.255.255.0
+ ipv6 address 2001:100:100:41::1/64
+!
+interface Bundle-Ether100
+ ipv4 address 192.168.13.1 255.255.255.0
+ ipv6 address 2001:100:100:13::1/64
+!
+interface Bundle-Ether100.111 l2transport
+ encapsulation dot1q 111
+!
+interface Loopback0
+ ipv4 address 172.16.0.1 255.255.255.255
+ ipv6 address 2001:100::1/128
+!
+interface MgmtEth0/RP0/CPU0/0
+ vrf mgmt
+ ipv4 address 172.31.0.201 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0
+ bundle id 100 mode on
+!
+interface GigabitEthernet0/0/0/1
+ bundle id 1 mode on
+!
+interface GigabitEthernet0/0/0/2
+ bundle id 2 mode on
+!
+interface GigabitEthernet0/0/0/3
+ bundle id 3 mode on
+!
+interface GigabitEthernet0/0/0/4
+ bundle id 4 mode on
+!
+router static
+ vrf mgmt
+  address-family ipv4 unicast
+   0.0.0.0/0 MgmtEth0/RP0/CPU0/0 172.31.0.1
+  !
+ !
+!
+router isis 1
+  net 49.0001.0000.0000.0001.00
+  is-type level-2-only
+  address-family ipv4 unicast
+    metric-style wide
+    segment-routing mpls
+    !
+  interface Bundle-Ether3
+    point-to-point
+    address-family ipv4 unicast
+    address-family ipv6 unicast
+    !
+  interface Bundle-Ether4
+    point-to-point
+    address-family ipv4 unicast
+    address-family ipv6 unicast
+    !
+  interface Bundle-Ether100
+    point-to-point
+    address-family ipv4 unicast
+    address-family ipv6 unicast
+    !
+  interface Loopback0
+    address-family ipv6 unicast
+    address-family ipv4 unicast
+    prefix-sid index 1
+    !
+  interface Bundle-Ether1
+    point-to-point
+    address-family ipv4 unicast
+    address-family ipv6 unicast
+    !
+  interface Bundle-Ether2
+    point-to-point
+    address-family ipv4 unicast
+    address-family ipv6 unicast
+    !
+  !
+router bgp 100
+ bgp router-id 172.16.0.1
+ address-family ipv4 unicast
+ !
+ address-family l2vpn evpn
+ !
+ address-family ipv6 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+
+ neighbor-group rr-clients
+  remote-as 100
+  update-source Loopback0
+  address-family ipv4 unicast
+   route-reflector-client
+  address-family l2vpn evpn
+   route-reflector-client
+  address-family vpnv4 unicast
+   route-reflector-client
+  address-family vpnv6 unicast
+   route-reflector-client
+
+
+ neighbor 172.16.0.5
+  use neighbor-group rr-clients
+
+ neighbor 172.16.0.6
+  use neighbor-group rr-clients
+ 
+ neighbor 172.16.0.7
+  use neighbor-group rr-clients
+
+ neighbor 172.16.0.8
+  use neighbor-group rr-clients
+ 
+
+lldp
+!
+ssh server v2
+ssh server vrf mgmt
+ssh server netconf vrf mgmt
+ssh server netconf vrf default
+end
