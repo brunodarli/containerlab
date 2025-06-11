@@ -1,5 +1,6 @@
-!! IOS XR Configuration 7.8.2
-!! Last configuration change at Fri Jan 17 22:33:29 2025 by clab
+!! Building configuration
+!! IOS XR Configuration 7.11.2
+!! Last configuration change at Wed Jun 11 05:55:39 2025 by ZTP
 !
 hostname edge-8
 username clab
@@ -50,21 +51,21 @@ interface MgmtEth0/RP0/CPU0/0
  vrf mgmt
  ipv4 address 172.31.0.208 255.255.255.0
 !
-interface GigabitEthernet0/0/0/0.987
+interface preconfigure GigabitEthernet0/0/0/0.987
  description multi-access-test
  ipv4 address 10.98.7.8 255.255.255.0
  encapsulation dot1q 987
 !
-interface GigabitEthernet0/0/0/1
+interface preconfigure GigabitEthernet0/0/0/1
  bundle id 1 mode on
 !
-interface GigabitEthernet0/0/0/3
+interface preconfigure GigabitEthernet0/0/0/3
  bundle id 3 mode on
 !
-interface GigabitEthernet0/0/0/6
+interface preconfigure GigabitEthernet0/0/0/6
  bundle id 6 mode on
 !
-interface GigabitEthernet0/0/0/7
+interface preconfigure GigabitEthernet0/0/0/7
  bundle id 7 mode active
 !
 route-policy permit-all
@@ -79,40 +80,57 @@ router static
  !
 !
 router isis 1
-  net 49.0001.0000.0000.0007.00
-  is-type level-2-only
+ is-type level-2-only
+ net 49.0001.0000.0000.0008.00
+ affinity-map ALGO-128 bit-position 128
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ flex-algo 128
+  priority 100
+  advertise-definition
+  affinity include-any ALGO-128
+ !
+ interface Bundle-Ether1
+  affinity flex-algo ALGO-128
+  point-to-point
   address-family ipv4 unicast
-    metric-style wide
-    segment-routing mpls
-
-  interface Bundle-Ether1
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
   !
-  interface Bundle-Ether3
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv6 unicast
   !
-  interface Bundle-Ether6
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+ !
+ interface Bundle-Ether3
+  point-to-point
+  address-family ipv4 unicast
   !
-  interface Loopback0
-    address-family ipv6 unicast
-    address-family ipv4 unicast
-    prefix-sid index 8
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether6
+  affinity flex-algo ALGO-128
+  point-to-point
+  address-family ipv4 unicast
+  !
+  address-family ipv6 unicast
+  !
+ !
+ interface Loopback0
+  address-family ipv4 unicast
+   prefix-sid algorithm 128 index 1008
+  !
+  address-family ipv6 unicast
   !
  !
 !
 router bgp 100
  bgp router-id 172.16.0.8
-
  address-family ipv4 unicast
+ !
  address-family vpnv4 unicast
+ !
  address-family vpnv6 unicast
+ !
  address-family l2vpn evpn
  !
  neighbor 172.16.0.1
@@ -122,7 +140,7 @@ router bgp 100
   !
   address-family vpnv4 unicast
   !
-  address-family vpnv6 unicast 
+  address-family vpnv6 unicast
   !
   address-family l2vpn evpn
   !

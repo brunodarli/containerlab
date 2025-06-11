@@ -1,5 +1,6 @@
-!! IOS XR Configuration 7.8.2
-!! Last configuration change at Fri Jan 17 22:33:30 2025 by clab
+!! Building configuration
+!! IOS XR Configuration 7.11.2
+!! Last configuration change at Wed Jun 11 05:57:28 2025 by ZTP
 !
 hostname edge-6
 username clab
@@ -77,22 +78,22 @@ interface MgmtEth0/RP0/CPU0/0
  vrf mgmt
  ipv4 address 172.31.0.206 255.255.255.0
 !
-interface GigabitEthernet0/0/0/0.96
+interface preconfigure GigabitEthernet0/0/0/0.96
  description edge-9
  ipv4 address 192.168.96.6 255.255.255.0
  ipv6 address 2001:100:100:96::6/64
  encapsulation dot1q 96
 !
-interface GigabitEthernet0/0/0/1
+interface preconfigure GigabitEthernet0/0/0/1
  bundle id 1 mode on
 !
-interface GigabitEthernet0/0/0/3
+interface preconfigure GigabitEthernet0/0/0/3
  bundle id 3 mode on
 !
-interface GigabitEthernet0/0/0/6
+interface preconfigure GigabitEthernet0/0/0/6
  bundle id 6 mode on
 !
-interface GigabitEthernet0/0/0/8
+interface preconfigure GigabitEthernet0/0/0/8
  shutdown
 !
 community-set no-export
@@ -143,42 +144,49 @@ router static
  !
 !
 router isis 1
-  net 49.0001.0000.0000.0006.00
-  is-type level-2-only
+ is-type level-2-only
+ net 49.0001.0000.0000.0006.00
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether1
+  point-to-point
   address-family ipv4 unicast
-    metric-style wide
-    segment-routing mpls
-
-  interface Bundle-Ether1
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
   !
-  interface Bundle-Ether3
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv6 unicast
   !
-  interface Bundle-Ether6
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+ !
+ interface Bundle-Ether3
+  point-to-point
+  address-family ipv4 unicast
   !
-  interface Loopback0
-    address-family ipv6 unicast
-    address-family ipv4 unicast
-    prefix-sid index 6
+  address-family ipv6 unicast
   !
+ !
+ interface Bundle-Ether6
+  point-to-point
+  address-family ipv4 unicast
+  !
+  address-family ipv6 unicast
+  !
+ !
+ interface Loopback0
+  address-family ipv4 unicast
+   prefix-sid index 6
+  !
+  address-family ipv6 unicast
   !
  !
 !
-
 router bgp 100
  bgp router-id 172.16.0.6
-
  address-family ipv4 unicast
+ !
  address-family vpnv4 unicast
+ !
  address-family vpnv6 unicast
+ !
  address-family l2vpn evpn
  !
  neighbor 172.16.0.1
@@ -188,7 +196,7 @@ router bgp 100
   !
   address-family vpnv4 unicast
   !
-  address-family vpnv6 unicast 
+  address-family vpnv6 unicast
   !
   address-family l2vpn evpn
   !

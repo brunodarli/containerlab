@@ -1,5 +1,6 @@
-!! IOS XR Configuration 7.8.2
-!! Last configuration change at Fri Jan 17 23:41:57 2025 by clab
+!! Building configuration
+!! IOS XR Configuration 7.11.2
+!! Last configuration change at Wed Jun 11 05:46:39 2025 by ZTP
 !
 hostname edge-5
 username clab
@@ -13,6 +14,16 @@ grpc
 !
 vrf mgmt
  address-family ipv4 unicast
+ !
+!
+vrf tilfa-test
+ address-family ipv4 unicast
+  import route-target
+   100:1
+  !
+  export route-target
+   100:1
+  !
  !
 !
 line default
@@ -47,7 +58,8 @@ interface Loopback0
  ipv6 address 2001:100::5/128
 !
 interface Loopback1
- ipv4 address 10.16.0.5 255.255.255.255
+ vrf tilfa-test
+ ipv4 address 198.18.0.5 255.255.255.255
 !
 interface Loopback11
  ipv4 address 10.111.0.5 255.255.255.0
@@ -65,35 +77,35 @@ interface MgmtEth0/RP0/CPU0/0
  vrf mgmt
  ipv4 address 172.31.0.205 255.255.255.0
 !
-interface GigabitEthernet0/0/0/0.10
+interface preconfigure GigabitEthernet0/0/0/0.10
  description ix-rs
  ipv4 address 23.0.0.5 255.255.255.0
  encapsulation dot1q 10
 !
-interface GigabitEthernet0/0/0/0.95
+interface preconfigure GigabitEthernet0/0/0/0.95
  description edge-9
  ipv4 address 192.168.95.5 255.255.255.0
  ipv6 address 2001:100:100:95::5/64
  encapsulation dot1q 95
 !
-interface GigabitEthernet0/0/0/0.290
+interface preconfigure GigabitEthernet0/0/0/0.290
  ipv4 address 192.168.99.5 255.255.255.0
  encapsulation dot1q 290
 !
-interface GigabitEthernet0/0/0/0.291
+interface preconfigure GigabitEthernet0/0/0/0.291
  ipv4 address 100.29.1.0 255.255.255.254
  encapsulation dot1q 291
 !
-interface GigabitEthernet0/0/0/2
+interface preconfigure GigabitEthernet0/0/0/2
  bundle id 2 mode on
 !
-interface GigabitEthernet0/0/0/3
+interface preconfigure GigabitEthernet0/0/0/3
  bundle id 3 mode on
 !
-interface GigabitEthernet0/0/0/5
+interface preconfigure GigabitEthernet0/0/0/5
  bundle id 5 mode on
 !
-interface GigabitEthernet0/0/0/8
+interface preconfigure GigabitEthernet0/0/0/8
  description itx-dc10
  ipv4 address 100.5.10.5 255.255.255.0
 !
@@ -151,39 +163,49 @@ router static
  !
 !
 router isis 1
-  net 49.0001.0000.0000.0005.00
-  is-type level-2-only
+ is-type level-2-only
+ net 49.0001.0000.0000.0005.00
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether2
+  point-to-point
   address-family ipv4 unicast
-    metric-style wide
-    segment-routing mpls
-
-  interface Bundle-Ether2
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
   !
-  interface Bundle-Ether3
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv6 unicast
   !
-  interface Bundle-Ether5
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+ !
+ interface Bundle-Ether3
+  point-to-point
+  address-family ipv4 unicast
   !
-  interface Loopback0
-    address-family ipv6 unicast
-    address-family ipv4 unicast
-    prefix-sid index 5
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether5
+  point-to-point
+  address-family ipv4 unicast
+  !
+  address-family ipv6 unicast
+  !
+ !
+ interface Loopback0
+  address-family ipv4 unicast
+   prefix-sid index 5
+  !
+  address-family ipv6 unicast
   !
  !
 !
 router bgp 100
  bgp router-id 172.16.0.5
  address-family ipv4 unicast
+ !
  address-family vpnv4 unicast
+ !
  address-family vpnv6 unicast
+ !
  address-family l2vpn evpn
  !
  neighbor 172.16.0.1
@@ -193,15 +215,28 @@ router bgp 100
   !
   address-family vpnv4 unicast
   !
-  address-family vpnv6 unicast 
+  address-family vpnv6 unicast
   !
   address-family l2vpn evpn
   !
  !
-
-
-
-
+ vrf tilfa-test
+  rd auto
+  address-family ipv4 unicast
+   label mode per-vrf
+   redistribute connected
+  !
+  neighbor 198.18.0.7
+   remote-as 100
+   bfd fast-detect
+   bfd multiplier 4
+   bfd minimum-interval 250
+   update-source Loopback1
+   address-family ipv4 unicast
+   !
+  !
+ !
+!
 lldp
 !
 ssh server v2

@@ -1,5 +1,6 @@
-!! IOS XR Configuration 7.8.2
-!! Last configuration change at Fri Jan 17 23:38:28 2025 by clab
+!! Building configuration
+!! IOS XR Configuration 7.11.2
+!! Last configuration change at Wed Jun 11 05:50:32 2025 by ZTP
 !
 hostname edge-7
 username clab
@@ -12,9 +13,18 @@ grpc
  no-tls
  address-family dual
 !
-
 vrf mgmt
  address-family ipv4 unicast
+ !
+!
+vrf tilfa-test
+ address-family ipv4 unicast
+  import route-target
+   100:1
+  !
+  export route-target
+   100:1
+  !
  !
 !
 address-family ipv4 unicast
@@ -56,37 +66,36 @@ interface Loopback0
  ipv6 address 2001:100::7/128
 !
 interface Loopback1
- vrf dc10-vrf1
- ipv4 address 10.10.1.7 255.255.255.255
+ vrf tilfa-test
+ ipv4 address 198.18.0.7 255.255.255.255
 !
-
 interface MgmtEth0/RP0/CPU0/0
  vrf mgmt
  ipv4 address 172.31.0.207 255.255.255.0
 !
-interface GigabitEthernet0/0/0/0.200
+interface preconfigure GigabitEthernet0/0/0/0.200
  ipv4 address 100.29.1.1 255.255.255.254
  encapsulation dot1q 200
 !
-interface GigabitEthernet0/0/0/0.292
+interface preconfigure GigabitEthernet0/0/0/0.292
  ipv4 address 192.168.99.7 255.255.255.0
  encapsulation dot1q 292
 !
-interface GigabitEthernet0/0/0/0.987
+interface preconfigure GigabitEthernet0/0/0/0.987
  description multi-access-test
  ipv4 address 10.98.7.7 255.255.255.0
  encapsulation dot1q 987
 !
-interface GigabitEthernet0/0/0/2
+interface preconfigure GigabitEthernet0/0/0/2
  bundle id 2 mode on
 !
-interface GigabitEthernet0/0/0/3
+interface preconfigure GigabitEthernet0/0/0/3
  bundle id 3 mode on
 !
-interface GigabitEthernet0/0/0/5
+interface preconfigure GigabitEthernet0/0/0/5
  bundle id 5 mode on
 !
-interface GigabitEthernet0/0/0/7
+interface preconfigure GigabitEthernet0/0/0/7
  ipv4 address 100.7.10.7 255.255.255.0
 !
 extcommunity-set opaque color128-lowlatency-igp
@@ -124,55 +133,95 @@ router static
  !
 !
 router isis 1
-  net 49.0001.0000.0000.0007.00
-  is-type level-2-only
+ is-type level-2-only
+ net 49.0001.0000.0000.0007.00
+ affinity-map ALGO-128 bit-position 128
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ flex-algo 128
+  priority 100
+  advertise-definition
+  affinity include-any ALGO-128
+ !
+ interface Bundle-Ether2
+  affinity flex-algo ALGO-128
+  point-to-point
   address-family ipv4 unicast
-    metric-style wide
-    segment-routing mpls
-    
-  interface Bundle-Ether2
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+   metric 5000
   !
-  interface Bundle-Ether3
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv6 unicast
   !
-  interface Bundle-Ether5
-    point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+ !
+ interface Bundle-Ether3
+  point-to-point
+  address-family ipv4 unicast
+   metric 10000
   !
-  interface Loopback0
-    address-family ipv6 unicast
-    address-family ipv4 unicast
-    prefix-sid index 7
+  address-family ipv6 unicast
   !
-  
+ !
+ interface Bundle-Ether5
+  affinity flex-algo ALGO-128
+  point-to-point
+  address-family ipv4 unicast
+   metric 5000
   !
+  address-family ipv6 unicast
+  !
+ !
+ interface Loopback0
+  address-family ipv4 unicast
+   prefix-sid index 7
+  !
+  address-family ipv6 unicast
+  !
+ !
 !
 router bgp 100
  bgp router-id 172.16.0.7
-
  address-family ipv4 unicast
+ !
  address-family vpnv4 unicast
+ !
  address-family vpnv6 unicast
+ !
  address-family l2vpn evpn
  !
  neighbor 172.16.0.1
   remote-as 100
+  bfd fast-detect
+  bfd multiplier 4
+  bfd minimum-interval 250
   update-source Loopback0
   address-family ipv4 unicast
   !
   address-family vpnv4 unicast
   !
-  address-family vpnv6 unicast 
+  address-family vpnv6 unicast
   !
   address-family l2vpn evpn
   !
  !
+ vrf tilfa-test
+  rd auto
+  address-family ipv4 unicast
+   label mode per-vrf
+   redistribute connected
+  !
+  neighbor 198.18.0.5
+   remote-as 100
+   bfd fast-detect
+   bfd multiplier 4
+   bfd minimum-interval 250
+   update-source Loopback1
+   address-family ipv4 unicast
+   !
+  !
+ !
+!
+lldp
 !
 ssh server v2
 ssh server vrf mgmt

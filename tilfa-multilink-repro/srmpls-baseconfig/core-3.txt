@@ -1,5 +1,6 @@
-!! IOS XR Configuration 7.8.2
-!! Last configuration change at Fri Jan 17 22:33:47 2025 by clab
+!! Building configuration
+!! IOS XR Configuration 7.11.2
+!! Last configuration change at Wed Jun 11 05:42:27 2025 by ZTP
 !
 hostname core-3
 username clab
@@ -17,6 +18,23 @@ vrf mgmt
 !
 line default
  transport input ssh
+!
+srlg
+ interface Bundle-Ether4
+  13 value 13
+ !
+ interface Bundle-Ether8
+  10 value 10
+ !
+ interface Bundle-Ether9
+  10 value 10
+ !
+ interface Bundle-Ether100
+  10 value 10
+ !
+ interface Bundle-Ether1000
+  10 value 10
+ !
 !
 call-home
  service active
@@ -39,17 +57,17 @@ interface Bundle-Ether2
 interface Bundle-Ether4
  ipv4 address 192.168.32.3 255.255.255.0
 !
-interface Bundle-Ether100
- ipv4 address 198.18.0.1/31
-!
 interface Bundle-Ether8
- ipv4 address 198.18.0.3/31
+ ipv4 address 198.18.0.3 255.255.255.254
 !
 interface Bundle-Ether9
- ipv4 address 198.18.0.5/31
+ ipv4 address 198.18.0.5 255.255.255.254
+!
+interface Bundle-Ether100
+ ipv4 address 198.18.0.1 255.255.255.254
 !
 interface Bundle-Ether1000
- ipv4 address 198.18.0.6/31
+ ipv4 address 198.18.0.7 255.255.255.254
 !
 interface Loopback0
  ipv4 address 172.16.0.3 255.255.255.255
@@ -59,28 +77,28 @@ interface MgmtEth0/RP0/CPU0/0
  vrf mgmt
  ipv4 address 172.31.0.203 255.255.255.0
 !
-interface GigabitEthernet0/0/0/0
+interface preconfigure GigabitEthernet0/0/0/0
  bundle id 100 mode on
 !
-interface GigabitEthernet0/0/0/1
+interface preconfigure GigabitEthernet0/0/0/1
  bundle id 1 mode on
 !
-interface GigabitEthernet0/0/0/2
+interface preconfigure GigabitEthernet0/0/0/2
  bundle id 2 mode on
 !
-interface GigabitEthernet0/0/0/3
+interface preconfigure GigabitEthernet0/0/0/3
  bundle id 3 mode on
 !
-interface GigabitEthernet0/0/0/4
+interface preconfigure GigabitEthernet0/0/0/4
  bundle id 4 mode on
 !
-interface GigabitEthernet0/0/0/8
+interface preconfigure GigabitEthernet0/0/0/8
  bundle id 8 mode on
 !
-interface GigabitEthernet0/0/0/9
+interface preconfigure GigabitEthernet0/0/0/9
  bundle id 9 mode on
 !
-interface GigabitEthernet0/0/0/10
+interface preconfigure GigabitEthernet0/0/0/10
  bundle id 1000 mode on
 !
 router static
@@ -91,52 +109,102 @@ router static
  !
 !
 router isis 1
- net 49.0001.0000.0000.0003.00
  is-type level-2-only
+ net 49.0001.0000.0000.0003.00
+ affinity-map ALGO-128 bit-position 128
  address-family ipv4 unicast
-    metric-style wide
-    segment-routing mpls
-  
+  metric-style wide
+  segment-routing mpls
+ !
+ flex-algo 128
+  priority 100
+  advertise-definition
+  affinity include-any ALGO-128
+ !
+ interface Bundle-Ether1
+  affinity flex-algo ALGO-128
+  point-to-point
+  address-family ipv4 unicast
+   fast-reroute per-prefix
+   fast-reroute per-prefix ti-lfa
+   metric 5000
   !
-  interface Bundle-Ether4
-  point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
-    !
-  interface Bundle-Ether100
-  point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv6 unicast
   !
-  interface Loopback0
-    address-family ipv6 unicast
-    address-family ipv4 unicast
-    prefix-sid index 3
+ !
+ interface Bundle-Ether2
+  affinity flex-algo ALGO-128
+  point-to-point
+  address-family ipv4 unicast
+   fast-reroute per-prefix
+   fast-reroute per-prefix ti-lfa
+   metric 5000
   !
-  interface Bundle-Ether1
-  point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv6 unicast
   !
-  interface Bundle-Ether2
+ !
+ interface Bundle-Ether4
   point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv4 unicast
+   fast-reroute per-prefix
+   fast-reroute per-prefix tiebreaker srlg-disjoint index 13
+   fast-reroute per-prefix ti-lfa
+   metric 1000
   !
-  interface Bundle-Ether8
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether8
+  affinity flex-algo ALGO-128
   point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
-!
-interface Bundle-Ether9
+  address-family ipv4 unicast
+   fast-reroute per-prefix
+   fast-reroute per-prefix tiebreaker srlg-disjoint index 10
+   fast-reroute per-prefix ti-lfa
+   metric 1000
+  !
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether9
   point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
-!
-interface Bundle-Ether1000
+  address-family ipv4 unicast
+   fast-reroute per-prefix
+   fast-reroute per-prefix tiebreaker srlg-disjoint index 10
+   fast-reroute per-prefix ti-lfa
+   metric 1000
+  !
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether100
+  affinity flex-algo ALGO-128
   point-to-point
-    address-family ipv4 unicast
-    address-family ipv6 unicast
+  address-family ipv4 unicast
+   fast-reroute per-prefix
+   fast-reroute per-prefix tiebreaker srlg-disjoint index 10
+   fast-reroute per-prefix ti-lfa
+   metric 1000
+  !
+  address-family ipv6 unicast
+  !
+ !
+ interface Bundle-Ether1000
+  point-to-point
+  address-family ipv4 unicast
+   fast-reroute per-prefix
+   fast-reroute per-prefix tiebreaker srlg-disjoint index 10
+   fast-reroute per-prefix ti-lfa
+   metric 1000
+  !
+  address-family ipv6 unicast
+  !
+ !
+ interface Loopback0
+  address-family ipv4 unicast
+   prefix-sid index 3
+  !
+  address-family ipv6 unicast
   !
  !
 !
