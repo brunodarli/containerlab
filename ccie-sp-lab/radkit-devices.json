@@ -1,0 +1,409 @@
+[
+  {
+    "name": "x-pce1-rr1",
+    "host": "172.31.0.101",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-pce1-rr2",
+    "host": "172.31.0.102",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-p1",
+    "host": "172.31.0.201",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-p2",
+    "host": "172.31.0.202",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-p3",
+    "host": "172.31.0.203",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-p4",
+    "host": "172.31.0.204",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-asbr1",
+    "host": "172.31.0.241",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-asbr2",
+    "host": "172.31.0.242",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-pe1",
+    "host": "172.31.0.211",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-pe2",
+    "host": "172.31.0.212",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-pe3",
+    "host": "172.31.0.213",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-pe4",
+    "host": "172.31.0.214",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "x-ce1",
+    "host": "172.31.0.41",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "x-ce2",
+    "host": "172.31.0.42",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "x-ce3",
+    "host": "172.31.0.43",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "x-ce4",
+    "host": "172.31.0.44",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "x-ce5",
+    "host": "172.31.0.45",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "x-ce6",
+    "host": "172.31.0.46",
+    "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "y-asbr1",
+    "host": "172.31.0.101",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-asbr2",
+    "host": "172.31.0.102",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-p1",
+    "host": "172.31.0.11",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-pe1",
+    "host": "172.31.0.201",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-pe2",
+    "host": "172.31.0.202",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-rr1",
+    "host": "172.31.0.241",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-rr2",
+    "host": "172.31.0.242",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-ce1",
+    "host": "172.31.0.41",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-ce2",
+    "host": "172.31.0.42",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-ce3",
+    "host": "172.31.0.43",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  },
+  {
+    "name": "y-ce4",
+    "host": "172.31.0.44",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "admin",
+      "password": "admin"
+    }
+  }
+
+]

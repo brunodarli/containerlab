@@ -1,0 +1,106 @@
+name: ccie-sp-ubuntu1
+
+mgmt:
+  network: clab_mgmt
+  ipv4-subnet: 172.31.0.0/24
+  external-access: false
+
+topology:
+  nodes:
+    y-asbr1:
+      kind: cisco_csr1000v
+      mgmt-ipv4: 172.31.0.101
+      image: vrnetlab/cisco_csr1000v:17.03.08 
+      #startup-config: ccie-sp-base/y-asbr1.txt
+
+    y-asbr2:
+      kind: cisco_csr1000v
+      mgmt-ipv4: 172.31.0.102
+      image: vrnetlab/cisco_csr1000v:17.03.08 
+      #startup-config: ccie-sp-base/y-asbr2.txt
+
+    y-p1:
+      kind: cisco_csr1000v
+      mgmt-ipv4: 172.31.0.11
+      image: vrnetlab/cisco_csr1000v:17.03.08 
+      #startup-config: ccie-sp-base/y-p1.txt
+
+    y-pe1:
+      kind: cisco_csr1000v
+      mgmt-ipv4: 172.31.0.201
+      image: vrnetlab/cisco_csr1000v:17.03.08 
+      #startup-config: ccie-sp-base/y-pe1.txt
+
+    y-pe2:
+      kind: cisco_csr1000v
+      mgmt-ipv4: 172.31.0.202
+      image: vrnetlab/cisco_csr1000v:17.03.08 
+      #startup-config: ccie-sp-base/y-pe2.txt
+
+    y-rr1:
+      kind: cisco_csr1000v
+      mgmt-ipv4: 172.31.0.241
+      image: vrnetlab/cisco_csr1000v:17.03.08 
+      #startup-config: ccie-sp-base/y-rr1.txt
+
+    y-rr2:
+      kind: cisco_csr1000v
+      mgmt-ipv4: 172.31.0.242
+      image: vrnetlab/cisco_csr1000v:17.03.08 
+      #startup-config: ccie-sp-base/y-rr2.txt
+
+    y-ce1:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.41
+      #startup-config: ccie-sp-base/y-ce1.txt
+
+    y-ce2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.42
+      #startup-config: ccie-sp-base/y-ce2.txt
+
+    y-ce3:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.43
+      #startup-config: ccie-sp-base/y-ce3.txt
+
+    y-ce4:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.44
+      #startup-config: ccie-sp-base/y-ce4.txt 
+
+  links:
+    - endpoints: [y-ce2:e0/1, y-asbr1:Gi3]
+    - endpoints: [y-ce2:e0/2, y-pe1:Gi2]  
+    - endpoints: [y-asbr1:Gi2, host:y-asbr1_g2]
+    - endpoints: [y-asbr1:Gi4, y-asbr2:Gi4]
+    - endpoints: [y-asbr1:Gi5, y-p1:Gi3]
+    - endpoints: [y-asbr2:Gi2, host:y-asbr2_g2]
+    - endpoints: [y-asbr2:Gi5, y-p1:Gi4]
+    - endpoints: [y-asbr2:Gi3, y-ce3:e0/1]
+    - endpoints: [y-ce3:e0/2, y-pe2:Gi3]
+    - endpoints: [y-pe2:Gi2, y-ce1:e0/2]
+    - endpoints: [y-pe2:Gi4, y-pe1:Gi4]
+    - endpoints: [y-p1:Gi5, y-pe2:Gi5]
+    - endpoints: [y-pe1:Gi6, y-p1:Gi6]
+    - endpoints: [y-pe1:Gi3, y-ce1:e0/1]
+    - endpoints: [y-p1:Gi7, y-rr1:Gi7]
+    - endpoints: [y-p1:Gi8, y-rr2:Gi8]
+    - endpoints: [y-ce4:e0/1, y-pe2:Gi6]
+
+
+
+
+         
+
+
+
+
+
+
+
+
