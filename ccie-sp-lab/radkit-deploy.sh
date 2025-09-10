@@ -110,7 +110,7 @@ fi
 echo "Captured ubuntu1 UUID: $UBUNTU1_UUID"
 
 UBUNTU2_OUTPUT=$(expect <<EOD
-spawn docker exec -it radkit bash -c "radkit-control device create ubuntu1 10.253.11.12 Linux --description ubuntu2 --jumphost-uuid $UBUNTU0_UUID  --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --forwarded-tcp-ports 22 --active true"
+spawn docker exec -it radkit bash -c "radkit-control device create ubuntu2 10.253.11.12 Linux --description ubuntu2 --jumphost-uuid $UBUNTU0_UUID  --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --forwarded-tcp-ports 22 --active true"
 expect "superadmin's password:"
 send "Cisco123!\r"
 expect eof
