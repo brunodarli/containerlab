@@ -113,7 +113,7 @@
   },
   {
     "name": "x-pe5",
-    "host": "172.31.0.211",
+    "host": "172.31.0.205",
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
@@ -126,8 +126,8 @@
     }
   },
   {
-    "name": "x-pe5",
-    "host": "172.31.0.205",
+    "name": "x-pe6",
+    "host": "172.31.0.206",
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
@@ -546,7 +546,7 @@
     }
   },
   {
-    "name": "y-ce3",
+    "name": "z-ce3",
     "host": "172.31.0.73",
     "deviceType": "IOS_XE",
     "labels": [],
