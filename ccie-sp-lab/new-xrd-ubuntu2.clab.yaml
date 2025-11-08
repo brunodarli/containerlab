@@ -1,1 +1,107 @@
-# not deployed yet.
+name: ccie-sp-ubuntu2
+
+mgmt:
+  network: clab_mgmt
+  ipv4-subnet: 172.31.0.0/24
+  external-access: false
+
+
+topology:
+  kinds:
+    xrd:
+      kind: cisco_xrd
+      image: localhost/ios-xr:7.7.1
+
+
+  nodes:
+  #Ruby AS-400
+    Clould_Provider:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.254
+      #startup-config: ccie-sp-base/Could_Provider.txt
+
+    w-pe1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.81
+      #startup-config: ccie-sp-base/w-pe1.txt
+
+    w-pe2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.82
+      #startup-config: ccie-sp-base/w-pe2.txt
+
+    w-pe3:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.83
+      #startup-config: ccie-sp-base/w-pe3.txt
+
+    w-p1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.91
+      #startup-config: ccie-sp-base/w-p1.txt
+
+    w-p2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.92
+      #startup-config: ccie-sp-base/w-p2.txt
+
+    w-ce1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.111
+      #startup-config: ccie-sp-base/w-ce1.txt
+
+    w-ce3:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.113
+      #startup-config: ccie-sp-base/w-ce3.txt
+
+    w-ce4:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.114
+      #startup-config: ccie-sp-base/2-ce4.txt
+
+    w-ce2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.112
+      #startup-config: ccie-sp-base/w-ce2.txt
+
+    
+
+  links:
+    - endpoints: [w-p1:Gi0-0-0-0, w-p2:Gi0-0-0-0]
+    - endpoints: [w-p1:Gi0-0-0-5, w-p2:Gi0-0-0-5] 
+
+    - endpoints: [w-p1:Gi0-0-0-1, w-pe1:Gi0-0-0-0]
+    - endpoints: [w-p1:Gi0-0-0-2, w-pe2:Gi0-0-0-0]
+    - endpoints: [w-p1:Gi0-0-0-3, w-pe3:Gi0-0-0-1]
+
+    - endpoints: [w-p2:Gi0-0-0-3, w-pe1:Gi0-0-0-1]
+    - endpoints: [w-p2:Gi0-0-0-2, w-pe2:Gi0-0-0-1]
+    - endpoints: [w-p2:Gi0-0-0-1, w-pe3:Gi0-0-0-0]
+
+    - endpoints: [w-pe1:Gi0-0-0-2, w-pe2:Gi0-0-0-2]
+    - endpoints: [w-pe2:Gi0-0-0-3, w-pe3:Gi0-0-0-2]
+
+    - endpoints: [w-pe1:Gi0-0-0-3, w-ce1:Gi0-0-0-1]
+    - endpoints: [w-pe2:Gi0-0-0-5, w-ce1:Gi0-0-0-2]
+    - endpoints: [w-pe2:Gi0-0-0-4, w-ce3:e0/1]
+    - endpoints: [w-pe3:Gi0-0-0-3, w-ce2:e0/1]
+
+    - endpoints: [w-pe3:Gi0-0-0-4, w-ce4:e0/1]
+
+    - endpoints: [w-pe1:Gi0-0-0-4, Clould_Provider:e0/2]
+
+    - endpoints: [host:cloudProvider_g1_id1000, Clould_Provider:e0/1]
+
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 1000 --link cloudProvider_g1_id1000
+
+    
+
+
+
+
+    

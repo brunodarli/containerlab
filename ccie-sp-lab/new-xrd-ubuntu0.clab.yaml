@@ -11,15 +11,9 @@ topology:
       kind: cisco_xrd
       image: localhost/ios-xr:7.7.1
 
+## Emerald AS-100
+
   nodes:
-    x-pce1-rr1:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.101
-      #startup-config: ccie-sp-base/x-pce1-rr1.txt
-    x-pce2-rr2:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.102
-      #startup-config: ccie-sp-base/x-pce2-rr2txt
     x-p1:
       kind: xrd
       mgmt-ipv4: 172.31.0.201
@@ -44,102 +38,182 @@ topology:
       kind: xrd
       mgmt-ipv4: 172.31.0.241
       #startup-config: ccie-sp-base/x-asbr1.txt
-    x-pe1:
+    x-pe5:
       kind: xrd
-      mgmt-ipv4: 172.31.0.211
-      #startup-config: ccie-sp-base/x-pe1.txt
-    x-pe2:
+      mgmt-ipv4: 172.31.0.205
+      #startup-config: ccie-sp-base/x-pe5.txt
+    x-pe6:
       kind: xrd
-      mgmt-ipv4: 172.31.0.212
-      #startup-config: ccie-sp-base/x-pe2.txt
-    x-pe3:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.213
-      #startup-config: ccie-sp-base/x-pe3.txt
-    x-pe4:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.214
-      #startup-config: ccie-sp-base/x-pe4.txt
+      mgmt-ipv4: 172.31.0.206
+      #startup-config: ccie-sp-base/x-pe6.txt
+
+    x-rr1:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.251
+      #startup-config: ccie-sp-base/x-rr1.txt
+    x-rr2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.252
+      #startup-config: ccie-sp-base/x-rr2.txt
 
 
-    
-    
-    
     x-ce1:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.41
       #startup-config: ccie-sp-base/x-ce1.txt
-
     x-ce2:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.42
       #startup-config: ccie-sp-base/x-ce2.txt
-
-    x-ce3:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.43
-      #startup-config: ccie-sp-base/x-ce3.txt
-
     x-ce4:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.44
       #startup-config: ccie-sp-base/x-ce4.txt
-
     x-ce5:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.45
       #startup-config: ccie-sp-base/x-ce5.txt
 
-    x-ce6:
+## Garnet AS-200
+
+    y-asbr1:
       kind: xrd
-      mgmt-ipv4: 172.31.0.46
-      #startup-config: ccie-sp-base/x-ce6.txt
+      mgmt-ipv4: 172.31.0.141
+      #startup-config: ccie-sp-base/y-asbr1.txt
+    
+    y-asbr2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.142
+      #startup-config: ccie-sp-base/y-asbr2.txt
+
+    y-p1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.101
+      #startup-config: ccie-sp-base/y-p1.txt
+    
+    y-p2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.102
+      #startup-config: ccie-sp-base/y-p2.txt
+
+    y-pe3:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.103
+      #startup-config: ccie-sp-base/y-pe3.txt
+
+
+    y-rr1:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.151
+      #startup-config: ccie-sp-base/y-rr1.txt
+    
+    y-rr2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.152
+      #startup-config: ccie-sp-base/y-rr2.txt
+
+    y-pe5:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.105
+      #startup-config: ccie-sp-base/y-pe5.txt
+
+    y-pe6:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.106
+      #startup-config: ccie-sp-base/y-pe6.txt
 
 
   links:
-    - endpoints: [x-pce1-rr1:Gi0-0-0-1, x-pce2-rr2:Gi0-0-0-1]  
-    - endpoints: [x-pce1-rr1:Gi0-0-0-0, x-p1:Gi0-0-0-4]  
-    - endpoints: [x-pce2-rr2:Gi0-0-0-0, x-p2:Gi0-0-0-4]  
-    - endpoints: [x-p1:Gi0-0-0-5, x-p2:Gi0-0-0-5]  
-    - endpoints: [x-p1:Gi0-0-0-0, x-pe1:Gi0-0-0-0] 
-    - endpoints: [x-p1:Gi0-0-0-1, x-pe2:Gi0-0-0-0] 
-    - endpoints: [x-p1:Gi0-0-0-2, x-asbr1:Gi0-0-0-0] 
-    - endpoints: [x-p1:Gi0-0-0-3, x-asbr2:Gi0-0-0-0] 
-    - endpoints: [x-p1:Gi0-0-0-6, x-p3:Gi0-0-0-1] 
-    - endpoints: [x-p2:Gi0-0-0-0, x-asbr1:Gi0-0-0-1] 
-    - endpoints: [x-p2:Gi0-0-0-1, x-asbr2:Gi0-0-0-1] 
-    - endpoints: [x-p2:Gi0-0-0-2, x-pe1:Gi0-0-0-1] 
-    - endpoints: [x-p2:Gi0-0-0-3, x-pe2:Gi0-0-0-1] 
-    - endpoints: [x-p2:Gi0-0-0-6, x-p4:Gi0-0-0-1] 
-    - endpoints: [x-p3:Gi0-0-0-0, x-p4:Gi0-0-0-0] 
-    - endpoints: [x-pe1:Gi0-0-0-2, x-pe2:Gi0-0-0-2]  
-    - endpoints: [x-asbr1:Gi0-0-0-2, x-asbr2:Gi0-0-0-2] 
-    - endpoints: [x-p3:Gi0-0-0-2, x-pe3:Gi0-0-0-1] 
-    - endpoints: [x-p3:Gi0-0-0-3, x-pe4:Gi0-0-0-4] 
-    - endpoints: [x-p4:Gi0-0-0-2, x-pe4:Gi0-0-0-1] 
-    - endpoints: [x-pe3:Gi0-0-0-0, x-pe4:Gi0-0-0-0] 
-    - endpoints: [x-pe3:Gi0-0-0-2, x-pe4:Gi0-0-0-2]  
-    - endpoints: [x-p4:Gi0-0-0-3, x-pe3:Gi0-0-0-4] 
+
+  # Emerald AS-100 Links
+    - endpoints: [x-rr1:e0/1, x-p1:Gi0-0-0-3]  
+    - endpoints: [x-rr2:e0/1, x-p2:Gi0-0-0-4]  
+
+    - endpoints: [x-p1:Gi0-0-0-0, x-p2:Gi0-0-0-0]  
+    - endpoints: [x-p1:Gi0-0-0-1, x-p3:Gi0-0-0-1]  
+    - endpoints: [x-p1:Gi0-0-0-2, x-pe5:Gi0-0-0-0]  
+    - endpoints: [x-p1:Gi0-0-0-4, x-p4:Gi0-0-0-4]  
+
+    - endpoints: [x-p2:Gi0-0-0-2, x-asbr1:Gi0-0-0-0] 
+    - endpoints: [x-p2:Gi0-0-0-1, x-p4:Gi0-0-0-2]  
+    - endpoints: [x-p2:Gi0-0-0-5, x-p3:Gi0-0-0-4]
     
-    - endpoints: [x-pe1:Gi0-0-0-5, x-ce5:e0/1]
-    - endpoints: [x-pe1:Gi0-0-0-3, x-ce1:e0/2]
-    - endpoints: [x-pe1:Gi0-0-0-4, x-ce2:e0/3]
-
-    - endpoints: [x-pe2:Gi0-0-0-5, x-ce1:e0/3]
-    - endpoints: [x-pe2:Gi0-0-0-4, x-ce2:e0/2]
-    - endpoints: [x-pe2:Gi0-0-0-6, x-ce4:e0/1]
-
-    - endpoints: [x-ce1:e1/0, x-ce2:e1/0]
-
-    - endpoints: [x-pe3:Gi0-0-0-3, x-ce3:Gi0-0-0-0]
-    - endpoints: [x-pe4:Gi0-0-0-3, x-ce6:Gi0-0-0-0]
-
-    - endpoints: [x-asbr1:Gi0-0-0-3, host:x-asbr1_g3]
-    - endpoints: [x-asbr2:Gi0-0-0-4, host:x-asbr2_g4]
+    - endpoints: [x-p4:Gi0-0-0-1, x-asbr2:Gi0-0-0-0]
+    - endpoints: [x-p4:Gi0-0-0-0, x-p3:Gi0-0-0-0]
     
+    - endpoints: [x-p3:Gi0-0-0-2, x-pe6:Gi0-0-0-0]
 
+    - endpoints: [x-pe5:Gi0-0-0-1, x-pe6:Gi0-0-0-1]
+
+    - endpoints: [x-asbr2:Gi0-0-0-2, x-asbr1:Gi0-0-0-1]
     
+    - endpoints: [x-ce1:e0/1, x-pe5:Gi0-0-0-2]
+    - endpoints: [x-ce1:e0/2, x-ce2:e0/2]
+    - endpoints: [x-ce1:e0/3, x-pe6:Gi0-0-0-4]
+    - endpoints: [x-ce2:e0/1, x-pe6:Gi0-0-0-2]
+    - endpoints: [x-ce2:e0/3, x-pe5:Gi0-0-0-4]
+
+    - endpoints: [x-ce4:e0/2, x-asbr1:Gi0-0-0-3]
+    - endpoints: [x-ce4:e0/1, x-ce5:e0/1]
+    - endpoints: [x-ce5:e0/2, x-asbr2:Gi0-0-0-4]
+
+    # Garnet AS-200 Links
+
+    - endpoints: [y-asbr1:Gi0-0-0-2, x-asbr1:Gi0-0-0-2]
+    - endpoints: [y-asbr2:Gi0-0-0-2, x-asbr2:Gi0-0-0-1]
+
+    - endpoints: [y-asbr1:Gi0-0-0-1, y-asbr2:Gi0-0-0-1]
+
+    - endpoints: [y-asbr2:Gi0-0-0-0, y-pe3:Gi0-0-0-0]
+    - endpoints: [y-asbr1:Gi0-0-0-0, y-p1:Gi0-0-0-0]
+    
+    - endpoints: [y-p1:Gi0-0-0-2, y-p2:Gi0-0-0-0]
+    - endpoints: [y-p1:Gi0-0-0-1, y-pe3:Gi0-0-0-2]
+    - endpoints: [y-p1:Gi0-0-0-4, y-rr1:e0/1]
+    - endpoints: [y-p1:Gi0-0-0-3, y-pe5:e0/1]
+    - endpoints: [y-pe3:Gi0-0-0-3, y-rr2:e0/1]
+    - endpoints: [y-pe5:e0/2, y-pe6:e0/2]
+    - endpoints: [y-pe6:e0/1, y-p2:Gi0-0-0-2]
+
+    # REMOTE LINKS
+    
+    - endpoints: [y-asbr1:Gi0-0-0-3, host:y-asbr1_g3_id17]
+    - endpoints: [x-asbr1:Gi0-0-0-4, host:x-asbr1_g4_id18]
+    - endpoints: [x-asbr2:Gi0-0-0-3, host:x-asbr2_g3_id19]
+
+    - endpoints: [y-pe5:e0/3, host:y-pe5_e3_id10]
+    - endpoints: [y-pe6:e0/3, host:y-pe6_e3_id11]
+    - endpoints: [y-pe6:e1/1, host:y-pe6_e11_id12]
+    - endpoints: [y-pe6:e1/0, host:y-pe6_e10_id13]
+
+    - endpoints: [y-pe3:Gi0-0-0-1, host:y-pe3-pe4_id34]
+    - endpoints: [y-p2:Gi0-0-0-1, host:y-p2-pe4_id24]
+    - endpoints: [y-pe3:Gi0-0-0-5, host:y-pe3_g5_id16]
+
+    # VXLAN Commands to be run after lab is deployed
+
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 10 --link y-pe5_e3_id10
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 11 --link y-pe6_e3_id11
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 12 --link y-pe6_e11_id12
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 13 --link y-pe6_e10_id13
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 16 --link y-pe3_g5_id16
+
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 19 --link x-asbr2_g3_id19
+
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 18 --link x-asbr1_g4_id18
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 17 --link y-asbr1_g3_id17
+
+    ### Remote y-pe4 links
+
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 24 --link y-p2-pe4_id24
+    # sudo clab tools vxlan create --remote 10.253.11.11 --id 34 --link y-pe3-pe4_id34
