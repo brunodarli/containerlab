@@ -1,5 +1,27 @@
-hostname X-ASBR1
-line console exec-timeout 0 0
+!
+hostname {{ .ShortName }}
+!
+username clab
+ group root-lr
+ group cisco-support
+ secret clab@123
+!
+grpc
+{{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
+ port 9339
+ no-tls
+ address-family dual
+!
+{{- if .Env.CLAB_MGMT_VRF }}
+vrf {{ .Env.CLAB_MGMT_VRF }}
+ address-family ipv4 unicast
+ !
+ address-family ipv6 unicast
+ !
+{{- end}}
+!
+
+
 interface Loopback0
 interface Loopback0 ipv4 address 1.0.100.1 255.255.255.255
 interface Loopback0 ipv6 address 2620:fc7:1000::10/128
@@ -22,17 +44,39 @@ interface GigabitEthernet0/0/0/4 ipv6 address 2620:fc7:1311:1000::1/64
 interface GigabitEthernet0/0/0/5 shutdown
 interface GigabitEthernet0/0/0/6 shutdown
 
-!
-route-policy PASS
-  pass
-end-policy
-!
-router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
-mpls oam
-mpls ldp
-mpls ldp router-id 1.0.100.1
-mpls ldp address-family ipv4
-mpls ldp interface GigabitEthernet0/0/0/0
-mpls ldp interface GigabitEthernet0/0/0/1
+
 lldp
+
+
+line default
+  transport input ssh
+!
+netconf-yang agent
+ ssh
+!
+interface MgmtEth0/RP0/CPU0/0
+{{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
+!
+router static
+{{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
+{{- if .MgmtIPv4Gateway }}
+ address-family ipv4 unicast
+  0.0.0.0/0 MgmtEth0/RP0/CPU0/0 {{ .MgmtIPv4Gateway }}
+  !
+{{- end}}
+{{- if .MgmtIPv6Gateway }}
+ address-family ipv6 unicast
+  ::/0 MgmtEth0/RP0/CPU0/0 {{ .MgmtIPv6Gateway }}
+  !
+{{- end}}
+!
+ssh server v2
+{{- if .Env.CLAB_MGMT_VRF }}
+ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
+{{- end}}
+ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
+
+
 end
+
+
