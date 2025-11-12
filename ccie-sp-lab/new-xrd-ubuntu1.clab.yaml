@@ -18,94 +18,94 @@ topology:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.31
-      #startup-config: ccie-sp-base/Y-CE1.txt
+      startup-config: ccie-sp-base/Y-CE1.txt
     
     y-ce2:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.32
-      #startup-config: ccie-sp-base/Y-CE2.txt
+      startup-config: ccie-sp-base/Y-CE2.txt
 
     y-ce3:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.33
-      #startup-config: ccie-sp-base/Y-CE3.txt
+      startup-config: ccie-sp-base/Y-CE3.txt
 
     y-ce4:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.34
-      #startup-config: ccie-sp-base/Y-CE4.txt
+      startup-config: ccie-sp-base/Y-CE4.txt
 
     y-ce5:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.35
-      #startup-config: ccie-sp-base/Y-CE5.txt
+      startup-config: ccie-sp-base/Y-CE5.txt
 
     # Kayanite AS-300
 
     z-sr-pce1:
       kind: xrd
       mgmt-ipv4: 172.31.0.11
-      #startup-config: ccie-sp-base/Z-SR-PCE1.txt
+      startup-config: ccie-sp-base/Z-SR-PCE1.txt
     
     z-asbr2:
       kind: xrd
       mgmt-ipv4: 172.31.0.12
-      #startup-config: ccie-sp-base/Z-SR-PCE2.txt
+      startup-config: ccie-sp-base/Z-SR-PCE2.txt
 
     z-p1:
       kind: xrd
       mgmt-ipv4: 172.31.0.21
-      #startup-config: ccie-sp-base/Z-P1.txt
+      startup-config: ccie-sp-base/Z-P1.txt
     
     z-p2:
       kind: xrd
       mgmt-ipv4: 172.31.0.22
-      #startup-config: ccie-sp-base/Z-P2.txt
+      startup-config: ccie-sp-base/Z-P2.txt
 
     z-pe1:
       kind: xrd
       mgmt-ipv4: 172.31.0.61
-      #startup-config: ccie-sp-base/Z-PE1.txt
+      startup-config: ccie-sp-base/Z-PE1.txt
 
     z-pe2:
       kind: xrd
       mgmt-ipv4: 172.31.0.62
-      #startup-config: ccie-sp-base/Z-PE2.txt
+      startup-config: ccie-sp-base/Z-PE2.txt
 
     z-pe3:
       kind: xrd
       mgmt-ipv4: 172.31.0.63
-      #startup-config: ccie-sp-base/Z-PE3.txt
+      startup-config: ccie-sp-base/Z-PE3.txt
 
     z-pe4:
       kind: xrd
       mgmt-ipv4: 172.31.0.64
-      #startup-config: ccie-sp-base/Z-PE4.txt
+      startup-config: ccie-sp-base/Z-PE4.txt
 
     z-ce1:
       kind: xrd
       mgmt-ipv4: 172.31.0.71
-      #startup-config: ccie-sp-base/Z-CE1.txt
+      startup-config: ccie-sp-base/Z-CE1.txt
 
     z-ce2:
       kind: xrd
       mgmt-ipv4: 172.31.0.72
-      #startup-config: ccie-sp-base/Z-CE2.txt
+      startup-config: ccie-sp-base/Z-CE2.txt
 
     z-ce3:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.73
-      #startup-config: ccie-sp-base/Y-CE3.txt
+      startup-config: ccie-sp-base/Y-CE3.txt
 
     y-pe4:
       kind: xrd
       mgmt-ipv4: 172.31.0.104
-      #startup-config: ccie-sp-base/Y-PE4.txt
+      startup-config: ccie-sp-base/Y-PE4.txt
 
     
 
