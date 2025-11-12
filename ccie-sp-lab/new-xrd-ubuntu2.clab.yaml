@@ -85,7 +85,7 @@ topology:
       mgmt-ipv4: 172.31.0.103
       #startup-config: ccie-sp-base/Y-PE3.txt
 
-     y-rr1:
+    y-rr1:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.151
