@@ -148,7 +148,7 @@ topology:
 
 # remote to .10
     - endpoints: [y-p1:Gi0-0-0-0, host:y-asbr1_to_p1_id2001]
-    - endpoints: [y-p3:Gi0-0-0-0, host:y-asbr2_to_p3_id2002]
+    - endpoints: [y-pe3:Gi0-0-0-0, host:y-asbr2_to_p3_id2002]
 
 
 ## remote to .11
