@@ -1,0 +1,123 @@
+hostname W-CE1
+
+line console
+
+ exec-timeout 0 0
+
+username admin
+ group root-lr
+ group cisco-support
+ secret 5 $1$NTW3$DY6c.EBD5kEwQ6LfKnLd./
+
+
+
+interface Loopback0
+
+ ipv4 address 172.0.4.1 255.255.255.255
+
+ ipv6 address 2620:fc7:172:4000::1/128
+
+!
+
+
+
+interface GigabitEthernet0/0/0/0
+
+ no shutdown
+
+!
+
+interface GigabitEthernet0/0/0/1
+
+ description *** to W-PE1 GE3 ***
+
+ ipv4 address 172.4.43.2 255.255.255.0
+
+ ipv6 address 2620:fc7:172:4430::2/64
+no shutdown
+
+!
+
+interface GigabitEthernet0/0/0/1.200
+
+ ipv4 address 14.1.1.1 255.255.255.248
+
+ ipv6 address 2620:fc7:14::1/64
+
+ encapsulation dot1q 200
+no shutdown
+
+!
+
+interface GigabitEthernet0/0/0/2
+
+ description *** to W-PE2 GE5 ***
+
+ ipv4 address 172.4.45.1 255.255.255.0
+
+ ipv6 address 2620:fc7:172:4450::1/64
+no shutdown
+
+!
+
+route-policy PASS
+
+  pass
+
+end-policy
+
+!
+
+router static
+
+ address-family ipv4 unicast
+
+  0.0.0.0/0 10.5.105.1
+
+ !
+
+!
+
+router bgp 4000
+
+ bgp log neighbor changes detail
+
+ address-family ipv4 unicast
+
+  network 172.0.4.1/32
+
+  allocate-label all
+
+ !
+
+ neighbor 172.4.43.1
+
+  remote-as 400
+
+  address-family ipv4 unicast
+
+   route-policy PASS in
+
+   route-policy PASS out
+
+   as-override
+
+  !
+
+ !
+
+!
+
+mpls oam
+
+!
+
+lldp
+
+!
+
+ssh client v2
+
+ssh server v2
+
+end

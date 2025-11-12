@@ -1,0 +1,398 @@
+hostname W-PE2
+
+group CCIE-ISIS
+
+ router isis '.*'
+
+  is-type level-2-only
+
+  log adjacency changes
+
+  lsp-refresh-interval 3283
+
+  address-family ipv4 unicast
+
+   metric-style wide
+
+   maximum-redistributed-prefixes 28000
+
+  !
+
+  address-family ipv6 unicast
+
+   metric-style wide level 2
+
+   metric 500
+
+   single-topology
+
+  !
+
+  interface 'Loopback.*'
+
+   passive
+
+   address-family ipv4 unicast
+
+   !
+
+   address-family ipv6 unicast
+
+   !
+
+  !
+
+  interface 'Bundle-Ether.*'
+
+   point-to-point
+
+   address-family ipv4 unicast
+
+    fast-reroute per-prefix
+
+    metric 200 level 2
+
+    weight 1
+
+   !
+
+   address-family ipv6 unicast
+
+    fast-reroute per-prefix
+
+    metric 400 level 2
+
+    weight 1
+
+   !
+
+  !
+
+  interface 'GigabitEthernet.*'
+
+   point-to-point
+
+   address-family ipv4 unicast
+
+    fast-reroute per-prefix
+
+    metric 200 level 2
+
+    weight 1
+
+   !
+
+   address-family ipv6 unicast
+
+    fast-reroute per-prefix
+
+    metric 400 level 2
+
+    weight 1
+
+   !
+
+  !
+
+ !
+
+end-group
+
+
+!
+
+vrf MAGENTA
+
+ address-family ipv4 unicast
+
+  import route-target
+
+   5000:1
+
+  !
+
+  export route-target
+
+   5000:1
+
+  !
+
+ !
+
+!
+
+line console
+
+ exec-timeout 0 0
+!
+username admin
+ group root-lr
+ group cisco-support
+ secret 5 $1$NTW3$DY6c.EBD5kEwQ6LfKnLd./
+!
+
+call-home
+
+ service active
+
+ contact smart-licensing
+
+ profile CiscoTAC-1
+
+  active
+
+  destination transport-method email disable
+
+  destination transport-method http
+
+ !
+
+!
+
+interface Loopback0
+
+ ipv4 address 4.0.4.4 255.255.255.255
+
+ ipv6 address 2620:fc7:4000::4/128
+
+!
+
+
+
+interface GigabitEthernet0/0/0/0
+
+ description *** to W-P1 GE2 ***
+
+ ipv4 address 4.40.4.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4404::2/64
+no shutdown
+!
+
+interface GigabitEthernet0/0/0/1
+
+ description *** to W-P2 GE2 ***
+
+ ipv4 address 4.40.5.1 255.255.255.0
+
+ ipv6 address 2620:fc7:4405::1/64
+no shutdown
+!
+
+interface GigabitEthernet0/0/0/2
+
+ description *** to W-PE1 GE2 ***
+
+ ipv4 address 4.40.8.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4408::2/64
+no shutdown
+!
+
+interface GigabitEthernet0/0/0/3
+
+ description *** to W-PE2 GE2 ***
+
+ ipv4 address 4.40.9.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4409::2/64
+no shutdown
+!
+
+interface GigabitEthernet0/0/0/4
+
+ description *** to W-CE3 GE0 ***
+
+ vrf MAGENTA
+
+ ipv4 address 172.4.42.2 255.255.255.0
+
+ ipv6 address 2620:fc7:172:4420::3/64
+no shutdown
+!
+
+interface GigabitEthernet0/0/0/4.400
+
+ ipv4 address 172.4.203.1 255.255.255.0
+
+ encapsulation dot1q 400
+
+!
+
+interface GigabitEthernet0/0/0/5
+
+ description *** to W-CE1 GE2 ***
+
+ ipv4 address 172.4.45.2 255.255.255.0
+
+ ipv6 address 2620:fc7:172:4450::3/64
+no shutdown
+!
+
+route-policy PASS
+
+  pass
+
+end-policy
+
+!
+
+router static
+
+ address-family ipv4 unicast
+
+  0.0.0.0/0 10.5.105.1
+
+ !
+
+!
+
+router isis CORE
+
+ apply-group CCIE-ISIS
+
+ net 47.0001.0004.0000.0004.0004.00
+
+ address-family ipv4 unicast
+
+ !
+
+ address-family ipv6 unicast
+
+  metric-style wide
+
+ !
+
+ interface Loopback0
+
+  address-family ipv4 unicast
+
+  !
+
+ !
+
+ interface GigabitEthernet0/0/0/0
+
+ !
+
+ interface GigabitEthernet0/0/0/1
+
+ !
+
+ interface GigabitEthernet0/0/0/2
+
+ !
+
+ interface GigabitEthernet0/0/0/3
+
+ !
+
+!
+
+router bgp 400
+
+ bgp router-id 4.0.4.4
+
+ bgp log neighbor changes detail
+
+ address-family ipv4 unicast
+
+  network 4.0.4.4/32
+
+  allocate-label all
+
+ !
+
+ address-family vpnv4 unicast
+
+ !
+
+ address-family ipv6 unicast
+
+ !
+
+ address-family vpnv6 unicast
+
+ !
+
+ neighbor-group IBGPv4
+
+  remote-as 400
+
+  update-source Loopback0
+
+  address-family ipv4 unicast
+
+   next-hop-self
+
+   route-policy PASS in
+
+   route-policy PASS out
+
+  !
+
+  address-family vpnv4 unicast
+
+  !
+
+  address-family ipv6 unicast
+
+  !
+
+ !
+
+ neighbor 4.0.4.3
+
+  use neighbor-group IBGPv4
+
+ !
+
+ neighbor 4.0.4.5
+
+  use neighbor-group IBGPv4
+
+ !
+
+ vrf MAGENTA
+
+  rd 5000:1
+
+  address-family ipv4 unicast
+
+   redistribute connected
+
+  !
+
+  neighbor 172.4.42.3
+
+   remote-as 5000
+
+   address-family ipv4 unicast
+
+    route-policy PASS in
+
+    route-policy PASS out
+
+    as-override
+
+   !
+
+  !
+
+ !
+
+!
+
+mpls oam
+
+!
+
+lldp
+
+!
+
+ssh server v2
+
+ssh server vrf default
+
+end

@@ -1,0 +1,41 @@
+hostname X-P2
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 1.0.100.4 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:1000::4/128
+
+interface GigabitEthernet0/0/0/0 description *** to X-P1 GE0 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 1.100.7.2 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:1007::2/64
+interface GigabitEthernet0/0/0/1 description *** to X-P4 GE2 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 1.100.4.2 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:1004::2/64
+interface GigabitEthernet0/0/0/2 description *** to X-ASBR1 GE0 ***
+interface GigabitEthernet0/0/0/2 ipv4 address 1.100.1.2 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:1001::2/64
+interface GigabitEthernet0/0/0/3 description *** to NSO ens192 ***
+interface GigabitEthernet0/0/0/3 ipv4 address 1.100.100.2 255.255.255.0
+interface GigabitEthernet0/0/0/3 ipv6 address 2620:fc7:1006::2/64
+interface GigabitEthernet0/0/0/4 description *** to X-RR2 GE1 ***
+interface GigabitEthernet0/0/0/4 ipv4 address 1.100.12.2 255.255.255.0
+interface GigabitEthernet0/0/0/4 ipv6 address 2620:fc7:1012::2/64
+interface GigabitEthernet0/0/0/5 description *** to X-P3 GE4 ***
+interface GigabitEthernet0/0/0/5 ipv4 address 1.100.32.2 255.255.255.0
+interface GigabitEthernet0/0/0/5 ipv6 address 2620:fc7:1032::2/64
+
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+mpls oam
+mpls ldp
+mpls ldp router-id 1.0.100.4
+mpls ldp address-family ipv4
+mpls ldp interface GigabitEthernet0/0/0/0
+mpls ldp interface GigabitEthernet0/0/0/1
+mpls ldp interface GigabitEthernet0/0/0/2
+mpls ldp interface GigabitEthernet0/0/0/5
+lldp
+end

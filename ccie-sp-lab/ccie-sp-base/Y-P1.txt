@@ -1,0 +1,78 @@
+RP/0/0/CPU0:Y-P1#ter le 0
+Thu Mar 20 01:18:01.555 UTC
+RP/0/0/CPU0:Y-P1#show run form
+Thu Mar 20 01:18:07.635 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:23:54 2024 by user
+!
+hostname Y-P1
+group CCIE-OSPF
+ router ospf '.*'  address-family ipv4 unicast
+ router ospf '.*'  area '.*'
+ router ospf '.*'  area '.*'  mpls traffic-eng
+ router ospf '.*'  mpls traffic-eng router-id Loopback0
+ router ospf '.*'  mpls traffic-eng multicast-intact
+ router ospf '.*'  mpls traffic-eng ldp-sync-update
+ router ospf '.*'
+end-group
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 2.0.200.3 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:2000::3/128
+
+interface GigabitEthernet0/0/0/0 description *** to Y-ASBR1 GE0 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 2.200.1.2 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:2001::2/64
+interface GigabitEthernet0/0/0/1 description *** to Y-PE3 GE2 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 2.200.3.1 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:2003::1/64
+interface GigabitEthernet0/0/0/2 description *** to Y-P2 GE0 ***
+interface GigabitEthernet0/0/0/2 ipv4 address 2.200.5.1 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:2005::1/64
+interface GigabitEthernet0/0/0/3 description *** to Y-PE5 GE1 ***
+interface GigabitEthernet0/0/0/3 ipv4 address 2.200.7.1 255.255.255.0
+interface GigabitEthernet0/0/0/3 ipv6 address 2620:fc7:2007::1/64
+interface GigabitEthernet0/0/0/4 description *** to Y-RR1 GE1 ***
+interface GigabitEthernet0/0/0/4 ipv4 address 2.200.10.1 255.255.255.0
+interface GigabitEthernet0/0/0/4 ipv6 address 2620:fc7:2010::1/64
+
+interface preconfigure GigabitEthernet0/0/0/5 description **** Connected to NSO 5.2 ****
+interface preconfigure GigabitEthernet0/0/0/5
+interface preconfigure GigabitEthernet0/0/0/5 ipv4 address 2.200.200.1 255.255.255.0
+interface preconfigure GigabitEthernet0/0/0/5 ipv6 address 2620:fc7:2200:2000::1/64
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+router ospf 1 apply-group CCIE-OSPF
+router ospf 1 router-id 2.0.200.3
+router ospf 1 mpls ldp auto-config
+router ospf 1 redistribute connected
+router ospf 1 area 0
+router ospf 1 area 0 interface Loopback0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/1
+router ospf 1 area 0 interface GigabitEthernet0/0/0/2
+router ospf 1 area 0 interface GigabitEthernet0/0/0/3
+router ospf 1 area 0 interface GigabitEthernet0/0/0/4
+router ospf 1 area 0 interface GigabitEthernet0/0/0/5
+router ospf 1 area 0 interface GigabitEthernet0/0/0/5 passive enable
+router ospf 1
+router ospfv3 1 redistribute connected
+router ospfv3 1 area 0
+router ospfv3 1 area 0 interface Loopback0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/1
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/2
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/3
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/4
+router ospfv3 1
+mpls oam
+mpls ldp
+lldp
+end
+
+RP/0/0/CPU0:Y-P1#

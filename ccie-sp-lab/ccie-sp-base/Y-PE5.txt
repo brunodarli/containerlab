@@ -1,0 +1,222 @@
+
+!
+!
+!
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname Y-PE5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+clns routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree extend system-id
+!
+username admin password 0 User@123
+username admin privilege 15 password admin
+!
+redundancy
+!
+!
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.0.200.8 255.255.255.255
+ ipv6 address 2620:FC7:2000::8/128
+ ipv6 ospf 1 area 0
+!
+interface eth0/1
+ description *** to Y-P1 GE3 ***
+ ip address 2.200.7.5 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:2007::5/64
+ ipv6 ospf 1 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth0/2
+ description *** to Y-PE6 GE2 ***
+ ip address 2.200.9.5 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:2009::5/64
+ ipv6 ospf 1 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth0/3
+ description *** to Y-CE1 GE1 ***
+ vrf forwarding YELLOW
+ ip address 172.200.10.5 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:172:2001::5/64
+ ospfv3 1 ipv6 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth0/4
+ ip address 10.5.105.53 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+router ospfv3 1
+ router-id 2.0.200.8
+ !
+ address-family ipv4 unicast
+ exit-address-family
+ !
+ address-family ipv6 unicast
+ exit-address-family
+ !
+ address-family ipv6 unicast vrf YELLOW
+  redistribute bgp 200
+ exit-address-family
+!
+router ospf 2 vrf YELLOW
+ redistribute bgp 200
+ network 172.200.10.5 0.0.0.0 area 0
+!
+router ospf 1
+ network 2.0.200.8 0.0.0.0 area 0
+ network 2.200.7.5 0.0.0.0 area 0
+ network 2.200.9.5 0.0.0.0 area 0
+ mpls ldp autoconfig
+!
+router bgp 200
+ bgp router-id 2.0.200.8
+ bgp log-neighbor-changes
+ neighbor IBGPv4 peer-group
+ neighbor IBGPv4 remote-as 200
+ neighbor IBGPv4 update-source Loopback0
+ neighbor 2.0.200.9 peer-group IBGPv4
+ neighbor 2.0.200.10 peer-group IBGPv4
+ !
+ address-family ipv4
+  neighbor IBGPv4 send-community extended
+  no neighbor 2.0.200.9 activate
+  no neighbor 2.0.200.10 activate
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor IBGPv4 send-community extended
+  neighbor 2.0.200.9 activate
+  neighbor 2.0.200.10 activate
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor IBGPv4 send-community extended
+  neighbor 2.0.200.9 activate
+  neighbor 2.0.200.10 activate
+ exit-address-family
+ !
+ address-family ipv4 vrf YELLOW
+  redistribute ospf 2
+ exit-address-family
+ !
+ address-family ipv6 vrf YELLOW
+  redistribute ospf 1
+ exit-address-family
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ password cisco
+ logging synchronous
+
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+!
+!
+!
+!
+!
+end

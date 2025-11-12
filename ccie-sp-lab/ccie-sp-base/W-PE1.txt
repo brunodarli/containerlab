@@ -1,0 +1,385 @@
+hostname W-PE1
+
+group CCIE-ISIS
+
+ router isis '.*'
+
+  is-type level-2-only
+
+  log adjacency changes
+
+  lsp-refresh-interval 3283
+
+  address-family ipv4 unicast
+
+   metric-style wide
+
+   maximum-redistributed-prefixes 28000
+
+  !
+
+  address-family ipv6 unicast
+
+   metric-style wide level 2
+
+   metric 500
+
+   single-topology
+
+  !
+
+  interface 'Loopback.*'
+
+   passive
+
+   address-family ipv4 unicast
+
+   !
+
+   address-family ipv6 unicast
+
+   !
+
+  !
+
+  interface 'Bundle-Ether.*'
+
+   point-to-point
+
+   address-family ipv4 unicast
+
+    fast-reroute per-prefix
+
+    metric 200 level 2
+
+    weight 1
+
+   !
+
+   address-family ipv6 unicast
+
+    fast-reroute per-prefix
+
+    metric 400 level 2
+
+    weight 1
+
+   !
+
+  !
+
+  interface 'GigabitEthernet.*'
+
+   point-to-point
+
+   address-family ipv4 unicast
+
+    fast-reroute per-prefix
+
+    metric 200 level 2
+
+    weight 1
+
+   !
+
+   address-family ipv6 unicast
+
+    fast-reroute per-prefix
+
+    metric 400 level 2
+
+    weight 1
+
+   !
+
+  !
+
+ !
+
+end-group
+
+
+!
+
+vrf RED
+
+ address-family ipv4 unicast
+
+  import route-target
+
+   4000:1
+
+  !
+
+  export route-target
+
+   4000:1
+
+  !
+
+ !
+
+!
+
+line console
+
+ exec-timeout 0 0
+!
+username admin
+ group root-lr
+ group cisco-support
+ secret 5 $1$NTW3$DY6c.EBD5kEwQ6LfKnLd./
+!
+
+call-home
+
+ service active
+
+ contact smart-licensing
+
+ profile CiscoTAC-1
+
+  active
+
+  destination transport-method email disable
+
+  destination transport-method http
+
+ !
+
+!
+
+interface Loopback0
+
+ ipv4 address 4.0.4.3 255.255.255.255
+
+ ipv6 address 2620:fc7:4000::3/128
+
+!
+
+
+
+interface GigabitEthernet0/0/0/0
+
+ description *** to W-P1 GE1 ***
+
+ ipv4 address 4.40.2.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4402::2/64
+no shutdown
+
+!
+
+interface GigabitEthernet0/0/0/1
+
+ description *** to W-P2 GE3 ***
+
+ ipv4 address 4.40.6.1 255.255.255.0
+
+ ipv6 address 2620:fc7:4406::1/64
+no shutdown
+
+!
+
+interface GigabitEthernet0/0/0/2
+
+ description *** to W-PE2 GE2 ***
+
+ ipv4 address 4.40.8.1 255.255.255.0
+
+ ipv6 address 2620:fc7:4408::1/64
+no shutdown
+
+!
+
+interface GigabitEthernet0/0/0/3
+
+ description *** to W-CE1 GE1 ***
+
+ vrf RED
+
+ ipv4 address 172.4.43.1 255.255.255.0
+
+ ipv6 address 2620:fc7:172:4430::1/64
+no shutdown
+
+!
+
+interface GigabitEthernet0/0/0/4
+
+ description **** to C-1 GE1 ****
+
+ ipv4 address 10.40.4.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4041::2/64
+no shutdown
+
+!
+
+route-policy PASS
+
+  pass
+
+end-policy
+
+!
+
+router static
+
+ address-family ipv4 unicast
+
+  0.0.0.0/0 10.5.105.1
+
+ !
+
+!
+
+router isis CORE
+
+ apply-group CCIE-ISIS
+
+ net 47.0001.0004.0000.0004.0003.00
+
+ address-family ipv4 unicast
+
+ !
+
+ address-family ipv6 unicast
+
+ !
+
+ interface Loopback0
+
+  address-family ipv4 unicast
+
+  !
+
+ !
+
+ interface GigabitEthernet0/0/0/0
+
+ !
+
+ interface GigabitEthernet0/0/0/1
+
+ !
+
+ interface GigabitEthernet0/0/0/2
+
+ !
+
+!
+
+router bgp 400
+
+ bgp router-id 4.0.4.3
+
+ bgp log neighbor changes detail
+
+ address-family ipv4 unicast
+
+  network 4.0.4.3/32
+
+  allocate-label all
+
+ !
+
+ address-family vpnv4 unicast
+
+ !
+
+ address-family ipv6 unicast
+
+ !
+
+ address-family vpnv6 unicast
+
+ !
+
+ neighbor-group IBGPv4
+
+  remote-as 400
+
+  update-source Loopback0
+
+  address-family ipv4 unicast
+
+  !
+
+  address-family vpnv4 unicast
+
+  !
+
+  address-family ipv6 unicast
+
+  !
+
+ !
+
+ neighbor 4.0.4.4
+
+  use neighbor-group IBGPv4
+
+ !
+
+ neighbor 4.0.4.5
+
+  use neighbor-group IBGPv4
+
+ !
+
+ neighbor 10.40.4.1
+
+  remote-as 500
+
+  address-family ipv4 unicast
+
+   route-policy PASS in
+
+   route-policy PASS out
+
+  !
+
+  address-family ipv6 unicast
+
+   route-policy PASS in
+
+   route-policy PASS out
+
+  !
+
+ !
+
+ vrf RED
+
+  rd 4000:1
+
+  address-family ipv4 unicast
+
+   redistribute connected
+
+  !
+
+  neighbor 172.4.43.2
+
+   remote-as 4000
+
+   address-family ipv4 unicast
+
+    route-policy PASS in
+
+    route-policy PASS out
+
+    as-override
+
+   !
+
+  !
+
+ !
+
+!
+
+lldp
+
+ssh server v2

@@ -1,0 +1,72 @@
+
+RP/0/0/CPU0:Y-ASBR2#ter le 0
+Thu Mar 20 01:26:04.893 UTC
+RP/0/0/CPU0:Y-ASBR2#show run form
+Thu Mar 20 01:26:08.422 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:22:44 2024 by user
+!
+hostname Y-ASBR2
+group CCIE-OSPF
+ router ospf '.*'  address-family ipv4 unicast
+ router ospf '.*'  area '.*'
+ router ospf '.*'  area '.*'  mpls traffic-eng
+ router ospf '.*'  mpls traffic-eng router-id Loopback0
+ router ospf '.*'  mpls traffic-eng multicast-intact
+ router ospf '.*'  mpls traffic-eng ldp-sync-update
+ router ospf '.*'
+end-group
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 2.0.200.2 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:2000::2/128
+
+interface GigabitEthernet0/0/0/0 description *** to Y-PE3 GE0 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 2.200.2.2 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:2002::2/64
+interface GigabitEthernet0/0/0/1 description *** to Y-ASBR1 GE1 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 2.200.21.2 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:2021::2/64
+interface GigabitEthernet0/0/0/2 description *** to X-ASBR2 GE1 ***
+interface GigabitEthernet0/0/0/2 ipv4 address 10.102.202.2 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:2122::2/64
+
+interface preconfigure GigabitEthernet0/0/0/3
+interface preconfigure GigabitEthernet0/0/0/3 shutdown
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+router ospf 1 apply-group CCIE-OSPF
+router ospf 1 router-id 2.0.200.2
+router ospf 1 mpls ldp auto-config
+router ospf 1 area 0
+router ospf 1 area 0 interface Loopback0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/1
+router ospf 1
+router ospfv3 1 area 0
+router ospfv3 1 area 0 interface Loopback0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/1
+router ospfv3 1
+router bgp 200
+router bgp 200 address-family vpnv4 unicast
+router bgp 200 address-family vpnv6 unicast
+router bgp 200 neighbor-group IBGP-VPN
+router bgp 200 neighbor-group IBGP-VPN remote-as 200
+router bgp 200 neighbor-group IBGP-VPN update-source Loopback0
+router bgp 200 neighbor-group IBGP-VPN address-family vpnv4 unicast
+router bgp 200 neighbor-group IBGP-VPN address-family vpnv6 unicast
+router bgp 200 neighbor 2.0.200.9
+router bgp 200 neighbor 2.0.200.9 use neighbor-group IBGP-VPN
+router bgp 200 neighbor 2.0.200.10
+router bgp 200 neighbor 2.0.200.10 use neighbor-group IBGP-VPN
+mpls ldp
+lldp
+end
+
+RP/0/0/CPU0:Y-ASBR2#

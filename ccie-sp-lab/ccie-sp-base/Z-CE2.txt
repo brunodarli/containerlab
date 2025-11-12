@@ -1,0 +1,46 @@
+
+RP/0/0/CPU0:Z-CE2#show running-config formal
+Thu Mar 20 01:04:26.148 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:30:15 2024 by user
+!
+hostname Z-CE2
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 172.0.3.2 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:172:3000::2/128
+
+interface GigabitEthernet0/0/0/0 description *** to Z-PE4 GE2 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 172.3.32.2 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:172:3320::2/64
+interface GigabitEthernet0/0/0/1 shutdown
+
+interface preconfigure GigabitEthernet0/0/0/2
+interface preconfigure GigabitEthernet0/0/0/2 shutdown
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+router bgp 1000
+router bgp 1000 bgp router-id 172.0.3.2
+router bgp 1000 address-family ipv4 unicast
+router bgp 1000 address-family ipv4 unicast network 172.0.3.2/32
+router bgp 1000 address-family ipv6 unicast
+router bgp 1000 address-family ipv6 unicast network 2620:fc7:172:3000::2/128
+router bgp 1000 neighbor 172.3.32.4
+router bgp 1000 neighbor 172.3.32.4 remote-as 300
+router bgp 1000 neighbor 172.3.32.4 address-family ipv4 unicast
+router bgp 1000 neighbor 172.3.32.4 address-family ipv4 unicast route-policy PASS in
+router bgp 1000 neighbor 172.3.32.4 address-family ipv4 unicast route-policy PASS out
+router bgp 1000 neighbor 2620:fc7:172:3320::4
+router bgp 1000 neighbor 2620:fc7:172:3320::4 remote-as 300
+router bgp 1000 neighbor 2620:fc7:172:3320::4 address-family ipv6 unicast
+router bgp 1000 neighbor 2620:fc7:172:3320::4 address-family ipv6 unicast route-policy PASS in
+router bgp 1000 neighbor 2620:fc7:172:3320::4 address-family ipv6 unicast route-policy PASS out
+lldp
+end
+
+RP/0/0/CPU0:Z-CE2#

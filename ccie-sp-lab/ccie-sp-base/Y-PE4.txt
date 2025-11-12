@@ -1,0 +1,147 @@
+Trying 192.168.151.10...
+Connected to spr1.bmr.local.
+Escape character is '^]'.
+
+
+IMPORTANT:  READ CAREFULLY
+Welcome to the Demo Version of Cisco IOS XRv (the "Software").
+The Software is subject to and governed by the terms and conditions
+of the End User License Agreement and the Supplemental End User
+License Agreement accompanying the product, made available at the
+time of your order, or posted on the Cisco website at
+www.cisco.com/go/terms (collectively, the "Agreement").
+As set forth more fully in the Agreement, use of the Software is
+strictly limited to internal use in a non-production environment
+solely for demonstration and evaluation purposes.  Downloading,
+installing, or using the Software constitutes acceptance of the
+Agreement, and you are binding yourself and the business entity
+that you represent to the Agreement.  If you do not agree to all
+of the terms of the Agreement, then Cisco is unwilling to license
+the Software to you and (a) you may not download, install or use the
+Software, and (b) you may return the Software as more fully set forth
+in the Agreement.
+
+
+Please login with any configured user/password, or cisco/cisco
+
+
+User Access Verification
+
+Username: cisco
+Password:
+
+
+RP/0/0/CPU0:Y-PE4#ter le0
+                        ^
+% Invalid input detected at '^' marker.
+RP/0/0/CPU0:Y-PE4#ter le 0
+Thu Mar 20 01:21:32.361 UTC
+RP/0/0/CPU0:Y-PE4#show run form
+Thu Mar 20 01:21:41.340 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:27:10 2024 by user
+!
+hostname Y-PE4
+group CCIE-OSPF
+ router ospf '.*'  address-family ipv4 unicast
+ router ospf '.*'  area '.*'
+ router ospf '.*'  area '.*'  mpls traffic-eng
+ router ospf '.*'  mpls traffic-eng router-id Loopback0
+ router ospf '.*'  mpls traffic-eng multicast-intact
+ router ospf '.*'  mpls traffic-eng ldp-sync-update
+ router ospf '.*'
+end-group
+vrf YELLOW
+vrf YELLOW address-family ipv4 unicast
+vrf YELLOW address-family ipv4 unicast import route-target 200:2
+vrf YELLOW address-family ipv4 unicast export route-target 200:2
+vrf YELLOW address-family ipv6 unicast
+vrf YELLOW address-family ipv6 unicast import route-target 200:2
+vrf YELLOW address-family ipv6 unicast export route-target 200:2
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 2.0.200.7 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:2000::7/128
+
+interface GigabitEthernet0/0/0/0 description *** to Y-PE3 GE1 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 2.200.6.4 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:2006::4/64
+interface GigabitEthernet0/0/0/1 description *** to Y-P2 GE1 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 2.200.4.4 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:2004::4/64
+interface GigabitEthernet0/0/0/2 description *** to Y-CE2 GE2 ***
+interface GigabitEthernet0/0/0/2 vrf YELLOW
+interface GigabitEthernet0/0/0/2 ipv4 address 172.200.24.4 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:172:2024::4/64
+interface GigabitEthernet0/0/0/3 description *** to Y-CE4 GE2 ***
+interface GigabitEthernet0/0/0/3 vrf YELLOW
+interface GigabitEthernet0/0/0/3 ipv4 address 172.200.40.4 255.255.255.0
+interface GigabitEthernet0/0/0/3 ipv6 address 2620:fc7:172:2040::4/64
+interface GigabitEthernet0/0/0/4 shutdown
+
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+router ospf 1 apply-group CCIE-OSPF
+router ospf 1 router-id 2.0.200.7
+router ospf 1 mpls ldp auto-config
+router ospf 1 area 0
+router ospf 1 area 0 interface Loopback0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/1
+router ospf 1 vrf YELLOW
+router ospf 1 vrf YELLOW redistribute bgp 200 route-policy PASS
+router ospf 1 vrf YELLOW area 0
+router ospf 1 vrf YELLOW area 0 interface GigabitEthernet0/0/0/3
+router ospf 1
+router ospfv3 1 area 0
+router ospfv3 1 area 0 interface Loopback0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/1
+router ospfv3 1
+router ospfv3 200 vrf YELLOW
+router ospfv3 200 vrf YELLOW redistribute bgp 200 route-policy PASS
+router ospfv3 200 vrf YELLOW area 0
+router ospfv3 200 vrf YELLOW area 0 interface GigabitEthernet0/0/0/3
+router ospfv3 200
+router bgp 200
+router bgp 200 address-family vpnv4 unicast
+router bgp 200 address-family vpnv6 unicast
+router bgp 200 neighbor-group IBGP-VPN
+router bgp 200 neighbor-group IBGP-VPN remote-as 200
+router bgp 200 neighbor-group IBGP-VPN update-source Loopback0
+router bgp 200 neighbor-group IBGP-VPN address-family vpnv4 unicast
+router bgp 200 neighbor-group IBGP-VPN address-family vpnv6 unicast
+router bgp 200 neighbor 2.0.200.9
+router bgp 200 neighbor 2.0.200.9 use neighbor-group IBGP-VPN
+router bgp 200 neighbor 2.0.200.10
+router bgp 200 neighbor 2.0.200.10 use neighbor-group IBGP-VPN
+router bgp 200 vrf YELLOW
+router bgp 200 vrf YELLOW rd 200:2
+router bgp 200 vrf YELLOW address-family ipv4 unicast
+router bgp 200 vrf YELLOW address-family ipv4 unicast redistribute ospf 1
+router bgp 200 vrf YELLOW address-family ipv6 unicast
+router bgp 200 vrf YELLOW address-family ipv6 unicast redistribute ospfv3 200
+router bgp 200 vrf YELLOW neighbor 172.200.24.2
+router bgp 200 vrf YELLOW neighbor 172.200.24.2 remote-as 2000
+router bgp 200 vrf YELLOW neighbor 172.200.24.2 address-family ipv4 unicast
+router bgp 200 vrf YELLOW neighbor 172.200.24.2 address-family ipv4 unicast route-policy PASS in
+router bgp 200 vrf YELLOW neighbor 172.200.24.2 address-family ipv4 unicast route-policy PASS out
+router bgp 200 vrf YELLOW neighbor 172.200.24.2 address-family ipv4 unicast as-override
+router bgp 200 vrf YELLOW neighbor 2620:fc7:172:2024::2
+router bgp 200 vrf YELLOW neighbor 2620:fc7:172:2024::2 remote-as 2000
+router bgp 200 vrf YELLOW neighbor 2620:fc7:172:2024::2 address-family ipv6 unicast
+router bgp 200 vrf YELLOW neighbor 2620:fc7:172:2024::2 address-family ipv6 unicast route-policy PASS in
+router bgp 200 vrf YELLOW neighbor 2620:fc7:172:2024::2 address-family ipv6 unicast route-policy PASS out
+router bgp 200 vrf YELLOW neighbor 2620:fc7:172:2024::2 address-family ipv6 unicast as-override
+mpls oam
+mpls ldp
+mpls ldp router-id 2.0.200.7
+lldp
+end
+
+RP/0/0/CPU0:Y-PE4#

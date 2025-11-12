@@ -1,0 +1,275 @@
+
+!
+!
+!
+service timestamps debug datetime msec
+service timestamps log datetime msec
+hostname Y-PE6
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition GREEN
+ rd 200:1
+ !
+ address-family ipv4
+  route-target export 200:1
+  route-target import 200:1
+  route-target import 300:1
+  route-target import 100:1
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 200:1
+  route-target import 200:1
+  route-target import 300:1
+  route-target import 100:1
+ exit-address-family
+!
+vrf definition YELLOW
+ rd 200:2
+ !
+ address-family ipv4
+  route-target export 200:2
+  route-target import 200:2
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 200:2
+  route-target import 200:2
+ exit-address-family
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+
+!
+!
+!
+!
+!
+!
+mpls traffic-eng tunnels
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username admin password 0 User@123
+username admin privilege 15 password 0 admin
+!
+redundancy
+!
+!
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.0.200.5 255.255.255.255
+ ipv6 address 2620:FC7:2000::5/128
+ ipv6 ospf 1 area 0
+!
+interface eth0/1
+ description *** to Y-P2 GE2 ***
+ ip address 2.200.8.6 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:2008::6/64
+ ipv6 ospf 1 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth0/2
+ description *** to Y-PE5 GE2 ***
+ ip address 2.200.9.6 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:2009::6/64
+ ipv6 ospf 1 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth0/3
+ description *** to Y-CE1 GE2 ***
+ vrf forwarding YELLOW
+ ip address 172.200.20.6 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:172:2002::6/64
+ ospfv3 1 ipv6 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth1/0
+ description *** to Y-CE2 GE1 ***
+ vrf forwarding YELLOW
+ ip address 172.200.22.6 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:172:2022::6/64
+ no mop enabled
+ no mop sysid
+!
+interface eth1/1
+ description *** to Y-CE5 GE1 ***
+ vrf forwarding GREEN
+ ip address 172.200.50.6 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:172:2050::6/64
+ no mop enabled
+ no mop sysid
+!
+router ospfv3 1
+ router-id 2.0.200.5
+ !
+ address-family ipv6 unicast
+ exit-address-family
+ !
+ address-family ipv6 unicast vrf YELLOW
+  redistribute bgp 200
+ exit-address-family
+!
+router ospf 2 vrf YELLOW
+ router-id 172.200.20.6
+ redistribute bgp 200
+ network 172.200.20.6 0.0.0.0 area 0
+!
+router ospf 1
+ router-id 2.0.200.5
+ network 2.0.200.5 0.0.0.0 area 0
+ network 2.200.8.6 0.0.0.0 area 0
+ network 2.200.9.6 0.0.0.0 area 0
+ mpls ldp autoconfig
+!
+router bgp 200
+ bgp router-id 2.0.200.5
+ bgp log-neighbor-changes
+ neighbor IBGPv4 peer-group
+ neighbor IBGPv4 remote-as 200
+ neighbor IBGPv4 update-source Loopback0
+ neighbor 2.0.200.9 peer-group IBGPv4
+ neighbor 2.0.200.10 peer-group IBGPv4
+ !
+ address-family ipv4
+  no neighbor 2.0.200.9 activate
+  no neighbor 2.0.200.10 activate
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor IBGPv4 send-community extended
+  neighbor 2.0.200.9 activate
+  neighbor 2.0.200.10 activate
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor IBGPv4 send-community extended
+  neighbor 2.0.200.9 activate
+  neighbor 2.0.200.10 activate
+ exit-address-family
+ !
+ address-family ipv4 vrf GREEN
+  neighbor 172.200.50.5 remote-as 1000
+  neighbor 172.200.50.5 activate
+  neighbor 172.200.50.5 as-override
+ exit-address-family
+ !
+ address-family ipv6 vrf GREEN
+  neighbor 2620:FC7:172:2050::5 remote-as 1000
+  neighbor 2620:FC7:172:2050::5 activate
+  neighbor 2620:FC7:172:2050::5 as-override
+ exit-address-family
+ !
+ address-family ipv4 vrf YELLOW
+  redistribute ospf 2
+  neighbor 172.200.22.2 remote-as 2000
+  neighbor 172.200.22.2 activate
+  neighbor 172.200.22.2 as-override
+ exit-address-family
+ !
+ address-family ipv6 vrf YELLOW
+  redistribute ospf 1
+  neighbor 2620:FC7:172:2022::2 remote-as 2000
+  neighbor 2620:FC7:172:2022::2 activate
+  neighbor 2620:FC7:172:2022::2 as-override
+ exit-address-family
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ password cisco
+ logging synchronous
+
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+!
+!
+!
+!
+!
+end

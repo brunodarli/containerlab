@@ -1,0 +1,164 @@
+
+!
+!
+!
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname Y-CE4
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+clns routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree extend system-id
+!
+username admin password 0 User@123
+username admin privilege 15 password admin
+!
+redundancy
+!
+!
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.0.2.4 255.255.255.255
+ ipv6 address 2620:FC7:172:2000::4/128
+ ipv6 ospf 1 area 0
+!
+interface eth0/1
+ description *** to Y-CE3 GE1 ***
+ ip address 10.200.44.4 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:1020:4400::4/64
+ ipv6 ospf 1 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth0/2
+ description *** to Y-PE4 GE3 ***
+ ip address 172.200.40.40 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:172:2040::40/64
+ ipv6 ospf 1 area 0
+ no mop enabled
+ no mop sysid
+!
+interface eth0/3
+ no ip address
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+
+router ospfv3 1
+ router-id 172.0.2.4
+ !
+ address-family ipv6 unicast
+ exit-address-family
+!
+router ospf 1
+ router-id 172.0.2.4
+ network 10.200.44.4 0.0.0.0 area 0
+ network 172.0.2.4 0.0.0.0 area 0
+ network 172.200.40.40 0.0.0.0 area 0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ password cisco
+ logging synchronous
+
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+!
+!
+!
+!
+!
+end

@@ -1,0 +1,33 @@
+hostname X-PE6
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 1.0.100.8 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:1000::8/128
+
+interface GigabitEthernet0/0/0/0 description *** to X-P3 GE2 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 1.100.6.6 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:1006::6/64
+interface GigabitEthernet0/0/0/1 description *** to X-PE5 GE1 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 1.100.9.6 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:1009::6/64
+interface GigabitEthernet0/0/0/2 description *** to X-CE2 GE1 ***
+interface GigabitEthernet0/0/0/2 ipv4 address 172.100.2.6 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:172:1002::6/64
+interface GigabitEthernet0/0/0/3 shutdown
+interface GigabitEthernet0/0/0/4 description *** to X-CE1 GE3 ***
+interface GigabitEthernet0/0/0/4 ipv4 address 172.100.4.6 255.255.255.0
+interface GigabitEthernet0/0/0/4 ipv6 address 2620:fc7:172:1004::6/64
+
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+mpls oam
+mpls ldp
+mpls ldp router-id 1.0.100.8
+mpls ldp interface GigabitEthernet0/0/0/0
+mpls ldp interface GigabitEthernet0/0/0/1
+lldp
+end

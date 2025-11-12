@@ -1,0 +1,44 @@
+hostname X-ASBR2
+group CCIE-LDP
+ mpls ldp
+ mpls ldp  graceful-restart
+ mpls ldp  session protection
+ mpls ldp  address-family ipv4
+end-group
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 1.0.100.2 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:1000::20/128
+
+interface GigabitEthernet0/0/0/0 description *** to X-P4 GE1 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 1.100.2.2 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:1002::2/64
+interface GigabitEthernet0/0/0/1 description *** to Y-ASBR2 GE2 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 10.102.202.1 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:1212::1/64
+interface GigabitEthernet0/0/0/2 description *** to X-ASBR1 GE1 ***
+interface GigabitEthernet0/0/0/2 ipv4 address 1.100.21.2 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:1021::2/64
+interface GigabitEthernet0/0/0/3 description *** to Z-SR-PCE2 GE2 ***
+interface GigabitEthernet0/0/0/3 ipv4 address 1.32.100.1 255.255.255.0
+interface GigabitEthernet0/0/0/3 ipv6 address 2620:fc7:1321:1000::1/6
+interface GigabitEthernet0/0/0/4 description *** to X-CE5 GE2 ***
+interface GigabitEthernet0/0/0/4 ipv4 address 172.100.32.2 255.255.255.0
+interface GigabitEthernet0/0/0/4 ipv6 address 2620:fc7:172:1035::2/64
+interface GigabitEthernet0/0/0/5 shutdown
+
+
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+mpls oam
+mpls ldp
+mpls ldp router-id 1.0.100.2
+mpls ldp address-family ipv4
+mpls ldp interface GigabitEthernet0/0/0/0
+mpls ldp interface GigabitEthernet0/0/0/2
+lldp
+end

@@ -1,0 +1,134 @@
+
+!
+!
+!
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname X-RR1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+clns routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree extend system-id
+!
+username admin password 0 User@123
+username admin privilege 15 password admin
+!
+redundancy
+!
+!
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 1.0.100.9 255.255.255.255
+ ipv6 address 2620:FC7:1000::9/128
+!
+interface eth0/1
+ description *** to X-P1 GE3 ***
+ ip address 1.100.11.2 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:1011::2/64
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ password cisco
+ logging synchronous
+
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+!
+!
+!
+!
+!
+end

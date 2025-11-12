@@ -1,0 +1,48 @@
+
+RP/0/0/CPU0:Z-CE1#show running-config formal
+Thu Mar 20 01:04:02.290 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:29:03 2024 by user
+!
+hostname Z-CE1
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 172.0.3.1 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:172:3000::1/128
+
+interface GigabitEthernet0/0/0/0 description *** to Z-PE3 GE2 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 172.3.31.1 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:172:3310::1/64
+interface GigabitEthernet0/0/0/1 shutdown
+interface GigabitEthernet0/0/0/2 shutdown
+
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+router bgp 3000
+router bgp 3000 bgp router-id 172.0.3.1
+router bgp 3000 bgp log neighbor changes detail
+router bgp 3000 address-family ipv4 unicast
+router bgp 3000 address-family ipv4 unicast network 172.0.3.1/32
+router bgp 3000 address-family ipv6 unicast
+router bgp 3000 address-family ipv6 unicast network 2620:fc7:172:3000::1/128
+router bgp 3000 neighbor 172.3.31.3
+router bgp 3000 neighbor 172.3.31.3 remote-as 300
+router bgp 3000 neighbor 172.3.31.3 address-family ipv4 unicast
+router bgp 3000 neighbor 172.3.31.3 address-family ipv4 unicast route-policy PASS in
+router bgp 3000 neighbor 172.3.31.3 address-family ipv4 unicast route-policy PASS out
+router bgp 3000 neighbor 172.3.31.3 address-family ipv4 unicast as-override
+router bgp 3000 neighbor 2620:fc7:172:3310::3
+router bgp 3000 neighbor 2620:fc7:172:3310::3 remote-as 300
+router bgp 3000 neighbor 2620:fc7:172:3310::3 address-family ipv6 unicast
+router bgp 3000 neighbor 2620:fc7:172:3310::3 address-family ipv6 unicast route-policy PASS in
+router bgp 3000 neighbor 2620:fc7:172:3310::3 address-family ipv6 unicast route-policy PASS out
+router bgp 3000 neighbor 2620:fc7:172:3310::3 address-family ipv6 unicast as-override
+lldp
+end
+
+RP/0/0/CPU0:Z-CE1#

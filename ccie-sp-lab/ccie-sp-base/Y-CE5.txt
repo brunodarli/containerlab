@@ -1,0 +1,163 @@
+
+!
+!
+!
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname Y-CE5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+clns routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree extend system-id
+!
+username admin password 0 User@123
+username admin privilege 15 password admin
+!
+redundancy
+!
+!
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.0.2.5 255.255.255.255
+ ipv6 address 2620:FC7:172:2000::5/128
+!
+interface eth0/1
+ description *** to Y-PE6 GE5 ***
+ ip address 172.200.50.5 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:172:2050::5/64
+ no mop enabled
+ no mop sysid
+!
+interface eth0/2
+ ip address 10.5.105.51 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface eth0/3
+ no ip address
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+router bgp 1000
+ bgp router-id 172.0.2.5
+ bgp log-neighbor-changes
+ neighbor 2620:FC7:172:2050::6 remote-as 200
+ neighbor 172.200.50.6 remote-as 200
+ !
+ address-family ipv4
+  network 172.0.2.5 mask 255.255.255.255
+  no neighbor 2620:FC7:172:2050::6 activate
+  neighbor 172.200.50.6 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2620:FC7:172:2000::5/128
+  neighbor 2620:FC7:172:2050::6 activate
+ exit-address-family
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ password cisco
+ logging synchronous
+
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+!
+!
+!
+!
+!
+end

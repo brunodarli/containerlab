@@ -1,0 +1,282 @@
+RP/0/0/CPU0:Y-PE3#ter le 0
+Thu Mar 20 01:21:03.463 UTC
+RP/0/0/CPU0:Y-PE3#show run for
+% Ambiguous command:  "show run for"
+RP/0/0/CPU0:Y-PE3#
+RP/0/0/CPU0:Y-PE3#
+RP/0/0/CPU0:Y-PE3#show run
+Thu Mar 20 01:21:10.322 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:26:12 2024 by user
+!
+hostname Y-PE3
+group CCIE-OSPF
+ router ospf '.*'
+  address-family ipv4 unicast
+  area '.*'
+   mpls traffic-eng
+  !
+  mpls traffic-eng router-id Loopback0
+  mpls traffic-eng multicast-intact
+  mpls traffic-eng ldp-sync-update
+ !
+end-group
+logging console debugging
+vrf YELLOW
+ address-family ipv4 unicast
+  import route-target
+   200:2
+  !
+  export route-target
+   200:2
+  !
+ !
+ address-family ipv6 unicast
+  import route-target
+   200:2
+  !
+  export route-target
+   200:2
+  !
+ !
+!
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 2.0.200.6 255.255.255.255
+ ipv6 address 2620:fc7:2000::6/128
+!
+
+interface GigabitEthernet0/0/0/0
+ description *** to Y-ASBR2 GE0 ***
+ ipv4 address 2.200.2.3 255.255.255.0
+ ipv6 address 2620:fc7:2002::3/64
+!
+interface GigabitEthernet0/0/0/1
+ description *** to Y-PE4 GE0 ***
+ ipv4 address 2.200.6.3 255.255.255.0
+ ipv6 address 2620:fc7:2006::3/64
+!
+interface GigabitEthernet0/0/0/2
+ description *** to Y-P1 GE1 ***
+ ipv4 address 2.200.3.3 255.255.255.0
+ ipv6 address 2620:fc7:2005::1/64
+!
+interface GigabitEthernet0/0/0/3
+ description *** to Y-RR2 GE1 ***
+ ipv4 address 2.200.11.3 255.255.255.0
+ ipv6 address 2620:fc7:2011::3/64
+!
+interface GigabitEthernet0/0/0/4
+ shutdown
+!
+interface GigabitEthernet0/0/0/5
+ description *** to Y-CE3 GE2 ***
+ vrf YELLOW
+ ipv4 address 172.200.30.3 255.255.255.0
+ ipv6 address 2620:fc7:172:2030::3/64
+!
+
+route-policy PASS
+  pass
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.5.105.1
+ !
+!
+router ospf 1
+ apply-group CCIE-OSPF
+ router-id 2.0.200.6
+ mpls ldp auto-config
+ area 0
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0
+  !
+  interface GigabitEthernet0/0/0/1
+  !
+  interface GigabitEthernet0/0/0/2
+  !
+  interface GigabitEthernet0/0/0/3
+  !
+ !
+ vrf YELLOW
+  redistribute bgp 200 route-policy PASS
+  address-family ipv4 unicast
+  area 0
+   interface GigabitEthernet0/0/0/5
+   !
+  !
+ !
+!
+router ospfv3 1
+ area 0
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0
+  !
+  interface GigabitEthernet0/0/0/1
+  !
+  interface GigabitEthernet0/0/0/2
+  !
+  interface GigabitEthernet0/0/0/3
+  !
+ !
+ address-family ipv6
+!
+router ospfv3 200
+ vrf YELLOW
+  redistribute bgp 200 route-policy PASS
+  area 0
+   interface GigabitEthernet0/0/0/5
+   !
+  !
+ !
+!
+router bgp 200
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ neighbor-group IBGP-VPN
+  remote-as 200
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+  address-family vpnv6 unicast
+  !
+ !
+ neighbor 2.0.200.9
+  use neighbor-group IBGP-VPN
+ !
+ neighbor 2.0.200.10
+  use neighbor-group IBGP-VPN
+ !
+ vrf YELLOW
+  rd 200:2
+  address-family ipv4 unicast
+   redistribute ospf 1
+  !
+  address-family ipv6 unicast
+   redistribute ospfv3 200
+  !
+ !
+!
+mpls oam
+!
+mpls ldp
+!
+lldp
+!
+end
+
+RP/0/0/CPU0:Y-PE3#show run form
+Thu Mar 20 01:21:16.872 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:26:12 2024 by user
+!
+hostname Y-PE3
+group CCIE-OSPF
+ router ospf '.*'  address-family ipv4 unicast
+ router ospf '.*'  area '.*'
+ router ospf '.*'  area '.*'  mpls traffic-eng
+ router ospf '.*'  mpls traffic-eng router-id Loopback0
+ router ospf '.*'  mpls traffic-eng multicast-intact
+ router ospf '.*'  mpls traffic-eng ldp-sync-update
+ router ospf '.*'
+end-group
+logging console debugging
+vrf YELLOW
+vrf YELLOW address-family ipv4 unicast
+vrf YELLOW address-family ipv4 unicast import route-target 200:2
+vrf YELLOW address-family ipv4 unicast export route-target 200:2
+vrf YELLOW address-family ipv6 unicast
+vrf YELLOW address-family ipv6 unicast import route-target 200:2
+vrf YELLOW address-family ipv6 unicast export route-target 200:2
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 2.0.200.6 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:2000::6/128
+interface MgmtEth0/0/CPU0/0 ipv4 address 10.5.105.23 255.255.255.0
+interface GigabitEthernet0/0/0/0 description *** to Y-ASBR2 GE0 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 2.200.2.3 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:2002::3/64
+interface GigabitEthernet0/0/0/1 description *** to Y-PE4 GE0 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 2.200.6.3 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:2006::3/64
+interface GigabitEthernet0/0/0/2 description *** to Y-P1 GE1 ***
+interface GigabitEthernet0/0/0/2 ipv4 address 2.200.3.3 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:2005::1/64
+interface GigabitEthernet0/0/0/3 description *** to Y-RR2 GE1 ***
+interface GigabitEthernet0/0/0/3 ipv4 address 2.200.11.3 255.255.255.0
+interface GigabitEthernet0/0/0/3 ipv6 address 2620:fc7:2011::3/64
+interface GigabitEthernet0/0/0/4 shutdown
+interface GigabitEthernet0/0/0/5 description *** to Y-CE3 GE2 ***
+interface GigabitEthernet0/0/0/5 vrf YELLOW
+interface GigabitEthernet0/0/0/5 ipv4 address 172.200.30.3 255.255.255.0
+interface GigabitEthernet0/0/0/5 ipv6 address 2620:fc7:172:2030::3/64
+interface preconfigure MgmtEth0/RP0/CPU0/0
+interface preconfigure MgmtEth0/RP0/CPU0/0 ipv4 address 10.5.105.23 255.255.255.0
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+router ospf 1 apply-group CCIE-OSPF
+router ospf 1 router-id 2.0.200.6
+router ospf 1 mpls ldp auto-config
+router ospf 1 area 0
+router ospf 1 area 0 interface Loopback0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/1
+router ospf 1 area 0 interface GigabitEthernet0/0/0/2
+router ospf 1 area 0 interface GigabitEthernet0/0/0/3
+router ospf 1 vrf YELLOW
+router ospf 1 vrf YELLOW redistribute bgp 200 route-policy PASS
+router ospf 1 vrf YELLOW address-family ipv4 unicast
+router ospf 1 vrf YELLOW area 0
+router ospf 1 vrf YELLOW area 0 interface GigabitEthernet0/0/0/5
+router ospf 1
+router ospfv3 1 area 0
+router ospfv3 1 area 0 interface Loopback0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/1
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/2
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/3
+router ospfv3 1 address-family ipv6
+router ospfv3 1
+router ospfv3 200 vrf YELLOW
+router ospfv3 200 vrf YELLOW redistribute bgp 200 route-policy PASS
+router ospfv3 200 vrf YELLOW area 0
+router ospfv3 200 vrf YELLOW area 0 interface GigabitEthernet0/0/0/5
+router ospfv3 200
+router bgp 200
+router bgp 200 address-family vpnv4 unicast
+router bgp 200 address-family vpnv6 unicast
+router bgp 200 neighbor-group IBGP-VPN
+router bgp 200 neighbor-group IBGP-VPN remote-as 200
+router bgp 200 neighbor-group IBGP-VPN update-source Loopback0
+router bgp 200 neighbor-group IBGP-VPN address-family vpnv4 unicast
+router bgp 200 neighbor-group IBGP-VPN address-family vpnv6 unicast
+router bgp 200 neighbor 2.0.200.9
+router bgp 200 neighbor 2.0.200.9 use neighbor-group IBGP-VPN
+router bgp 200 neighbor 2.0.200.10
+router bgp 200 neighbor 2.0.200.10 use neighbor-group IBGP-VPN
+router bgp 200 vrf YELLOW
+router bgp 200 vrf YELLOW rd 200:2
+router bgp 200 vrf YELLOW address-family ipv4 unicast
+router bgp 200 vrf YELLOW address-family ipv4 unicast redistribute ospf 1
+router bgp 200 vrf YELLOW address-family ipv6 unicast
+router bgp 200 vrf YELLOW address-family ipv6 unicast redistribute ospfv3 200
+mpls oam
+mpls ldp
+lldp
+end
+
+RP/0/0/CPU0:Y-PE3#

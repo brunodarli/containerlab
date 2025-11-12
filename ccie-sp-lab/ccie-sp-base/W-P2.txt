@@ -1,0 +1,307 @@
+hostname W-P2
+
+group CCIE-ISIS
+
+ router isis '.*'
+
+  is-type level-2-only
+
+  log adjacency changes
+
+  lsp-refresh-interval 3283
+
+  address-family ipv4 unicast
+
+   metric-style wide
+
+   maximum-redistributed-prefixes 28000
+
+  !
+
+  address-family ipv6 unicast
+
+   metric-style wide level 2
+
+   metric 500
+
+   single-topology
+
+  !
+
+  interface 'Loopback.*'
+
+   passive
+
+   address-family ipv4 unicast
+
+   !
+
+   address-family ipv6 unicast
+
+   !
+
+  !
+
+  interface 'Bundle-Ether.*'
+
+   point-to-point
+
+   address-family ipv4 unicast
+
+    fast-reroute per-prefix
+
+    metric 200 level 2
+
+    weight 1
+
+   !
+
+   address-family ipv6 unicast
+
+    fast-reroute per-prefix
+
+    metric 400 level 2
+
+    weight 1
+
+   !
+
+  !
+
+  interface 'GigabitEthernet.*'
+
+   point-to-point
+
+   address-family ipv4 unicast
+
+    fast-reroute per-prefix
+
+    metric 200 level 2
+
+    weight 1
+
+   !
+
+   address-family ipv6 unicast
+
+    fast-reroute per-prefix
+
+    metric 400 level 2
+
+    weight 1
+
+   !
+
+  !
+
+ !
+
+end-group
+
+
+
+!
+
+vrf MGMT
+
+ address-family ipv4 unicast
+
+ !
+
+ address-family ipv6 unicast
+
+ !
+
+!
+
+line console
+
+ exec-timeout 0 0
+!
+username admin
+ group root-lr
+ group cisco-support
+ secret 5 $1$NTW3$DY6c.EBD5kEwQ6LfKnLd./
+!
+
+call-home
+
+ service active
+
+ contact smart-licensing
+
+ profile CiscoTAC-1
+
+  active
+
+  destination transport-method email disable
+
+  destination transport-method http
+
+ !
+
+!
+
+netconf-yang agent
+
+ ssh
+
+!
+
+interface Loopback0
+
+ ipv4 address 4.0.4.2 255.255.255.255
+
+ ipv6 address 2620:fc7:4000::2/128
+
+!
+
+
+
+interface GigabitEthernet0/0/0/0
+
+ description *** to W-P1 GE0 ***
+
+ ipv4 address 4.40.1.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4401::2/64
+
+!
+
+interface GigabitEthernet0/0/0/1
+
+ description *** to W-PE3 GE0 ***
+
+ ipv4 address 4.40.3.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4403::2/64
+
+!
+
+interface GigabitEthernet0/0/0/2
+
+ description *** to W-PE2 GE1 ***
+
+ ipv4 address 4.40.5.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4450::2/64
+
+!
+
+interface GigabitEthernet0/0/0/3
+
+ description *** to W-PE1 GE1 ***
+
+ ipv4 address 4.40.6.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4460::2/64
+
+!
+
+interface GigabitEthernet0/0/0/4
+
+ shutdown
+
+!
+
+interface GigabitEthernet0/0/0/5
+
+ description *** to W-P1 GE5 ***
+
+ ipv4 address 4.40.10.2 255.255.255.0
+
+ ipv6 address 2620:fc7:4410::2/64
+
+!
+
+route-policy PASS
+
+  pass
+
+end-policy
+
+!
+
+router static
+
+ address-family ipv4 unicast
+
+  0.0.0.0/0 10.5.105.1
+
+ !
+
+!
+
+router isis CORE
+
+ apply-group CCIE-ISIS
+
+ net 47.0001.0004.0000.0004.0002.00
+
+ address-family ipv4 unicast
+
+ !
+
+ address-family ipv6 unicast
+
+  metric-style wide
+
+ !
+
+ interface Loopback0
+
+  address-family ipv4 unicast
+
+  !
+
+ !
+
+ interface GigabitEthernet0/0/0/0
+
+ !
+
+ interface GigabitEthernet0/0/0/1
+
+ !
+
+ interface GigabitEthernet0/0/0/2
+
+ !
+
+ interface GigabitEthernet0/0/0/3
+
+ !
+
+ interface GigabitEthernet0/0/0/5
+
+ !
+
+!
+
+router bgp 400
+
+ address-family ipv4 unicast
+
+ !
+
+!
+
+mpls oam
+
+!
+
+xml agent
+
+ ipv6 enable
+
+!
+
+lldp
+
+!
+
+ssh server v2
+
+telnet vrf default ipv4 server max-servers 3
+
+end

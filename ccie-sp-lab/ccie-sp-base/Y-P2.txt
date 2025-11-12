@@ -1,0 +1,149 @@
+RP/0/0/CPU0:Y-P2#ter le 0
+Thu Mar 20 01:20:20.906 UTC
+RP/0/0/CPU0:Y-P2#show run for
+% Ambiguous command:  "show run for"
+RP/0/0/CPU0:Y-P2#show runn
+Thu Mar 20 01:20:31.215 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:25:05 2024 by user
+!
+hostname Y-P2
+group CCIE-OSPF
+ router ospf '.*'
+  address-family ipv4 unicast
+  area '.*'
+   mpls traffic-eng
+  !
+  mpls traffic-eng router-id Loopback0
+  mpls traffic-eng multicast-intact
+  mpls traffic-eng ldp-sync-update
+ !
+end-group
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 2.0.200.4 255.255.255.255
+ ipv6 address 2620:fc7:2000::4/128
+!
+
+interface GigabitEthernet0/0/0/0
+ description *** to Y-P1 GE0 ***
+ ipv4 address 2.200.5.2 255.255.255.0
+ ipv6 address 2620:fc7:2005::2/64
+!
+interface GigabitEthernet0/0/0/1
+ description *** to Y-PE4 GE1 ***
+ ipv4 address 2.200.4.2 255.255.255.0
+ ipv6 address 2620:fc7:2004::2/64
+!
+interface GigabitEthernet0/0/0/2
+ description *** to Y-PE6 GE1 ***
+ ipv4 address 2.200.8.2 255.255.255.0
+ ipv6 address 2620:fc7:2008::2/64
+!
+
+route-policy PASS
+  pass
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.5.105.1
+ !
+!
+router ospf 1
+ apply-group CCIE-OSPF
+ router-id 2.0.200.4
+ mpls ldp auto-config
+ area 0
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0
+  !
+  interface GigabitEthernet0/0/0/1
+  !
+  interface GigabitEthernet0/0/0/2
+  !
+ !
+!
+router ospfv3 1
+ area 0
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0
+  !
+  interface GigabitEthernet0/0/0/1
+  !
+  interface GigabitEthernet0/0/0/2
+  !
+ !
+!
+mpls oam
+!
+mpls ldp
+!
+lldp
+!
+end
+
+RP/0/0/CPU0:Y-P2#show run form
+Thu Mar 20 01:22:21.578 UTC
+Building configuration...
+!! IOS XR Configuration 6.3.1
+!! Last configuration change at Mon Nov 25 07:25:05 2024 by user
+!
+hostname Y-P2
+group CCIE-OSPF
+ router ospf '.*'  address-family ipv4 unicast
+ router ospf '.*'  area '.*'
+ router ospf '.*'  area '.*'  mpls traffic-eng
+ router ospf '.*'  mpls traffic-eng router-id Loopback0
+ router ospf '.*'  mpls traffic-eng multicast-intact
+ router ospf '.*'  mpls traffic-eng ldp-sync-update
+ router ospf '.*'
+end-group
+line console exec-timeout 0 0
+interface Loopback0
+interface Loopback0 ipv4 address 2.0.200.4 255.255.255.255
+interface Loopback0 ipv6 address 2620:fc7:2000::4/128
+interface MgmtEth0/0/CPU0/0 ipv4 address 10.5.105.22 255.255.255.0
+interface GigabitEthernet0/0/0/0 description *** to Y-P1 GE0 ***
+interface GigabitEthernet0/0/0/0 ipv4 address 2.200.5.2 255.255.255.0
+interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:2005::2/64
+interface GigabitEthernet0/0/0/1 description *** to Y-PE4 GE1 ***
+interface GigabitEthernet0/0/0/1 ipv4 address 2.200.4.2 255.255.255.0
+interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:2004::2/64
+interface GigabitEthernet0/0/0/2 description *** to Y-PE6 GE1 ***
+interface GigabitEthernet0/0/0/2 ipv4 address 2.200.8.2 255.255.255.0
+interface GigabitEthernet0/0/0/2 ipv6 address 2620:fc7:2008::2/64
+interface preconfigure MgmtEth0/RP0/CPU0/0
+interface preconfigure MgmtEth0/RP0/CPU0/0 ipv4 address 10.5.105.22 255.255.255.0
+!
+route-policy PASS
+  pass
+end-policy
+!
+router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
+router ospf 1 apply-group CCIE-OSPF
+router ospf 1 router-id 2.0.200.4
+router ospf 1 mpls ldp auto-config
+router ospf 1 area 0
+router ospf 1 area 0 interface Loopback0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/0
+router ospf 1 area 0 interface GigabitEthernet0/0/0/1
+router ospf 1 area 0 interface GigabitEthernet0/0/0/2
+router ospf 1
+router ospfv3 1 area 0
+router ospfv3 1 area 0 interface Loopback0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/0
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/1
+router ospfv3 1 area 0 interface GigabitEthernet0/0/0/2
+router ospfv3 1
+mpls oam
+mpls ldp
+lldp
+end
+
+RP/0/0/CPU0:Y-P2#

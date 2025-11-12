@@ -1,0 +1,196 @@
+
+!
+!
+!
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname Y-RR1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+clns routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree extend system-id
+!
+username admin password 0 User@123
+username admin privilege 15 password admin
+!
+redundancy
+!
+!
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.0.200.9 255.255.255.255
+ ipv6 address 2620:FC7:2000::9/128
+!
+interface eth0/1
+ description *** to Y-P1 GE4 ***
+ ip address 2.200.10.2 255.255.255.0
+ negotiation auto
+ ipv6 address 2620:FC7:2008::6/64
+ no mop enabled
+ no mop sysid
+!
+interface eth0/2
+ no ip address
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface eth0/3
+ no ip address
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+
+router ospf 1
+ router-id 2.0.200.9
+ network 2.0.200.9 0.0.0.0 area 0
+ network 2.200.10.2 0.0.0.0 area 0
+!
+router bgp 200
+ bgp router-id 2.0.200.9
+ bgp log-neighbor-changes
+ neighbor IBGPv4 peer-group
+ neighbor IBGPv4 remote-as 200
+ neighbor IBGPv4 update-source Loopback0
+ neighbor 2.0.200.1 peer-group IBGPv4
+ neighbor 2.0.200.2 peer-group IBGPv4
+ neighbor 2.0.200.5 peer-group IBGPv4
+ neighbor 2.0.200.6 peer-group IBGPv4
+ neighbor 2.0.200.7 peer-group IBGPv4
+ neighbor 2.0.200.8 peer-group IBGPv4
+ !
+ address-family ipv4
+  no neighbor 2.0.200.1 activate
+  no neighbor 2.0.200.2 activate
+  no neighbor 2.0.200.5 activate
+  no neighbor 2.0.200.6 activate
+  no neighbor 2.0.200.7 activate
+  no neighbor 2.0.200.8 activate
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor IBGPv4 send-community extended
+  neighbor IBGPv4 route-reflector-client
+  neighbor 2.0.200.1 activate
+  neighbor 2.0.200.2 activate
+  neighbor 2.0.200.5 activate
+  neighbor 2.0.200.6 activate
+  neighbor 2.0.200.7 activate
+  neighbor 2.0.200.8 activate
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor IBGPv4 send-community extended
+  neighbor IBGPv4 route-reflector-client
+  neighbor 2.0.200.1 activate
+  neighbor 2.0.200.2 activate
+  neighbor 2.0.200.5 activate
+  neighbor 2.0.200.6 activate
+  neighbor 2.0.200.7 activate
+  neighbor 2.0.200.8 activate
+ exit-address-family
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ password cisco
+ logging synchronous
+
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+!
+!
+!
+!
+!
+end
