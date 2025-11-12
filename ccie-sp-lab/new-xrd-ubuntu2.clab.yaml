@@ -18,55 +18,55 @@ topology:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.254
-      startup-config: ccie-sp-base/Could_Provider.txt
+      #startup-config: ccie-sp-base/Could_Provider.txt
 
     w-pe1:
       kind: xrd
       mgmt-ipv4: 172.31.0.81
-      startup-config: ccie-sp-base/W-PE1.txt
+      #startup-config: ccie-sp-base/W-PE1.txt
 
     w-pe2:
       kind: xrd
       mgmt-ipv4: 172.31.0.82
-      startup-config: ccie-sp-base/W-PE2.txt
+      #startup-config: ccie-sp-base/W-PE2.txt
 
     w-pe3:
       kind: xrd
       mgmt-ipv4: 172.31.0.83
-      startup-config: ccie-sp-base/W-PE3.txt
+      #startup-config: ccie-sp-base/W-PE3.txt
 
     w-p1:
       kind: xrd
       mgmt-ipv4: 172.31.0.91
-      startup-config: ccie-sp-base/W-P1.txt
+      #startup-config: ccie-sp-base/W-P1.txt
 
     w-p2:
       kind: xrd
       mgmt-ipv4: 172.31.0.92
-      startup-config: ccie-sp-base/W-P2.txt
+      #startup-config: ccie-sp-base/W-P2.txt
 
     w-ce1:
       kind: xrd
       mgmt-ipv4: 172.31.0.111
-      startup-config: ccie-sp-base/W-CE1.txt
+      #startup-config: ccie-sp-base/W-CE1.txt
 
     w-ce3:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.113
-      startup-config: ccie-sp-base/W-CE3.txt
+      #startup-config: ccie-sp-base/W-CE3.txt
 
     w-ce4:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.114
-      startup-config: ccie-sp-base/W-CE4.txt
+      #startup-config: ccie-sp-base/W-CE4.txt
 
     w-ce2:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.112
-      startup-config: ccie-sp-base/W-CE2.txt
+      #startup-config: ccie-sp-base/W-CE2.txt
 
     
 

@@ -19,120 +19,120 @@ topology:
     x-p1:
       kind: xrd
       mgmt-ipv4: 172.31.0.201
-      startup-config: ccie-sp-base/X-P1.txt
+      #startup-config: ccie-sp-base/X-P1.txt
     x-p2:
       kind: xrd
       mgmt-ipv4: 172.31.0.202
-      startup-config: ccie-sp-base/X-P2.txt
+      #startup-config: ccie-sp-base/X-P2.txt
     x-p3:
       kind: xrd
       mgmt-ipv4: 172.31.0.203
-      startup-config: ccie-sp-base/X-P3.txt
+      #startup-config: ccie-sp-base/X-P3.txt
     x-p4:
       kind: xrd
       mgmt-ipv4: 172.31.0.204
-      startup-config: ccie-sp-base/X-P4.txt
+      #startup-config: ccie-sp-base/X-P4.txt
     x-asbr2:
       kind: xrd
       mgmt-ipv4: 172.31.0.242
-      startup-config: ccie-sp-base/X-ASBR2.txt
+      #startup-config: ccie-sp-base/X-ASBR2.txt
     x-asbr1:
       kind: xrd
       mgmt-ipv4: 172.31.0.241
-      startup-config: ccie-sp-base/X-ASBR1.txt
+      #startup-config: ccie-sp-base/X-ASBR1.txt
     x-pe5:
       kind: xrd
       mgmt-ipv4: 172.31.0.205
-      startup-config: ccie-sp-base/X-PE5.txt
+      #startup-config: ccie-sp-base/X-PE5.txt
     x-pe6:
       kind: xrd
       mgmt-ipv4: 172.31.0.206
-      startup-config: ccie-sp-base/X-PE6.txt
+      #startup-config: ccie-sp-base/X-PE6.txt
 
     x-rr1:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.251
-      startup-config: ccie-sp-base/X-RR1.txt
+      #startup-config: ccie-sp-base/X-RR1.txt
     x-rr2:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.252
-      startup-config: ccie-sp-base/X-RR2.txt
+      #startup-config: ccie-sp-base/X-RR2.txt
 
 
     x-ce1:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.41
-      startup-config: ccie-sp-base/X-CE1.txt
+      #startup-config: ccie-sp-base/X-CE1.txt
     x-ce2:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.42
-      startup-config: ccie-sp-base/X-CE2.txt
+      #startup-config: ccie-sp-base/X-CE2.txt
     x-ce4:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.44
-      startup-config: ccie-sp-base/X-CE4.txt
+      #startup-config: ccie-sp-base/X-CE4.txt
     x-ce5:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.45
-      startup-config: ccie-sp-base/X-CE5.txt
+      #startup-config: ccie-sp-base/X-CE5.txt
 
 ## Garnet AS-200
 
     y-asbr1:
       kind: xrd
       mgmt-ipv4: 172.31.0.141
-      startup-config: ccie-sp-base/Y-ASBR1.txt
+      #startup-config: ccie-sp-base/Y-ASBR1.txt
     
     y-asbr2:
       kind: xrd
       mgmt-ipv4: 172.31.0.142
-      startup-config: ccie-sp-base/Y-ASBR2.txt
+      #startup-config: ccie-sp-base/Y-ASBR2.txt
 
     y-p1:
       kind: xrd
       mgmt-ipv4: 172.31.0.101
-      startup-config: ccie-sp-base/Y-P1.txt
+      #startup-config: ccie-sp-base/Y-P1.txt
     
     y-p2:
       kind: xrd
       mgmt-ipv4: 172.31.0.102
-      startup-config: ccie-sp-base/Y-P2.txt
+      #startup-config: ccie-sp-base/Y-P2.txt
 
     y-pe3:
       kind: xrd
       mgmt-ipv4: 172.31.0.103
-      startup-config: ccie-sp-base/Y-PE3.txt
+      #startup-config: ccie-sp-base/Y-PE3.txt
 
 
     y-rr1:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.151
-      startup-config: ccie-sp-base/Y-RR1.txt
+      #startup-config: ccie-sp-base/Y-RR1.txt
     
     y-rr2:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.152
-      startup-config: ccie-sp-base/Y-RR2.txt
+      #startup-config: ccie-sp-base/Y-RR2.txt
 
     y-pe5:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.105
-      startup-config: ccie-sp-base/Y-PE5.txt
+      #startup-config: ccie-sp-base/Y-PE5.txt
 
     y-pe6:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.106
-      startup-config: ccie-sp-base/Y-PE6.txt
+      #startup-config: ccie-sp-base/Y-PE6.txt
 
 
   links:
