@@ -68,7 +68,46 @@ topology:
       mgmt-ipv4: 172.31.0.112
       #startup-config: ccie-sp-base/W-CE2.txt
 
+
+
+    y-p1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.101
+      #startup-config: ccie-sp-base/Y-P1.txt
     
+    y-p2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.102
+      #startup-config: ccie-sp-base/Y-P2.txt
+
+    y-pe3:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.103
+      #startup-config: ccie-sp-base/Y-PE3.txt
+
+     y-rr1:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.151
+      #startup-config: ccie-sp-base/Y-RR1.txt
+    
+    y-rr2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.152
+      #startup-config: ccie-sp-base/Y-RR2.txt
+
+    y-pe5:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.105
+      #startup-config: ccie-sp-base/Y-PE5.txt
+
+    y-pe6:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.106
+      #startup-config: ccie-sp-base/Y-PE6.txt
 
   links:
     - endpoints: [w-p1:Gi0-0-0-0, w-p2:Gi0-0-0-0]
@@ -96,7 +135,37 @@ topology:
 
     - endpoints: [host:cloudProvider_g1_id1000, Clould_Provider:e0/1]
 
+    ## Garnet AS-200 Links
+
+    - endpoints: [y-p1:Gi0-0-0-2, y-p2:Gi0-0-0-0]
+    - endpoints: [y-p1:Gi0-0-0-1, y-pe3:Gi0-0-0-2]
+    - endpoints: [y-p1:Gi0-0-0-4, y-rr1:e0/1]
+    - endpoints: [y-p1:Gi0-0-0-3, y-pe5:e0/1]
+    - endpoints: [y-pe3:Gi0-0-0-3, y-rr2:e0/1]
+    - endpoints: [y-pe5:e0/2, y-pe6:e0/2]
+    - endpoints: [y-pe6:e0/1, y-p2:Gi0-0-0-2]
+
+
+# remote to .10
+    - endpoints: [y-p1:Gi0-0-0-0, host:y-asbr1_to_p1_id2001]
+    - endpoints: [y-p3:Gi0-0-0-0, host:y-asbr2_to_p3_id2002]
+
+
+## remote to .11
+    - endpoints: [y-pe3:Gi0-0-0-1, host:y-pe3-pe4_id34]
+    - endpoints: [y-p2:Gi0-0-0-1, host:y-p2-pe4_id24]
+    - endpoints: [y-pe3:Gi0-0-0-5, host:y-pe3_g5_id16]
+
+    - endpoints: [y-pe5:e0/3, host:y-pe5_e3_id10]
+    - endpoints: [y-pe6:e0/3, host:y-pe6_e3_id11]
+    - endpoints: [y-pe6:e1/1, host:y-pe6_e11_id12]
+    - endpoints: [y-pe6:e1/0, host:y-pe6_e10_id13]
+
+
     # sudo clab tools vxlan create --remote 10.253.11.11 --id 1000 --link cloudProvider_g1_id1000
+
+    # sudo clab tools vxlan create --remote 10.253.11.10 --id 2001 --link y-asbr1_to_p1_id2001
+    # sudo clab tools vxlan create --remote 10.253.11.10 --id 2002 --link y-asbr2_to_p3_id2002
 
     
 

@@ -243,7 +243,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "x",
+    "jumphostUuid": "z",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -257,7 +257,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "x",
+    "jumphostUuid": "z",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -271,7 +271,7 @@
     "deviceType": "IOS_XR",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "x",
+    "jumphostUuid": "z",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -285,7 +285,7 @@
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "x",
+    "jumphostUuid": "z",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -299,7 +299,7 @@
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "x",
+    "jumphostUuid": "z",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -313,7 +313,7 @@
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "x",
+    "jumphostUuid": "z",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
@@ -327,7 +327,7 @@
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
-    "jumphostUuid": "x",
+    "jumphostUuid": "z",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
