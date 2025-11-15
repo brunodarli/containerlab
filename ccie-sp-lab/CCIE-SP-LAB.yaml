@@ -63,8 +63,8 @@ nodes:
           - echo 'net.bridge.bridge-nf-call-ip6tables' = 0 >> /etc/sysctl.conf
           - sysctl -p
           - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.14 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
-          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
-          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
 
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
           - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
@@ -215,8 +215,8 @@ nodes:
           - echo 'net.bridge.bridge-nf-call-ip6tables' = 0 >> /etc/sysctl.conf
           - sysctl -p
           - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.14 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
-          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
-          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
 
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
           - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
@@ -376,8 +376,8 @@ nodes:
           - sysctl -p
           - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.14 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
           
-          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
-          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
 
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
           - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz

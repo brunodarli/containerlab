@@ -10,7 +10,7 @@ topology:
   kinds:
     xrd:
       kind: cisco_xrd
-      image: ios-xr/xrd-control-plane:7.11.2  
+      image: ios-xr/xrd-control-plane:7.9.2  
       
 
 ## Emerald AS-100
@@ -82,23 +82,6 @@ topology:
       mgmt-ipv4: 172.31.0.45
       startup-config: ccie-sp-base/X-CE5.txt
 
-## Garnet AS-200
-
-    y-asbr1:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.141
-      startup-config: ccie-sp-base/Y-ASBR1.txt
-    
-    y-asbr2:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.142
-      startup-config: ccie-sp-base/Y-ASBR2.txt
-
-    
-
-
-   
-
 
   links:
 
@@ -134,24 +117,16 @@ topology:
     - endpoints: [x-ce4:e0/1, x-ce5:e0/1]
     - endpoints: [x-ce5:e0/2, x-asbr2:Gi0-0-0-4]
 
-    # Garnet AS-200 Links
-
-    - endpoints: [y-asbr1:Gi0-0-0-2, x-asbr1:Gi0-0-0-2]
-    - endpoints: [y-asbr2:Gi0-0-0-2, x-asbr2:Gi0-0-0-1]
-
-    - endpoints: [y-asbr1:Gi0-0-0-1, y-asbr2:Gi0-0-0-1]
-
-
     # REMOTE LINKS
     # to .11
-    - endpoints: [y-asbr1:Gi0-0-0-3, host:y-asbr1_g3_id17]
+    
     - endpoints: [x-asbr1:Gi0-0-0-4, host:x-asbr1_g4_id18]
     - endpoints: [x-asbr2:Gi0-0-0-3, host:x-asbr2_g3_id19]
+    - endpoints: [host:x-asbr1_g2_id1011, x-asbr1:Gi0-0-0-2]
+    - endpoints: [host:x-asbr2_g1_id1012, x-asbr2:Gi0-0-0-1]
 
-    # to .12
-
-    - endpoints: [y-asbr2:Gi0-0-0-0, host:y-asbr2_to_p3_id2002]
-    - endpoints: [y-asbr1:Gi0-0-0-0, host:y-asbr1_to_p1_id2001]
+  
+   
 
 
 
