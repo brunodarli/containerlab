@@ -10,39 +10,10 @@ topology:
   kinds:
     xrd:
       kind: cisco_xrd
-      image: ios-xr/xrd-control-plane:7.11.2  
+      image: ios-xr/xrd-control-plane:7.9.2  
 
   nodes:
-  # Continuation of Garnet AS-200
-    y-ce1:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.31
-      startup-config: ccie-sp-base/Y-CE1.txt
-    
-    y-ce2:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.32
-      startup-config: ccie-sp-base/Y-CE2.txt
-
-    y-ce3:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.33
-      startup-config: ccie-sp-base/Y-CE3.txt
-
-    y-ce4:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.34
-      startup-config: ccie-sp-base/Y-CE4.txt
-
-    y-ce5:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.35
-      startup-config: ccie-sp-base/Y-CE5.txt
+  
 
     # Kayanite AS-300
 
@@ -100,18 +71,12 @@ topology:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.73
-      startup-config: ccie-sp-base/Y-CE3.txt
+      startup-config: ccie-sp-base/z-CE3.txt
 
-    y-pe4:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.104
-      startup-config: ccie-sp-base/Y-PE4.txt
-
-    
-
-    
 
   links:
+    
+  # Kayanite AS-300 Links
     - endpoints: [z-sr-pce1:Gi0-0-0-4, z-asbr2:Gi0-0-0-0] 
     - endpoints: [z-sr-pce1:Gi0-0-0-0, z-p1:Gi0-0-0-4] 
     - endpoints: [z-sr-pce1:Gi0-0-0-1, z-p2:Gi0-0-0-4] 
@@ -137,20 +102,12 @@ topology:
     - endpoints: [z-ce2:Gi0-0-0-0, z-pe4:Gi0-0-0-2]
     
 
-    - endpoints: [y-ce1:e0/1, host:y-ce1_e1_id10]
-    - endpoints: [y-ce1:e0/2, host:y-ce1_e2_id11]
-    - endpoints: [y-ce5:e0/1, host:y-ce5_e1_id12]
-    - endpoints: [y-ce2:e0/1, host:y-ce2_e1_id13]
-    - endpoints: [y-ce2:e0/2, y-pe4:Gi0-0-0-2]
-    - endpoints: [y-ce4:e0/2, y-pe4:Gi0-0-0-3]
-    - endpoints: [y-ce3:e0/2, host:y-ce3_e2_id16]
+    
 
     - endpoints: [z-asbr2:Gi0-0-0-2, host:z-asbr2_g2_id19]
     - endpoints: [z-asbr2:Gi0-0-0-3, host:z-asbr2_g3_id1000]
 
-    - endpoints: [y-pe4:Gi0-0-0-1, host:y-pe4-p2_id24]
-    - endpoints: [y-pe4:Gi0-0-0-0, host:y-pe4-pe3_id34]
-
+  
     - endpoints: [z-sr-pce1:Gi0-0-0-2, host:z-sr-pce1_g2_id18]
     - endpoints: [z-sr-pce1:Gi0-0-0-3, host:z-sr-pce1_g3_id17]
 
