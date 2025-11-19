@@ -131,7 +131,7 @@ fi
 echo "Captured ubuntu2 UUID: $UBUNTU2_UUID"
 
 UBUNTU3_OUTPUT=$(expect <<EOD
-spawn docker exec -it radkit bash -c "radkit-control device create ubuntu1 10.253.11.13 Linux --description ubuntu1 --jumphost-uuid $UBUNTU0_UUID  --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --forwarded-tcp-ports 22 --active true"
+spawn docker exec -it radkit bash -c "radkit-control device create ubuntu3 10.253.11.13 Linux --description ubuntu3 --jumphost-uuid $UBUNTU0_UUID  --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --forwarded-tcp-ports 22 --active true"
 expect "superadmin's password:"
 send "Cisco123!\r"
 expect eof
@@ -145,7 +145,7 @@ echo "$UBUNTU3_OUTPUT"
 UBUNTU3_UUID=$(echo "$UBUNTU3_OUTPUT" | grep -o '"uuid": "[^"]*' | awk -F'"' '{print $4}')
 
 if [[ -z "$UBUNTU3_UUID" ]]; then
-    echo "Failed to capture ubuntu1 UUID. Exiting."
+    echo "Failed to capture ubuntu3 UUID. Exiting."
     exit 1
 fi
 
