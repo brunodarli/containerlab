@@ -71,7 +71,7 @@ topology:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.73
-      startup-config: ccie-sp-base/z-CE3.txt
+      startup-config: ccie-sp-base/Z-CE3.txt
 
 
   links:
