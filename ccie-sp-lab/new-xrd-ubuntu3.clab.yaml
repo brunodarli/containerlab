@@ -1,0 +1,133 @@
+name: ccie-sp-ubuntu3
+
+mgmt:
+  network: clab_mgmt
+  ipv4-subnet: 172.31.0.0/24
+  external-access: false
+
+
+topology:
+  kinds:
+    xrd:
+      kind: cisco_xrd
+      image: ios-xr/xrd-control-plane:7.9.2  
+
+  nodes:
+
+    y-p1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.101
+      startup-config: ccie-sp-base/Y-P1.txt
+    
+    y-p2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.102
+      startup-config: ccie-sp-base/Y-P2.txt
+
+    y-pe3:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.103
+      startup-config: ccie-sp-base/Y-PE3.txt
+
+    y-rr1:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.151
+      startup-config: ccie-sp-base/Y-RR1.txt
+    
+    y-rr2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.152
+      startup-config: ccie-sp-base/Y-RR2.txt
+
+    y-pe5:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.105
+      startup-config: ccie-sp-base/Y-PE5.txt
+
+    y-pe6:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.106
+      startup-config: ccie-sp-base/Y-PE6.txt
+
+    y-pe4:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.104
+      startup-config: ccie-sp-base/Y-PE4.txt
+
+    y-asbr1:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.141
+      startup-config: ccie-sp-base/Y-ASBR1.txt
+    
+    y-asbr2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.142
+      startup-config: ccie-sp-base/Y-ASBR2.txt
+
+    y-ce1:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.31
+      startup-config: ccie-sp-base/Y-CE1.txt
+    
+    y-ce2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.32
+      startup-config: ccie-sp-base/Y-CE2.txt
+
+    y-ce3:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.33
+      startup-config: ccie-sp-base/Y-CE3.txt
+
+    y-ce4:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.34
+      startup-config: ccie-sp-base/Y-CE4.txt
+
+    y-ce5:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.16.1a
+      mgmt-ipv4: 172.31.0.35
+      startup-config: ccie-sp-base/Y-CE5.txt
+
+
+  links:
+  ## Garnet AS-200 Links
+
+    - endpoints: [y-p1:Gi0-0-0-2, y-p2:Gi0-0-0-0]
+    - endpoints: [y-p1:Gi0-0-0-1, y-pe3:Gi0-0-0-2]
+    - endpoints: [y-p1:Gi0-0-0-4, y-rr1:e0/1]
+    - endpoints: [y-p1:Gi0-0-0-3, y-pe5:e0/1]
+    - endpoints: [y-pe3:Gi0-0-0-3, y-rr2:e0/1]
+    - endpoints: [y-pe5:e0/2, y-pe6:e0/2]
+    - endpoints: [y-pe6:e0/1, y-p2:Gi0-0-0-2]
+
+    - endpoints: [y-p1:Gi0-0-0-0, y-asbr1:Gi0-0-0-0]
+    - endpoints: [y-pe3:Gi0-0-0-0, y-asbr2:Gi0-0-0-0]
+
+    - endpoints: [y-pe3:Gi0-0-0-1, y-pe4:Gi0-0-0-0]
+    - endpoints: [y-p2:Gi0-0-0-1, y-pe4:Gi0-0-0-1]
+    - endpoints: [y-pe3:Gi0-0-0-5, y-ce3:e0/2]
+
+    - endpoints: [y-pe5:e0/3, y-ce1:e0/1]
+    - endpoints: [y-pe6:e0/3, y-ce1:e0/2]
+    - endpoints: [y-pe6:e1/1, y-ce5:e0/1]
+    - endpoints: [y-pe6:e1/0, y-ce2:e0/1]
+    - endpoints: [y-pe4:Gi0-0-0-3, y-ce4:e0/2]
+    - endpoints: [y-pe4:Gi0-0-0-2, y-ce2:e0/2]
+    - endpoints: [y-ce3:e0/1, y-ce4:e0/1]
+
+    - endpoints: [y-asbr1:Gi0-0-0-1, y-asbr2:Gi0-0-0-1]
+    - endpoints: [y-asbr1:Gi0-0-0-2, host:y-asbr1_g2_x-asbr1]
+    - endpoints: [y-asbr2:Gi0-0-0-2, host:y-asbr2_g2_x-asbr2]
+    - endpoints: [y-asbr1:Gi0-0-0-3, host:y-asbr1_g3_z-sr-pce1]
+
+
