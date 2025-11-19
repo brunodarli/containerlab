@@ -130,12 +130,34 @@ fi
 
 echo "Captured ubuntu2 UUID: $UBUNTU2_UUID"
 
+UBUNTU3_OUTPUT=$(expect <<EOD
+spawn docker exec -it radkit bash -c "radkit-control device create ubuntu1 10.253.11.13 Linux --description ubuntu1 --jumphost-uuid $UBUNTU0_UUID  --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --forwarded-tcp-ports 22 --active true"
+expect "superadmin's password:"
+send "Cisco123!\r"
+expect eof
+EOD
+)
+
+echo "Ubuntu3 created. Output:"
+echo "$UBUNTU3_OUTPUT"
+
+# Extract UUID
+UBUNTU3_UUID=$(echo "$UBUNTU3_OUTPUT" | grep -o '"uuid": "[^"]*' | awk -F'"' '{print $4}')
+
+if [[ -z "$UBUNTU3_UUID" ]]; then
+    echo "Failed to capture ubuntu1 UUID. Exiting."
+    exit 1
+fi
+
+echo "Captured ubuntu3 UUID: $UBUNTU3_UUID"
+
 #STEP 6 - Update local radkit-devices.json
 echo "Updating jumphostUuid values in local radkit-devices.json..."
 
 : "${UBUNTU0_UUID:?UBUNTU0_UUID is required}"
 : "${UBUNTU1_UUID:?UBUNTU1_UUID is required}"
 : "${UBUNTU2_UUID:?UBUNTU2_UUID is required}"
+: "${UBUNTU3_UUID:?UBUNTU3_UUID is required}"
 
 [ -f radkit-devices.json ] || { echo "radkit-devices.json not found"; exit 1; }
 
@@ -145,10 +167,12 @@ cp radkit-devices.json "radkit-devices.json.bak.$(date +%s)"  # backup
 jq --arg u0 "$UBUNTU0_UUID" \
    --arg u1 "$UBUNTU1_UUID" \
    --arg u2 "$UBUNTU2_UUID" \
+   --arg u3 "$UBUNTU3_UUID" \
   '(.. | objects | select(has("jumphostUuid")) | .jumphostUuid) |=
       (if . == "x" then $u0
-       elif . == "y" then $u1
-       elif . == "z" then $u2
+       elif . == "z" then $u1
+       elif . == "w" then $u2
+       elif . == "y" then $u3
        else . end)' \
   radkit-devices.json > "$tmp" && mv "$tmp" radkit-devices.json
 
