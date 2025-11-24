@@ -105,26 +105,26 @@ topology:
   ## Garnet AS-200 Links
 
     - endpoints: [y-p1:Gi0-0-0-2, y-p2:Gi0-0-0-0]
-    - endpoints: [y-p1:Gi0-0-0-1, y-pe3:Gi0-0-0-2]
+    - endpoints: [y-p1:Gi0-0-0-1, y-pe3:Gi0/0/0/2]
     - endpoints: [y-p1:Gi0-0-0-4, y-rr1:e0/1]
     - endpoints: [y-p1:Gi0-0-0-3, y-pe5:e0/1]
-    - endpoints: [y-pe3:Gi0-0-0-3, y-rr2:e0/1]
+    - endpoints: [y-pe3:Gi0/0/0/3, y-rr2:e0/1]
     - endpoints: [y-pe5:e0/2, y-pe6:e0/2]
     - endpoints: [y-pe6:e0/1, y-p2:Gi0-0-0-2]
 
     - endpoints: [y-p1:Gi0-0-0-0, y-asbr1:Gi0-0-0-0]
-    - endpoints: [y-pe3:Gi0-0-0-0, y-asbr2:Gi0-0-0-0]
+    - endpoints: [y-pe3:Gi0/0/0/0, y-asbr2:Gi0-0-0-0]
 
-    - endpoints: [y-pe3:Gi0-0-0-1, y-pe4:Gi0-0-0-0]
-    - endpoints: [y-p2:Gi0-0-0-1, y-pe4:Gi0-0-0-1]
-    - endpoints: [y-pe3:Gi0-0-0-5, y-ce3:e0/2]
+    - endpoints: [y-pe3:Gi0/0/0/1, y-pe4:Gi0/0/0/0]
+    - endpoints: [y-p2:Gi0-0-0-1, y-pe4:Gi0/0/0/1]
+    - endpoints: [y-pe3:Gi0/0/0/5, y-ce3:e0/2]
 
     - endpoints: [y-pe5:e0/3, y-ce1:e0/1]
     - endpoints: [y-pe6:e0/3, y-ce1:e0/2]
     - endpoints: [y-pe6:e1/1, y-ce5:e0/1]
     - endpoints: [y-pe6:e1/0, y-ce2:e0/1]
-    - endpoints: [y-pe4:Gi0-0-0-3, y-ce4:e0/2]
-    - endpoints: [y-pe4:Gi0-0-0-2, y-ce2:e0/2]
+    - endpoints: [y-pe4:Gi0/0/0/3, y-ce4:e0/2]
+    - endpoints: [y-pe4:Gi0/0/0/2, y-ce2:e0/2]
     - endpoints: [y-ce3:e0/1, y-ce4:e0/1]
 
     - endpoints: [y-asbr1:Gi0-0-0-1, y-asbr2:Gi0-0-0-1]
