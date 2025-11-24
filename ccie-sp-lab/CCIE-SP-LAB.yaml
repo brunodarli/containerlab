@@ -69,6 +69,9 @@ nodes:
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
           - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
 
+          - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-xrv-6.3.3.tar.gz -o /root/vrnetlab-cisco-xrv-6.3.3.tar.gz
+          - docker load -i /root/vrnetlab-cisco-xrv-6.3.3.tar.gz
+
           - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
 
           - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
@@ -117,43 +120,43 @@ nodes:
       - id: i0
         label: ens2
         mac_address: null
-        slot: 0
         type: physical
+        slot: 0
       - id: i1
         label: ens3
         mac_address: null
-        slot: 1
         type: physical
+        slot: 1
       - id: i2
         label: ens4
         mac_address: null
-        slot: 2
         type: physical
+        slot: 2
       - id: i3
         label: ens5
         mac_address: null
-        slot: 3
         type: physical
+        slot: 3
       - id: i4
         label: ens6
         mac_address: null
-        slot: 4
         type: physical
+        slot: 4
       - id: i5
         label: ens7
         mac_address: null
-        slot: 5
         type: physical
+        slot: 5
       - id: i6
         label: ens8
         mac_address: null
-        slot: 6
         type: physical
+        slot: 6
       - id: i7
         label: ens9
         mac_address: null
-        slot: 7
         type: physical
+        slot: 7
   - boot_disk_size: null
     configuration:
       - name: default
@@ -175,8 +178,8 @@ nodes:
       - id: i0
         label: port
         mac_address: null
-        slot: 0
         type: physical
+        slot: 0
   - boot_disk_size: 64
     configuration:
       - name: user-data
@@ -277,43 +280,43 @@ nodes:
       - id: i0
         label: ens2
         mac_address: null
-        slot: 0
         type: physical
+        slot: 0
       - id: i1
         label: ens3
         mac_address: null
-        slot: 1
         type: physical
+        slot: 1
       - id: i2
         label: ens4
         mac_address: null
-        slot: 2
         type: physical
+        slot: 2
       - id: i3
         label: ens5
         mac_address: null
-        slot: 3
         type: physical
+        slot: 3
       - id: i4
         label: ens6
         mac_address: null
-        slot: 4
         type: physical
+        slot: 4
       - id: i5
         label: ens7
         mac_address: null
-        slot: 5
         type: physical
+        slot: 5
       - id: i6
         label: ens8
         mac_address: null
-        slot: 6
         type: physical
+        slot: 6
       - id: i7
         label: ens9
         mac_address: null
-        slot: 7
         type: physical
+        slot: 7
   - boot_disk_size: null
     configuration:
       - name: default
@@ -335,8 +338,8 @@ nodes:
       - id: i0
         label: port
         mac_address: null
-        slot: 0
         type: physical
+        slot: 0
   - boot_disk_size: 64
     configuration:
       - name: user-data
@@ -375,7 +378,7 @@ nodes:
           - echo 'net.bridge.bridge-nf-call-ip6tables' = 0 >> /etc/sysctl.conf
           - sysctl -p
           - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.14 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
-          
+
           - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
           - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
 
@@ -438,43 +441,43 @@ nodes:
       - id: i0
         label: ens2
         mac_address: null
-        slot: 0
         type: physical
+        slot: 0
       - id: i1
         label: ens3
         mac_address: null
-        slot: 1
         type: physical
+        slot: 1
       - id: i2
         label: ens4
         mac_address: null
-        slot: 2
         type: physical
+        slot: 2
       - id: i3
         label: ens5
         mac_address: null
-        slot: 3
         type: physical
+        slot: 3
       - id: i4
         label: ens6
         mac_address: null
-        slot: 4
         type: physical
+        slot: 4
       - id: i5
         label: ens7
         mac_address: null
-        slot: 5
         type: physical
+        slot: 5
       - id: i6
         label: ens8
         mac_address: null
-        slot: 6
         type: physical
+        slot: 6
       - id: i7
         label: ens9
         mac_address: null
-        slot: 7
         type: physical
+        slot: 7
   - boot_disk_size: null
     configuration:
       - name: default
@@ -496,8 +499,8 @@ nodes:
       - id: i0
         label: port
         mac_address: null
-        slot: 0
         type: physical
+        slot: 0
   - boot_disk_size: null
     configuration: []
     cpu_limit: null
@@ -517,43 +520,204 @@ nodes:
       - id: i0
         label: port0
         mac_address: null
-        slot: 0
         type: physical
+        slot: 0
       - id: i1
         label: port1
         mac_address: null
-        slot: 1
         type: physical
+        slot: 1
       - id: i2
         label: port2
         mac_address: null
-        slot: 2
         type: physical
+        slot: 2
       - id: i3
         label: port3
         mac_address: null
-        slot: 3
         type: physical
+        slot: 3
       - id: i4
         label: port4
         mac_address: null
-        slot: 4
         type: physical
+        slot: 4
       - id: i5
         label: port5
         mac_address: null
-        slot: 5
         type: physical
+        slot: 5
       - id: i6
         label: port6
         mac_address: null
-        slot: 6
         type: physical
+        slot: 6
       - id: i7
         label: port7
         mac_address: null
-        slot: 7
         type: physical
+        slot: 7
+  - boot_disk_size: 64
+    configuration:
+      - name: user-data
+        content: |-
+          #cloud-config
+          password: cisco
+          chpasswd: { expire: False }
+          hostname: xrd
+          ssh_pwauth: True
+          ssh_authorized_keys:
+              - your-ssh-pubkey-line-goes-here
+
+          runcmd:
+          #- sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+          - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+          - add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          - echo "deb [trusted=yes] https://apt.fury.io/netdevops/ /" | tee -a /etc/apt/sources.list.d/netdevops.list
+          - apt-get update -y
+          - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
+          - apt-get install -y containerlab bridge-utils expect
+          - mkdir -p /etc/systemd/system/docker.service.d/
+          - echo '[Service]' > /etc/systemd/system/docker.service.d/http-proxy.conf
+          - echo 'Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "HTTPS_PROXY=http://proxy.esl.cisco.com:80/" "NO_PROXY=.cisco.com"' >> /etc/systemd/system/docker.service.d/http-proxy.conf
+          - systemctl daemon-reload
+          - systemctl start docker
+          - systemctl enable docker
+          - usermod -a -G docker ubuntu
+          - containerlab completion bash > /etc/bash_completion.d/containerlab
+          - apt-get install -y tftpd-hpa
+          - chmod go+w /srv/tftp/
+          - sed -i "s/--secure/--secure --create/" /etc/default/tftpd-hpa
+          - systemctl restart tftpd-hpa.service
+          - echo 'fs.inotify.max_user_instances' = 64000 >> /etc/sysctl.conf
+          - echo 'fs.inotify.max_user_watches' = 64000 >> /etc/sysctl.conf
+          - echo 'net.bridge.bridge-nf-call-iptables' = 0 >> /etc/sysctl.conf
+          - echo 'net.bridge.bridge-nf-call-ip6tables' = 0 >> /etc/sysctl.conf
+          - sysctl -p
+          - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.14 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
+
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+
+          - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
+          - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
+
+          - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
+
+          - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
+          - echo "alias ssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - git clone https://gitlab-sjc.cisco.com/jtac-xr/xrd_lab.git /home/ubuntu/xrd_lab
+          - mkdir /home/ubuntu/radkit
+          - chown -R ubuntu:ubuntu /home/ubuntu
+          - docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
+
+          - ip link set ens3 up
+          - ip addr add 10.253.11.13/24 dev ens3
+
+          write_files:
+          - path: /etc/apt/apt.conf
+            content: |
+              Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
+              Acquire::https::Proxy "http://proxy.esl.cisco.com:80";
+            owner: root:root
+            permissions: '0644'
+          - path: /root/.curlrc
+            content: |
+              proxy = "http://proxy.esl.cisco.com:80"
+              noproxy = "localhost,127.0.0.1,.cisco.com,10.70.69.134,10.70.69.1"
+            owner: root:root
+            permissions: '0644'
+          - path: /root/.gitconfig
+            content: |
+              [http "https://github.com"]
+                  proxy = http://proxy.esl.cisco.com:80
+            owner: root:root
+            permissions: '0644'
+      - name: network-config
+        content: |-
+          #network-config
+          network:
+            version: 2
+            ethernets:
+              ens2:
+                dhcp4: true
+    cpu_limit: 100
+    cpus: 11
+    data_volume: null
+    hide_links: false
+    id: n7
+    image_definition: null
+    label: ubuntu-3
+    node_definition: ubuntu
+    parameters: {}
+    ram: 32768
+    tags: []
+    x: 880
+    y: 360
+    interfaces:
+      - id: i0
+        label: ens2
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i1
+        label: ens3
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i2
+        label: ens4
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i3
+        label: ens5
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i4
+        label: ens6
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i5
+        label: ens7
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i6
+        label: ens8
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i7
+        label: ens9
+        mac_address: null
+        type: physical
+        slot: 7
+  - boot_disk_size: null
+    configuration:
+      - name: default
+        content: NAT
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n8
+    image_definition: null
+    label: ext-conn-1_0_0_0
+    node_definition: external_connector
+    parameters: {}
+    ram: null
+    tags: []
+    x: 1040
+    y: 360
+    interfaces:
+      - id: i0
+        label: port
+        mac_address: null
+        type: physical
+        slot: 0
 links:
   - id: l0
     n1: n0
@@ -561,21 +725,21 @@ links:
     i1: i0
     i2: i0
     conditioning: {}
-    label: ubuntu-0-ens2<->ext-conn-1-port
+    label: ubuntu-1-ens2<->ext-conn-1-port
   - id: l1
     n1: n2
     n2: n3
     i1: i0
     i2: i0
     conditioning: {}
-    label: ubuntu-1-ens2<->ext-conn-1_0-port
+    label: ubuntu-0-ens2<->ext-conn-1_0-port
   - id: l2
     n1: n4
     n2: n5
     i1: i0
     i2: i0
     conditioning: {}
-    label: ubuntu-3-ens2<->ext-conn-1_0_0-port
+    label: ubuntu-2-ens2<->ext-conn-1_0_0-port
   - id: l3
     n1: n2
     n2: n6
@@ -597,6 +761,20 @@ links:
     i2: i2
     conditioning: {}
     label: ubuntu-2-ens3<->unmanaged-switch-0-port2
+  - id: l6
+    n1: n7
+    n2: n6
+    i1: i1
+    i2: i3
+    conditioning: {}
+    label: ubuntu-3-ens3<->unmanaged-switch-0-port3
+  - id: l7
+    n1: n7
+    n2: n8
+    i1: i0
+    i2: i0
+    conditioning: {}
+    label: ubuntu-3-ens2<->ext-conn-1_0_0_0-port
 lab:
   description: ''
   notes: ''
