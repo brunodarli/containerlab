@@ -150,4 +150,4 @@ mpls ldp router-id 2.0.200.7
 lldp
 end
 
-RP/0/0/CPU0:Y-PE4#
+
