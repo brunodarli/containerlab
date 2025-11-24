@@ -18,7 +18,7 @@ topology:
       kind: cisco_iol
       image: vrnetlab/cisco_iol:17.16.1a
       mgmt-ipv4: 172.31.0.254
-      startup-config: ccie-sp-base/Could_Provider.txt
+      startup-config: ccie-sp-base/Clould_Provider.txt
 
     w-pe1:
       kind: xrd
