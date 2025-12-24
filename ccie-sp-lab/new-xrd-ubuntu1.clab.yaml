@@ -22,7 +22,7 @@ topology:
       mgmt-ipv4: 172.31.0.11
       startup-config: ccie-sp-base/Z-SR-PCE1.txt
     
-    z-asbr2:
+    z-sr-pce2:
       kind: xrd
       mgmt-ipv4: 172.31.0.12
       startup-config: ccie-sp-base/Z-SR-PCE2.txt
@@ -104,8 +104,8 @@ topology:
 
     
 
-    - endpoints: [z-asbr2:Gi0-0-0-2, host:z-asbr2_g2_id19]
-    - endpoints: [z-asbr2:Gi0-0-0-3, host:z-asbr2_g3_id1000]
+    - endpoints: [z-sr-pce2:Gi0-0-0-2, host:z-sr-pce2_g2_id19]
+    - endpoints: [z-sr-pce2:Gi0-0-0-3, host:z-sr-pce2_g3_id1000]
 
   
     - endpoints: [z-sr-pce1:Gi0-0-0-2, host:z-sr-pce1_g2_id18]
