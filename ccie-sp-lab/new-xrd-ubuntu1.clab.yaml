@@ -77,11 +77,11 @@ topology:
   links:
     
   # Kayanite AS-300 Links
-    - endpoints: [z-sr-pce1:Gi0-0-0-4, z-asbr2:Gi0-0-0-0] 
+    - endpoints: [z-sr-pce1:Gi0-0-0-4, z-sr-pce2:Gi0-0-0-0] 
     - endpoints: [z-sr-pce1:Gi0-0-0-0, z-p1:Gi0-0-0-4] 
     - endpoints: [z-sr-pce1:Gi0-0-0-1, z-p2:Gi0-0-0-4] 
 
-    - endpoints: [z-p2:Gi0-0-0-5, z-asbr2:Gi0-0-0-1] 
+    - endpoints: [z-p2:Gi0-0-0-5, z-sr-pce2:Gi0-0-0-1] 
     - endpoints: [z-p2:Gi0-0-0-0, z-p1:Gi0-0-0-0]
     - endpoints: [z-p2:Gi0-0-0-1, z-pe2:Gi0-0-0-0] 
     - endpoints: [z-p2:Gi0-0-0-3, z-pe1:Gi0-0-0-4]
