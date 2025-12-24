@@ -420,7 +420,7 @@
     }
   },
   {
-    "name": "z-asbr2",
+    "name": "z-sr-pce2",
     "host": "172.31.0.12",
     "deviceType": "IOS_XR",
     "labels": [],
