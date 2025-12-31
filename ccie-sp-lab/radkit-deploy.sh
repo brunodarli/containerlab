@@ -5,6 +5,36 @@ LOGFILE="radkit-automation-$(date +%Y%m%d-%H%M%S).log"
 echo "Logging to $LOGFILE"
 exec > >(tee -a "$LOGFILE") 2>&1
 
+# Parse command line arguments
+RESPIN=false
+while getopts "r" opt; do
+  case $opt in
+    r) RESPIN=true ;;
+    *) echo "Usage: $0 [-r]" >&2; exit 1 ;;
+  esac
+done
+
+# Respin RadKit container if requested
+if [ "$RESPIN" = true ]; then
+    echo "Respinning RadKit container..."
+    echo "Stopping existing 'radkit' container..."
+    docker stop radkit >/dev/null 2>&1 || true
+    docker rm radkit >/dev/null 2>&1 || true
+    
+    echo "Starting new 'radkit' container..."
+    docker run -d --restart always \
+      -p 8081:8081 \
+      -v /home/ubuntu/radkit:/radkit \
+      -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" \
+      -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 \
+      -e RADKIT_SERVICE_CLI_RUN_FORCE=1 \
+      --name radkit \
+      containers.cisco.com/radkit/radkit-service:1.6.12
+      
+    echo "Waiting 10 seconds for container to initialize..."
+    sleep 10
+fi
+
 # STEP 1 - Get user inputs
 echo "Please enter the RadKit PROD value in format: PROD:xxxx-xxxx-xxxx"
 read -p "RadKit PROD Value: " PROD_VALUE
@@ -151,18 +181,21 @@ fi
 
 echo "Captured ubuntu3 UUID: $UBUNTU3_UUID"
 
-#STEP 6 - Update local radkit-devices.json
+# STEP 6 - Update local radkit-devices.json
 echo "Updating jumphostUuid values in local radkit-devices.json..."
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JSON_FILE="$SCRIPT_DIR/radkit-devices.json"
 
 : "${UBUNTU0_UUID:?UBUNTU0_UUID is required}"
 : "${UBUNTU1_UUID:?UBUNTU1_UUID is required}"
 : "${UBUNTU2_UUID:?UBUNTU2_UUID is required}"
 : "${UBUNTU3_UUID:?UBUNTU3_UUID is required}"
 
-[ -f radkit-devices.json ] || { echo "radkit-devices.json not found"; exit 1; }
+[ -f "$JSON_FILE" ] || { echo "$JSON_FILE not found"; exit 1; }
 
 tmp=$(mktemp)
-cp radkit-devices.json "radkit-devices.json.bak.$(date +%s)"  # backup
+cp "$JSON_FILE" "$JSON_FILE.bak.$(date +%s)"  # backup
 
 jq --arg u0 "$UBUNTU0_UUID" \
    --arg u1 "$UBUNTU1_UUID" \
@@ -174,20 +207,20 @@ jq --arg u0 "$UBUNTU0_UUID" \
        elif . == "w" then $u2
        elif . == "y" then $u3
        else . end)' \
-  radkit-devices.json > "$tmp" && mv "$tmp" radkit-devices.json
+  "$JSON_FILE" > "$tmp" && mv "$tmp" "$JSON_FILE"
 
 echo "Updated radkit-devices.json successfully."
 sleep 1
 
 # step 7  Copy radkit-devices.json into container
 echo "Copying radkit-devices.json into radkit container..."
-docker cp radkit-devices.json radkit:/
+docker cp "$JSON_FILE" radkit:/radkit-devices.json
 sleep 1
 
 # STEP 8 - Bulk import radkit-devices.json
 echo "Running the bulk import for the radkit-devices..."
 
-run_with_password "radkit-control device bulk-create --json-input radkit-devices.json"
+run_with_password "radkit-control device bulk-create --json-input /radkit-devices.json"
 
 echo "Bulk import finished."
 
