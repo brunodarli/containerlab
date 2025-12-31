@@ -18,9 +18,6 @@ HOST_MAP = {
 def setup_vxlan(topology_file):
     print(f"Processing topology file: {topology_file}")
     
-    # 20 second delay as requested
-    print("Waiting 20 seconds for lab stabilization...")
-    time.sleep(20)
 
     try:
         with open(topology_file, 'r') as f:
