@@ -25,7 +25,7 @@ annotations:
     z_index: 1
 smart_annotations: []
 nodes:
-  - boot_disk_size: 64
+  - boot_disk_size: null
     configuration:
       - name: user-data
         content: |-
@@ -103,6 +103,17 @@ nodes:
                   proxy = http://proxy.esl.cisco.com:80
             owner: root:root
             permissions: '0644'
+      - name: network-config
+        content: |-
+          #network-config
+          network:
+            version: 2
+            ethernets:
+              ens2:
+                dhcp4: true
+              ens3:
+                addresses:
+                  - 10.253.11.11/24
     cpu_limit: 100
     cpus: 11
     data_volume: 0
@@ -180,7 +191,7 @@ nodes:
         mac_address: null
         type: physical
         slot: 0
-  - boot_disk_size: 64
+  - boot_disk_size: null
     configuration:
       - name: user-data
         content: |-
@@ -263,6 +274,9 @@ nodes:
             ethernets:
               ens2:
                 dhcp4: true
+              ens3:
+                addresses:
+                  - 10.253.11.10/24
     cpu_limit: 100
     cpus: 11
     data_volume: null
@@ -340,7 +354,7 @@ nodes:
         mac_address: null
         type: physical
         slot: 0
-  - boot_disk_size: 64
+  - boot_disk_size: null
     configuration:
       - name: user-data
         content: |-
@@ -416,7 +430,7 @@ nodes:
                   proxy = http://proxy.esl.cisco.com:80
             owner: root:root
             permissions: '0644'
-      - name: network-config
+            - name: network-config
         content: |-
           #network-config
           network:
@@ -424,6 +438,9 @@ nodes:
             ethernets:
               ens2:
                 dhcp4: true
+              ens3:
+                addresses:
+                  - 10.253.11.12/24
     cpu_limit: 100
     cpus: 11
     data_volume: null
@@ -557,7 +574,7 @@ nodes:
         mac_address: null
         type: physical
         slot: 7
-  - boot_disk_size: 64
+  - boot_disk_size: null
     configuration:
       - name: user-data
         content: |-
@@ -641,6 +658,9 @@ nodes:
             ethernets:
               ens2:
                 dhcp4: true
+              ens3:
+                addresses:
+                  - 10.253.11.13/24
     cpu_limit: 100
     cpus: 11
     data_volume: null
