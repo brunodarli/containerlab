@@ -93,7 +93,7 @@ topology:
 
     - endpoints: [w-pe1:Gi0-0-0-4, Clould_Provider:e0/2]
 
-    - endpoints: [host:cloudProvider_g1_id1000, Clould_Provider:e0/1]
+    - endpoints: [host:ubuntu-1_id17, Clould_Provider:e0/1]
 
     
 

@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new-xrd-ubuntu0.clab.yaml</title>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background-color: #f4f4f4; }
+        .mermaid { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { margin-bottom: 20px; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>new-xrd-ubuntu0.clab.yaml</h1>
+    <div class="mermaid">
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+flowchart TD
+    x_p1("x-p1"):::router
+    x_p2("x-p2"):::router
+    x_p3("x-p3"):::router
+    x_p4("x-p4"):::router
+    x_asbr2("x-asbr2"):::router
+    x_asbr1("x-asbr1"):::router
+    x_pe5("x-pe5"):::router
+    x_pe6("x-pe6"):::router
+    x_rr1("x-rr1"):::router
+    x_rr2("x-rr2"):::router
+    x_ce1("x-ce1"):::router
+    x_ce2("x-ce2"):::router
+    x_ce4("x-ce4"):::router
+    x_ce5("x-ce5"):::router
+    x_rr1 ====|e0/1 --- Gi0-0-0-3| x_p1
+    x_rr2 ====|e0/1 --- Gi0-0-0-4| x_p2
+    x_p1 ====|Gi0-0-0-0 --- Gi0-0-0-0| x_p2
+    x_p1 ====|Gi0-0-0-1 --- Gi0-0-0-1| x_p3
+    x_p1 ====|Gi0-0-0-2 --- Gi0-0-0-0| x_pe5
+    x_p1 ====|Gi0-0-0-4 --- Gi0-0-0-4| x_p4
+    x_p2 ====|Gi0-0-0-2 --- Gi0-0-0-0| x_asbr1
+    x_p2 ====|Gi0-0-0-1 --- Gi0-0-0-2| x_p4
+    x_p2 ====|Gi0-0-0-5 --- Gi0-0-0-4| x_p3
+    x_p4 ====|Gi0-0-0-1 --- Gi0-0-0-0| x_asbr2
+    x_p4 ====|Gi0-0-0-0 --- Gi0-0-0-0| x_p3
+    x_p3 ====|Gi0-0-0-2 --- Gi0-0-0-0| x_pe6
+    x_pe5 ====|Gi0-0-0-1 --- Gi0-0-0-1| x_pe6
+    x_asbr2 ====|Gi0-0-0-2 --- Gi0-0-0-1| x_asbr1
+    x_ce1 ====|e0/1 --- Gi0-0-0-2| x_pe5
+    x_ce1 ====|e0/2 --- e0/2| x_ce2
+    x_ce1 ====|e0/3 --- Gi0-0-0-4| x_pe6
+    x_ce2 ====|e0/1 --- Gi0-0-0-2| x_pe6
+    x_ce2 ====|e0/3 --- Gi0-0-0-4| x_pe5
+    x_ce4 ====|e0/2 --- Gi0-0-0-3| x_asbr1
+    x_ce4 ====|e0/1 --- e0/1| x_ce5
+    x_ce5 ====|e0/2 --- Gi0-0-0-4| x_asbr2
+    x_asbr1 ====|Gi0-0-0-4 --- x-asbr1_g4_id18| host
+    x_asbr2 ====|Gi0-0-0-3 --- x-asbr2_g3_id19| host
+    host ====|x-asbr1_g2_id1011 --- Gi0-0-0-2| x_asbr1
+    host ====|x-asbr2_g1_id1012 --- Gi0-0-0-1| x_asbr2
+    classDef router fill:#f9f,stroke:#333,stroke-width:2px;
+    </div>
+</body>
+</html>

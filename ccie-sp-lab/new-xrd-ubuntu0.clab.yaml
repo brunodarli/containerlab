@@ -118,12 +118,12 @@ topology:
     - endpoints: [x-ce5:e0/2, x-asbr2:Gi0-0-0-4]
 
     # REMOTE LINKS
-    # to .11
     
-    - endpoints: [x-asbr1:Gi0-0-0-4, host:x-asbr1_g4_id18]
-    - endpoints: [x-asbr2:Gi0-0-0-3, host:x-asbr2_g3_id19]
-    - endpoints: [host:x-asbr1_g2_id1011, x-asbr1:Gi0-0-0-2]
-    - endpoints: [host:x-asbr2_g1_id1012, x-asbr2:Gi0-0-0-1]
+    - endpoints: [x-asbr1:Gi0-0-0-4, host:ubuntu-1_id18]
+    - endpoints: [x-asbr2:Gi0-0-0-3, host:ubuntu-1_id19]
+
+    - endpoints: [x-asbr1:Gi0-0-0-2, host:ubuntu-3_id1011]
+    - endpoints: [x-asbr2:Gi0-0-0-1, host:ubuntu-3_id1012]
 
   
    

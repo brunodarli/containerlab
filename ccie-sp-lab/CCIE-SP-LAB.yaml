@@ -32,7 +32,7 @@ nodes:
           #cloud-config
           password: cisco
           chpasswd: { expire: False }
-          hostname: xrd
+          hostname: ubuntu-1
           ssh_pwauth: True
           ssh_authorized_keys:
               - your-ssh-pubkey-line-goes-here
@@ -187,7 +187,7 @@ nodes:
           #cloud-config
           password: cisco
           chpasswd: { expire: False }
-          hostname: xrd
+          hostname: ubuntu-0
           ssh_pwauth: True
           ssh_authorized_keys:
               - your-ssh-pubkey-line-goes-here
@@ -347,7 +347,7 @@ nodes:
           #cloud-config
           password: cisco
           chpasswd: { expire: False }
-          hostname: xrd
+          hostname: ubuntu-2
           ssh_pwauth: True
           ssh_authorized_keys:
               - your-ssh-pubkey-line-goes-here
@@ -564,7 +564,7 @@ nodes:
           #cloud-config
           password: cisco
           chpasswd: { expire: False }
-          hostname: xrd
+          hostname: ubuntu-3
           ssh_pwauth: True
           ssh_authorized_keys:
               - your-ssh-pubkey-line-goes-here

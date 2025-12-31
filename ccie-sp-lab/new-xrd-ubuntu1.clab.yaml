@@ -104,12 +104,12 @@ topology:
 
     
 
-    - endpoints: [z-sr-pce2:Gi0-0-0-2, host:z-sr-pce2_g2_id19]
-    - endpoints: [z-sr-pce2:Gi0-0-0-3, host:z-sr-pce2_g3_id1000]
+    - endpoints: [z-sr-pce2:Gi0-0-0-2, host:ubuntu-0_id19]
+    - endpoints: [z-sr-pce2:Gi0-0-0-3, host:ubuntu-2_id1000]
 
   
-    - endpoints: [z-sr-pce1:Gi0-0-0-2, host:z-sr-pce1_g2_id18]
-    - endpoints: [z-sr-pce1:Gi0-0-0-3, host:z-sr-pce1_g3_id17]
+    - endpoints: [z-sr-pce1:Gi0-0-0-2, host:ubuntu-0_id18]
+    - endpoints: [z-sr-pce1:Gi0-0-0-3, host:ubuntu-3_id17]
 
 
     # VXLAN Commands to be run after lab is deployed

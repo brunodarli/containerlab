@@ -128,8 +128,11 @@ topology:
     - endpoints: [y-ce3:e0/1, y-ce4:e0/1]
 
     - endpoints: [y-asbr1:Gi0-0-0-1, y-asbr2:Gi0-0-0-1]
-    - endpoints: [y-asbr1:Gi0-0-0-2, host:y-asbr1_g2_x-asbr1]
-    - endpoints: [y-asbr2:Gi0-0-0-2, host:y-asbr2_g2_x-asbr2]
-    - endpoints: [y-asbr1:Gi0-0-0-3, host:y-asbr1_g3_z-sr-pce1]
+
+    # Remote links:
+
+    - endpoints: [y-asbr1:Gi0-0-0-2, host:ubuntu-0_id1011]
+    - endpoints: [y-asbr2:Gi0-0-0-2, host:ubuntu-0_id1012]
+    - endpoints: [y-asbr1:Gi0-0-0-3, host:ubuntu-1_id17]
 
 
