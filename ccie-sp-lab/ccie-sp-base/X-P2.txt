@@ -47,13 +47,10 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
-
 line console exec-timeout 0 0
 interface Loopback0
 interface Loopback0 ipv4 address 1.0.100.4 255.255.255.255
 interface Loopback0 ipv6 address 2620:fc7:1000::4/128
-
 interface GigabitEthernet0/0/0/0 description *** to X-P1 GE0 ***
 interface GigabitEthernet0/0/0/0 ipv4 address 1.100.7.2 255.255.255.0
 interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:1007::2/64
@@ -72,7 +69,5 @@ interface GigabitEthernet0/0/0/4 ipv6 address 2620:fc7:1012::2/64
 interface GigabitEthernet0/0/0/5 description *** to X-P3 GE4 ***
 interface GigabitEthernet0/0/0/5 ipv4 address 1.100.32.2 255.255.255.0
 interface GigabitEthernet0/0/0/5 ipv6 address 2620:fc7:1032::2/64
-
-
 lldp
 end

@@ -47,392 +47,193 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
-
-group CCIE-ISIS
-
- router isis '.*'
-
-  is-type level-2-only
-
-  log adjacency changes
-
-  address-family ipv4 unicast
-
-   metric-style wide
-
-  !
-
-  address-family ipv6 unicast
-
-   metric-style wide
-
-  !
-
-  interface 'Loopback.*'
-
-   passive
-
-   address-family ipv4 unicast
-
-   !
-
-   address-family ipv6 unicast
-
-   !
-
-  !
-
-  interface 'Bundle-Ether.*'
-
-   point-to-point
-
-   address-family ipv4 unicast
-
-    metric 200 level 2
-
-   !
-
-   address-family ipv6 unicast
-
-    metric 400 level 2
-
-   !
-
-  !
-
-  interface 'GigabitEthernet.*'
-
-   point-to-point
-
-   address-family ipv4 unicast
-
-    metric 200 level 2
-
-   !
-
-   address-family ipv6 unicast
-
-    metric 400 level 2
-
-   !
-
-  !
-
- !
-
-end-group
-
-
-
-!
-
-vrf BLUE
-
- address-family ipv4 unicast
-
-  import route-target
-
-   300:3
-
-  !
-
-  export route-target
-
-   300:3
-
-  !
-
- !
-
- address-family ipv6 unicast
-
-  import route-target
-
-   300:3
-
-  !
-
-  export route-target
-
-   300:3
-
-  !
-
- !
-
-!
-
-line console
-
- exec-timeout 0 0
-
-!
-
-call-home
-
- service active
-
- contact smart-licensing
-
- profile CiscoTAC-1
-
-  active
-
-  destination transport-method email disable
-
-  destination transport-method http
-
- !
-
-!
-
-interface Loopback0
-
- ipv4 address 3.0.3.4 255.255.255.255
-
- ipv6 address 2620:fc7:3000::4/128
-
-!
-
-interface Loopback99
-
- ipv4 address 3.0.3.99 255.255.255.255
-
- ipv6 address 2620:fc7:3000::99/128
-
-!
-
-
-
-interface GigabitEthernet0/0/0/0
-
- description *** to Z-P2 GE1 ***
-
- ipv4 address 3.30.3.1 255.255.255.0
-
- ipv6 address 2620:fc7:3303::1/64
-
-!
-
-interface GigabitEthernet0/0/0/1
-
- description *** to Z-PE1 GE1 ***
-
- ipv4 address 3.30.4.2 255.255.255.0
-
- ipv6 address 2620:fc7:3307::3/64
-
-!
-
-interface GigabitEthernet0/0/0/2
-
- description *** to Z-PE4 GE1 ***
-
- ipv4 address 3.30.8.2 255.255.255.0
-
- ipv6 address 2620:fc7:3308::2/64
-
-!
-
-interface GigabitEthernet0/0/0/3
-
- description *** to Z-CE3 GE2 ***
-
-!
-
-interface GigabitEthernet0/0/0/3.100
-
- vrf BLUE
-
- ipv4 address 172.3.34.2 255.255.255.0
-
- ipv6 address 2620:fc7:172:3340::2/64
-
- encapsulation dot1q 100
-
-!
-
-interface GigabitEthernet0/0/0/4
-
- description *** to Z-P1 GE3 ***
-
- ipv4 address 3.30.11.2 255.255.255.0
-
- ipv6 address 2620:fc7:3311::2/64
-
-!
-
 route-policy PASS
-
   pass
-
 end-policy
-
-!
-
-router static
-
- address-family ipv4 unicast
-
-  0.0.0.0/0 10.5.105.1
-
- !
-
-!
-
-router isis CORE
-
- apply-group CCIE-ISIS
-
- net 49.1001.0003.0000.0003.0004.00
-
- address-family ipv4 unicast
-
- !
-
- interface Loopback0
-
- !
-
- interface Loopback99
-
- !
-
- interface GigabitEthernet0/0/0/0
-
- !
-
- interface GigabitEthernet0/0/0/1
-
- !
-
- interface GigabitEthernet0/0/0/2
-
- !
-
-!
-
-router bgp 300
-
- bgp router-id 3.0.3.4
-
- address-family ipv4 unicast
-
- !
-
- address-family vpnv4 unicast
-
- !
-
- address-family ipv6 unicast
-
- !
-
- address-family vpnv6 unicast
-
- !
-
- neighbor-group IBGP
-
-  remote-as 300
-
-  update-source Loopback0
-
+group CCIE-ISIS
+ router isis '.*'
+  is-type level-2-only
+  log adjacency changes
   address-family ipv4 unicast
-
+   metric-style wide
   !
-
-  address-family vpnv4 unicast
-
-  !
-
   address-family ipv6 unicast
-
+   metric-style wide
   !
-
-  address-family vpnv6 unicast
-
-  !
-
- !
-
- neighbor 3.0.3.3
-
-  use neighbor-group IBGP
-
- !
-
- neighbor 3.0.3.5
-
-  use neighbor-group IBGP
-
- !
-
- neighbor 3.0.3.6
-
-  use neighbor-group IBGP
-
- !
-
- neighbor 3.0.3.10
-
-  use neighbor-group IBGP
-
- !
-
- vrf BLUE
-
-  rd 300:1
-
-  address-family ipv4 unicast
-
-  !
-
-  address-family ipv6 unicast
-
-  !
-
-  neighbor 172.3.34.3
-
-   remote-as 3000
-
+  interface 'Loopback.*'
+   passive
    address-family ipv4 unicast
-
-    route-policy PASS in
-
-    route-policy PASS out
-
-    as-override
-
    !
-
-  !
-
-  neighbor 2620:fc7:172:3340::3
-
-   remote-as 3000
-
    address-family ipv6 unicast
-
-    route-policy PASS in
-
-    route-policy PASS out
-
-    as-override
-
    !
-
   !
-
+  interface 'Bundle-Ether.*'
+   point-to-point
+   address-family ipv4 unicast
+    metric 200 level 2
+   !
+   address-family ipv6 unicast
+    metric 400 level 2
+   !
+  !
+  interface 'GigabitEthernet.*'
+   point-to-point
+   address-family ipv4 unicast
+    metric 200 level 2
+   !
+   address-family ipv6 unicast
+    metric 400 level 2
+   !
+  !
  !
-
+end-group
 !
-
+vrf BLUE
+ address-family ipv4 unicast
+  import route-target
+   300:3
+  !
+  export route-target
+   300:3
+  !
+ !
+ address-family ipv6 unicast
+  import route-target
+   300:3
+  !
+  export route-target
+   300:3
+  !
+ !
+!
+line console
+ exec-timeout 0 0
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+interface Loopback0
+ ipv4 address 3.0.3.4 255.255.255.255
+ ipv6 address 2620:fc7:3000::4/128
+!
+interface Loopback99
+ ipv4 address 3.0.3.99 255.255.255.255
+ ipv6 address 2620:fc7:3000::99/128
+!
+interface GigabitEthernet0/0/0/0
+ description *** to Z-P2 GE1 ***
+ ipv4 address 3.30.3.1 255.255.255.0
+ ipv6 address 2620:fc7:3303::1/64
+!
+interface GigabitEthernet0/0/0/1
+ description *** to Z-PE1 GE1 ***
+ ipv4 address 3.30.4.2 255.255.255.0
+ ipv6 address 2620:fc7:3307::3/64
+!
+interface GigabitEthernet0/0/0/2
+ description *** to Z-PE4 GE1 ***
+ ipv4 address 3.30.8.2 255.255.255.0
+ ipv6 address 2620:fc7:3308::2/64
+!
+interface GigabitEthernet0/0/0/3
+ description *** to Z-CE3 GE2 ***
+!
+interface GigabitEthernet0/0/0/3.100
+ vrf BLUE
+ ipv4 address 172.3.34.2 255.255.255.0
+ ipv6 address 2620:fc7:172:3340::2/64
+ encapsulation dot1q 100
+!
+interface GigabitEthernet0/0/0/4
+ description *** to Z-P1 GE3 ***
+ ipv4 address 3.30.11.2 255.255.255.0
+ ipv6 address 2620:fc7:3311::2/64
+!
+route-policy PASS
+  pass
+end-policy
+!
+router isis CORE
+ apply-group CCIE-ISIS
+ net 49.1001.0003.0000.0003.0004.00
+ address-family ipv4 unicast
+ !
+ interface Loopback0
+ !
+ interface Loopback99
+ !
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+!
+router bgp 300
+ bgp router-id 3.0.3.4
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ address-family ipv6 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ neighbor-group IBGP
+  remote-as 300
+  update-source Loopback0
+  address-family ipv4 unicast
+  !
+  address-family vpnv4 unicast
+  !
+  address-family ipv6 unicast
+  !
+  address-family vpnv6 unicast
+  !
+ !
+ neighbor 3.0.3.3
+  use neighbor-group IBGP
+ !
+ neighbor 3.0.3.5
+  use neighbor-group IBGP
+ !
+ neighbor 3.0.3.6
+  use neighbor-group IBGP
+ !
+ neighbor 3.0.3.10
+  use neighbor-group IBGP
+ !
+ vrf BLUE
+  rd 300:1
+  address-family ipv4 unicast
+  !
+  address-family ipv6 unicast
+  !
+  neighbor 172.3.34.3
+   remote-as 3000
+   address-family ipv4 unicast
+    route-policy PASS in
+    route-policy PASS out
+    as-override
+   !
+  !
+  neighbor 2620:fc7:172:3340::3
+   remote-as 3000
+   address-family ipv6 unicast
+    route-policy PASS in
+    route-policy PASS out
+    as-override
+   !
+  !
+ !
+!
 lldp
-
 !
-
 ssh client v2
-
 end

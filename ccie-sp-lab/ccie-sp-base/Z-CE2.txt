@@ -47,17 +47,14 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
 line console exec-timeout 0 0
 interface Loopback0
 interface Loopback0 ipv4 address 172.0.3.2 255.255.255.255
 interface Loopback0 ipv6 address 2620:fc7:172:3000::2/128
-
 interface GigabitEthernet0/0/0/0 description *** to Z-PE4 GE2 ***
 interface GigabitEthernet0/0/0/0 ipv4 address 172.3.32.2 255.255.255.0
 interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:172:3320::2/64
 interface GigabitEthernet0/0/0/1 shutdown
-
 interface preconfigure GigabitEthernet0/0/0/2
 interface preconfigure GigabitEthernet0/0/0/2 shutdown
 !
@@ -84,5 +81,4 @@ router bgp 1000 neighbor 2620:fc7:172:3320::4 address-family ipv6 unicast route-
 router bgp 1000 neighbor 2620:fc7:172:3320::4 address-family ipv6 unicast route-policy PASS out
 lldp
 end
-
 RP/0/0/CPU0:Z-CE2#

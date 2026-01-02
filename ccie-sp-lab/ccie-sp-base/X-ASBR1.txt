@@ -20,12 +20,9 @@ vrf {{ .Env.CLAB_MGMT_VRF }}
  !
 {{- end}}
 !
-
-
 interface Loopback0
 interface Loopback0 ipv4 address 1.0.100.1 255.255.255.255
 interface Loopback0 ipv6 address 2620:fc7:1000::10/128
-
 interface GigabitEthernet0/0/0/0 description *** to X-P2 GE2 ***
 interface GigabitEthernet0/0/0/0 ipv4 address 1.100.1.1 255.255.255.0
 interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:1001::1/64
@@ -43,11 +40,7 @@ interface GigabitEthernet0/0/0/4 ipv4 address 1.31.100.1 255.255.255.0
 interface GigabitEthernet0/0/0/4 ipv6 address 2620:fc7:1311:1000::1/64
 interface GigabitEthernet0/0/0/5 shutdown
 interface GigabitEthernet0/0/0/6 shutdown
-
-
 lldp
-
-
 line default
   transport input ssh
 !
@@ -75,8 +68,4 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
-
 end
-
-

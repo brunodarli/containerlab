@@ -51,14 +51,12 @@ line vty 0 4
  transport input ssh
 !
 {{ .PartialCfg }}
-
 !
 !
 !
 service timestamps debug datetime msec
 service timestamps log datetime msec
 !
-
 !
 boot-start-marker
 boot-end-marker
@@ -140,41 +138,27 @@ interface Loopback0
  ip address 172.0.3.3 255.255.255.255
  ipv6 address 2620:FC7:172:3000::3/128
 !
-interface GigabitEthernet1
+interface eth0/1
  description *** to Z-PE1 GE3 ***
  no ip address
- negotiation auto
  no mop enabled
  no mop sysid
 !
-interface GigabitEthernet1.100
+interface eth0/1.100
  encapsulation dot1Q 100
  ip address 172.3.33.3 255.255.255.0
  ipv6 address 2620:FC7:172:3330::3/64
 !
-interface GigabitEthernet2
+interface eth0/2
  description *** to Z-PE2 GE3 ***
  no ip address
- negotiation auto
  no mop enabled
  no mop sysid
 !
-interface GigabitEthernet2.100
+interface eth0/2.100
  encapsulation dot1Q 100
  ip address 172.3.34.3 255.255.255.0
  ipv6 address 2620:FC7:172:3340::3/64
-!
-interface GigabitEthernet3
- no ip address
- negotiation auto
- no mop enabled
- no mop sysid
-!
-interface GigabitEthernet4
- no ip address
- negotiation auto
- no mop enabled
- no mop sysid
 !
 router bgp 3000
  bgp log-neighbor-changes
@@ -221,7 +205,6 @@ line con 0
  privilege level 15
  password cisco
  logging synchronous
-
 line vty 0 4
  exec-timeout 0 0
  login local

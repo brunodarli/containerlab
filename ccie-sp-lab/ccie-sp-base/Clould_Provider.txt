@@ -1,5 +1,3 @@
-
-
 username clab
  group root-lr
  group cisco-support
@@ -46,7 +44,6 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
 hostname BMR-Cloud
 group CCIE-ISIS
  router isis '.*'
@@ -73,7 +70,6 @@ group CCIE-ISIS
  router isis '.*'  interface 'GigabitEthernet.*'  address-family ipv6 unicast
  router isis '.*'  interface 'GigabitEthernet.*'  address-family ipv6 unicast  metric 400 level 2
 end-group
-
 interface Loopback0
 interface Loopback0 ipv4 address 5.0.100.1 255.255.255.255
 interface Loopback0 ipv6 address 2620:fc7:5000::1/128
@@ -82,8 +78,6 @@ interface GigabitEthernet0/0/0/0 ipv4 address 10.30.3.1 255.255.255.0
 interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:3031::1/64
 interface GigabitEthernet0/0/0/1 ipv4 address 10.40.4.1 255.255.255.0
 interface GigabitEthernet0/0/0/1 ipv6 address 2620:fc7:4041::1/64
-
-
 !
 route-policy PASS
   pass

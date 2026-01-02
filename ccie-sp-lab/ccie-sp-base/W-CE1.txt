@@ -47,114 +47,56 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
-
 line console
-
  exec-timeout 0 0
-
-
-
-
-
 interface Loopback0
-
  ipv4 address 172.0.4.1 255.255.255.255
-
  ipv6 address 2620:fc7:172:4000::1/128
-
 !
-
-
-
 interface GigabitEthernet0/0/0/0
-
  no shutdown
-
 !
-
 interface GigabitEthernet0/0/0/1
-
  description *** to W-PE1 GE3 ***
-
  ipv4 address 172.4.43.2 255.255.255.0
-
  ipv6 address 2620:fc7:172:4430::2/64
 no shutdown
-
 !
-
 interface GigabitEthernet0/0/0/1.200
-
  ipv4 address 14.1.1.1 255.255.255.248
-
  ipv6 address 2620:fc7:14::1/64
-
  encapsulation dot1q 200
 no shutdown
-
 !
-
 interface GigabitEthernet0/0/0/2
-
  description *** to W-PE2 GE5 ***
-
  ipv4 address 172.4.45.1 255.255.255.0
-
  ipv6 address 2620:fc7:172:4450::1/64
 no shutdown
-
 !
-
 route-policy PASS
-
   pass
-
 end-policy
-
 !
-
-
 router bgp 4000
-
  bgp log neighbor changes detail
-
  address-family ipv4 unicast
-
   network 172.0.4.1/32
-
   allocate-label all
-
  !
-
  neighbor 172.4.43.1
-
   remote-as 400
-
   address-family ipv4 unicast
-
    route-policy PASS in
-
    route-policy PASS out
-
    as-override
-
   !
-
  !
-
 !
-
 mpls oam
-
 !
-
 lldp
-
 !
-
 ssh client v2
-
 ssh server v2
-
 end

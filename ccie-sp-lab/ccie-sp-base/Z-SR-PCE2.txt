@@ -47,9 +47,6 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
-
-
 hostname Z-SR-PCE2
 logging console debugging
 logging monitor debugging
@@ -58,7 +55,6 @@ username cisco
  group cisco-support
  secret 5 $1$RC8d$2eeX3Aox1YZo5UAYUyfRV0
 !
-
 line console
  exec-timeout 1440 0
  width 0
@@ -68,7 +64,6 @@ line default
  width 0
 !
 vty-pool default 0 99 line-template default
-
 group CCIE-ISIS
  router isis '.*'
   is-type level-2-only
@@ -147,7 +142,6 @@ interface Loopback1002
  ipv4 address 203.0.113.11 255.255.255.255
  ipv6 address 2001:db8::203:0:113:11/128
 !
-
 interface GigabitEthernet0/0/0/0
  no shutdown
  ipv4 address 3.30.14.2 255.255.255.0

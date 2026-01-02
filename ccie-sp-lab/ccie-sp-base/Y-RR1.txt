@@ -51,14 +51,12 @@ line vty 0 4
  transport input ssh
 !
 {{ .PartialCfg }}
-
 !
 !
 !
 service timestamps debug datetime msec
 service timestamps log datetime msec
 !
-
 !
 boot-start-marker
 boot-end-marker
@@ -160,7 +158,6 @@ interface eth0/3
  no mop enabled
  no mop sysid
 !
-
 router ospf 1
  router-id 2.0.200.9
  network 2.0.200.9 0.0.0.0 area 0
@@ -234,7 +231,6 @@ line con 0
  privilege level 15
  password cisco
  logging synchronous
-
 line vty 0 4
  exec-timeout 0 0
  login local

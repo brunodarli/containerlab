@@ -47,8 +47,6 @@ ssh server v2
 ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 {{- end}}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-
-
 group CCIE-OSPF
  router ospf '.*'  address-family ipv4 unicast
  router ospf '.*'  area '.*'
@@ -62,7 +60,6 @@ line console exec-timeout 0 0
 interface Loopback0
 interface Loopback0 ipv4 address 2.0.200.1 255.255.255.255
 interface Loopback0 ipv6 address 2620:fc7:2000::1/128
-
 interface GigabitEthernet0/0/0/0 description *** to Y-P1 GE0 ***
 interface GigabitEthernet0/0/0/0 ipv4 address 2.200.1.1 255.255.255.0
 interface GigabitEthernet0/0/0/0 ipv6 address 2620:fc7:2001::1/64
@@ -76,7 +73,6 @@ interface GigabitEthernet0/0/0/3 description *** to Z-ASBR/SR-PCE GE3 ***
 interface GigabitEthernet0/0/0/3 ipv4 address 1.31.200.1 255.255.255.0
 interface GigabitEthernet0/0/0/3 ipv6 address 2620:fc7:1311:2000::1/64
 interface GigabitEthernet0/0/0/4 shutdown
-
 !
 route-policy PASS
   pass
@@ -112,5 +108,4 @@ router bgp 200 neighbor 2.0.200.10 use neighbor-group IBGP-VPN
 mpls ldp
 lldp
 end
-
 RP/0/0/CPU0:Y-ASBR1#

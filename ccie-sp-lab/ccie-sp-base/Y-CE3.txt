@@ -51,14 +51,12 @@ line vty 0 4
  transport input ssh
 !
 {{ .PartialCfg }}
-
 !
 !
 !
 service timestamps debug datetime msec
 service timestamps log datetime msec
 !
-
 !
 boot-start-marker
 boot-end-marker
@@ -141,33 +139,19 @@ interface Loopback0
  ipv6 address 2620:FC7:172:2000::3/128
  ipv6 ospf 1 area 0
 !
-interface GigabitEthernet1
+interface eth0/1
  description *** to Y-CE4 GE1 ***
  ip address 10.200.44.3 255.255.255.0
- negotiation auto
  ipv6 address 2620:FC7:1020:4400::3/64
  ipv6 ospf 1 area 0
  no mop enabled
  no mop sysid
 !
-interface GigabitEthernet2
+interface eth0/2
  description *** to Y-PE3 GE5 ***
  ip address 172.200.30.30 255.255.255.0
- negotiation auto
  ipv6 address 2620:FC7:172:2030::30/64
  ipv6 ospf 1 area 0
- no mop enabled
- no mop sysid
-!
-interface GigabitEthernet3
- no ip address
- negotiation auto
- no mop enabled
- no mop sysid
-!
-interface GigabitEthernet4
- no ip address
- negotiation auto
  no mop enabled
  no mop sysid
 !
@@ -207,7 +191,6 @@ line con 0
  privilege level 15
  password cisco
  logging synchronous
-
 line vty 0 4
  exec-timeout 0 0
  login local

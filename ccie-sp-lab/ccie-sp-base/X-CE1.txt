@@ -187,7 +187,6 @@ line con 0
  privilege level 15
  password cisco
  logging synchronous
-
 line vty 0 4
  exec-timeout 0 0
  login local
