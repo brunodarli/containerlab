@@ -49,6 +49,34 @@ ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
 ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
 
 
+vrf GREEN
+ address-family ipv4 unicast
+  import route-target
+   100:1
+   200:1
+   300:1
+  !
+  export route-target
+   300:1
+  !
+ !
+ address-family ipv6 unicast
+  import route-target
+   100:1
+   200:1
+   300:1
+  !
+  export route-target
+   300:1
+  !
+ !
+!
+
+route-policy PASS
+  pass
+end-policy
+!
+
 group CCIE-ISIS
 
  router isis '.*'
