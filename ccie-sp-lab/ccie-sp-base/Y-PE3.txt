@@ -1,52 +1,4 @@
-!
-hostname {{ .ShortName }}
-!
-username clab
- group root-lr
- group cisco-support
- secret clab@123
-!
-grpc
-{{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
- port 9339
- no-tls
- address-family dual
-!
-{{- if .Env.CLAB_MGMT_VRF }}
-vrf {{ .Env.CLAB_MGMT_VRF }}
- address-family ipv4 unicast
- !
- address-family ipv6 unicast
- !
-{{- end}}
-!
-line default
-  transport input ssh
-!
-netconf-yang agent
- ssh
-!
-interface MgmtEth0/RP0/CPU0/0
-{{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-!
-router static
-{{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
-{{- if .MgmtIPv4Gateway }}
- address-family ipv4 unicast
-  0.0.0.0/0 MgmtEth0/RP0/CPU0/0 {{ .MgmtIPv4Gateway }}
-  !
-{{- end}}
-{{- if .MgmtIPv6Gateway }}
- address-family ipv6 unicast
-  ::/0 MgmtEth0/RP0/CPU0/0 {{ .MgmtIPv6Gateway }}
-  !
-{{- end}}
-!
-ssh server v2
-{{- if .Env.CLAB_MGMT_VRF }}
-ssh server vrf {{ .Env.CLAB_MGMT_VRF }}
-{{- end}}
-ssh server netconf {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
+
 group CCIE-OSPF
  router ospf '.*'
   address-family ipv4 unicast
@@ -85,21 +37,25 @@ interface Loopback0
  ipv6 address 2620:fc7:2000::6/128
 !
 interface GigabitEthernet0/0/0/0
+no shut
  description *** to Y-ASBR2 GE0 ***
  ipv4 address 2.200.2.3 255.255.255.0
  ipv6 address 2620:fc7:2002::3/64
 !
 interface GigabitEthernet0/0/0/1
+no shut
  description *** to Y-PE4 GE0 ***
  ipv4 address 2.200.6.3 255.255.255.0
  ipv6 address 2620:fc7:2006::3/64
 !
 interface GigabitEthernet0/0/0/2
+no shut 
  description *** to Y-P1 GE1 ***
  ipv4 address 2.200.3.3 255.255.255.0
  ipv6 address 2620:fc7:2005::1/64
 !
 interface GigabitEthernet0/0/0/3
+no shut 
  description *** to Y-RR2 GE1 ***
  ipv4 address 2.200.11.3 255.255.255.0
  ipv6 address 2620:fc7:2011::3/64
@@ -117,11 +73,7 @@ route-policy PASS
   pass
 end-policy
 !
-router static
- address-family ipv4 unicast
-  0.0.0.0/0 10.5.105.1
- !
-!
+
 router ospf 1
  apply-group CCIE-OSPF
  router-id 2.0.200.6
