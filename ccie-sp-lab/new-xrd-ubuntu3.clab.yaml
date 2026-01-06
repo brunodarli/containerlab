@@ -28,7 +28,7 @@ topology:
       kind: cisco_xrv
       image: vrnetlab/cisco_xrv:6.3.3 
       mgmt-ipv4: 172.31.0.103
-      startup-config: ccie-sp-base/Y-PE3.txt
+      #startup-config: ccie-sp-base/Y-PE3.txt
 
     y-rr1:
       kind: cisco_iol
@@ -58,7 +58,7 @@ topology:
       kind: cisco_xrv
       image: vrnetlab/cisco_xrv:6.3.3 
       mgmt-ipv4: 172.31.0.104
-      startup-config: ccie-sp-base/Y-PE4.txt
+      #startup-config: ccie-sp-base/Y-PE4.txt
 
     y-asbr1:
       kind: xrd

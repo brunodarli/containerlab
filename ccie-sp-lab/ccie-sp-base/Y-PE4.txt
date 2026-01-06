@@ -21,7 +21,7 @@ username cisco
  group cisco-support
  secret 5 $1$RC8d$2eeX3Aox1YZo5UAYUyfRV0
 !
-vrf def YELLOW
+vrf YELLOW
  address-family ipv4 unicast
   import route-target
    200:2

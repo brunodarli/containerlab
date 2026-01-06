@@ -64,6 +64,7 @@ interface GigabitEthernet0/0/0/4
  shutdown
 !
 interface GigabitEthernet0/0/0/5
+no shut
  description *** to Y-CE3 GE2 ***
  vrf YELLOW
  ipv4 address 172.200.30.3 255.255.255.0
