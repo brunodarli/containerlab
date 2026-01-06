@@ -65,9 +65,11 @@ def process_vxlan(topology_file, cleanup=False):
         remote_ip = HOST_MAP[target_host]
 
         if cleanup:
-            # Cleanup: sudo ip link delete <link-name>
-            cmd = ["sudo", "ip", "link", "delete", if_name]
-            msg = f"  Deleting {if_name}..."
+            # Cleanup: sudo ip link delete vx-<link-name>
+            # Containerlab creates interfaces with 'vx-' prefix
+            del_if_name = f"vx-{if_name}"
+            cmd = ["sudo", "ip", "link", "delete", del_if_name]
+            msg = f"  Deleting {del_if_name}..."
         else:
             # Setup: sudo containerlab tools vxlan create ...
             cmd = [
