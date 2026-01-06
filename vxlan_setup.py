@@ -7,6 +7,8 @@ import time
 import re
 import os
 
+import argparse
+
 # Mapping of hostnames to their remote physical IPs
 HOST_MAP = {
     'ubuntu-0': '10.253.11.10',
@@ -15,9 +17,10 @@ HOST_MAP = {
     'ubuntu-3': '10.253.11.13',
 }
 
-def setup_vxlan(topology_file):
+def process_vxlan(topology_file, cleanup=False):
     print(f"Processing topology file: {topology_file}")
-    
+    action = "Cleaning up" if cleanup else "Configuring"
+    print(f"{action} VXLAN interfaces...")
 
     try:
         with open(topology_file, 'r') as f:
@@ -27,9 +30,7 @@ def setup_vxlan(topology_file):
         sys.exit(1)
 
     links = topo.get('topology', {}).get('links', [])
-    brought_up = []
-
-    print("Checking for host links and configuring VXLAN...")
+    processed_links = []
 
     for link in links:
         endpoints = link.get('endpoints', [])
@@ -45,74 +46,69 @@ def setup_vxlan(topology_file):
             continue
 
         # Extract interface name (part after 'host:')
-        # Example: host:ubuntu-1_id18 -> ubuntu-1_id18
         if_name = host_ep.split(':', 1)[1]
 
         # Parse the interface name to find hostname and id
-        # Expected pattern: <hostname>_id<vni>
-        # We search specifically for our known hostnames at the start of the string
-        
         target_host = None
         target_vni = None
 
         match = re.match(r'^([a-z0-9-]+)_id(\d+)$', if_name)
         if match:
-             # Check if the captured hostname is in our map
              h_name = match.group(1)
              if h_name in HOST_MAP:
                  target_host = h_name
                  target_vni = match.group(2)
         
         if not target_host:
-            # Fallback or logging if needed, but for now strict matching based on request
-            # "ubuntu-0 is ..., ubuntu-1 is ..."
-            # If name doesn't match standard pattern, we ignore or log?
-            # Creating a VXLAN for every host link might be wrong if it's just a local mgmt link.
-            # But "host:..." implies intention.
-            # Let's verify against the HOST_MAP to be safe.
             continue
 
         remote_ip = HOST_MAP[target_host]
 
-        # Construct the containerlab command
-        # sudo containerlab tools vxlan create --remote <IP> --id <ID> --link <LINK_NAME>
-        cmd = [
-            "sudo", "containerlab", "tools", "vxlan", "create",
-            "--remote", remote_ip,
-            "--id", target_vni,
-            "--link", if_name
-        ]
+        if cleanup:
+            # Cleanup: sudo ip link delete <link-name>
+            cmd = ["sudo", "ip", "link", "delete", if_name]
+            msg = f"  Deleting {if_name}..."
+        else:
+            # Setup: sudo containerlab tools vxlan create ...
+            cmd = [
+                "sudo", "containerlab", "tools", "vxlan", "create",
+                "--remote", remote_ip,
+                "--id", target_vni,
+                "--link", if_name
+            ]
+            msg = f"  Configuring {if_name} -> Remote: {target_host} ({remote_ip}), VNI: {target_vni}"
 
-        print(f"  Configuring {if_name} -> Remote: {target_host} ({remote_ip}), VNI: {target_vni}")
+        print(msg)
         
         try:
-            # run command
             subprocess.run(cmd, check=True)
-            brought_up.append(f"{if_name} (Remote: {remote_ip}, VNI: {target_vni})")
+            processed_links.append(if_name)
         except subprocess.CalledProcessError as e:
-            print(f"  Error configuring {if_name}: {e}")
+            # In cleanup, it's possible the link doesn't exist, which is fine but we report it.
+            print(f"  Error processing {if_name}: {e}")
         except FileNotFoundError:
-             print("  Error: 'containerlab' command not found. Ensure it is installed and in your PATH.")
+             print(f"  Error: Command not found for {' '.join(cmd)}")
              sys.exit(1)
 
     print("\n" + "="*40)
-    print("VXLAN Setup Complete")
-    print("Interfaces brought up:")
-    if brought_up:
-        for item in brought_up:
+    print(f"VXLAN {action} Complete")
+    print("Interfaces processed:")
+    if processed_links:
+        for item in processed_links:
             print(f"- {item}")
     else:
         print("None")
     print("="*40 + "\n")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python3 vxlan_setup.py <path_to_topology_file.clab.yaml>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Setup or cleanup VXLAN interfaces based on a topology file.")
+    parser.add_argument("topology_file", help="Path to the topology file (.clab.yaml)")
+    parser.add_argument("-c", "--cleanup", action="store_true", help="Remove the interfaces created by this script")
     
-    topo_file = sys.argv[1]
-    if not os.path.exists(topo_file):
-        print(f"File not found: {topo_file}")
+    args = parser.parse_args()
+    
+    if not os.path.exists(args.topology_file):
+        print(f"File not found: {args.topology_file}")
         sys.exit(1)
         
-    setup_vxlan(topo_file)
+    process_vxlan(args.topology_file, cleanup=args.cleanup)
