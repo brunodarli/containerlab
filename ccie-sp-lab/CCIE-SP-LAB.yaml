@@ -617,6 +617,9 @@ nodes:
           - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
           - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
 
+          - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-xrv-6.6.1.tar.gz -o /root/vrnetlab-cisco-xrv-6.6.1.tar.gz
+          - docker load -i /root/vrnetlab-cisco-xrv-6.6.1.tar.gz
+
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
           - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
 
