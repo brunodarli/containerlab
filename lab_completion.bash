@@ -67,4 +67,5 @@ _lab_sim_completions()
 }
 
 complete -F _lab_connect_completions lab_connect
+complete -F _lab_connect_completions lc
 complete -F _lab_sim_completions lab_sim

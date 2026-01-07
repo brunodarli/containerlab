@@ -12,13 +12,15 @@ except ImportError:
     print("Error: 'pexpect' module is not installed. Please install it using: pip install pexpect")
     sys.exit(1)
 
-# Default Credentials
-USERNAME = "clab"
-PASSWORD = "clab@123"
+# Credentials Map
+CREDENTIALS = {
+    'default': ('clab', 'clab@123'),
+    'cisco_iol': ('admin', 'admin'),
+}
 
 def parse_topology(topo_file):
     """
-    Parses the .clab.yaml file and returns a dictionary of {node_name: mgmt_ipv4}.
+    Parses the .clab.yaml file and returns a dictionary of {node_name: {'ip': mgmt_ipv4, 'kind': kind}}.
     """
     nodes_map = {}
     try:
@@ -28,8 +30,9 @@ def parse_topology(topo_file):
         nodes = topo.get('topology', {}).get('nodes', {})
         for name, data in nodes.items():
             mgmt_ip = data.get('mgmt-ipv4')
+            kind = data.get('kind', 'default')
             if mgmt_ip:
-                nodes_map[name] = mgmt_ip
+                nodes_map[name] = {'ip': mgmt_ip, 'kind': kind}
                 
     except Exception as e:
         print(f"Error parsing topology file: {e}")
@@ -47,16 +50,21 @@ def resize_window(child):
     except (ValueError, OSError):
         pass
 
-def connect_to_node(node_name, ip):
+def connect_to_node(node_name, node_data):
     """
     Establishes an SSH connection to the node using pexpect.
     """
-    print(f"\nConnecting to {node_name} ({ip})...")
+    ip = node_data['ip']
+    kind = node_data['kind']
+    
+    user, password = CREDENTIALS.get(kind, CREDENTIALS['default'])
+    
+    print(f"\nConnecting to {node_name} ({ip}) as {user}...")
     print("Escape character is '^]'.\n")
     
     # -o HostKeyAlgorithms=+ssh-rsa: Allow connecting to legacy devices using RSA
     # -o PubkeyAcceptedKeyTypes=+ssh-rsa: Allow RSA for public key auth if needed
-    cmd = f"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa {USERNAME}@{ip}"
+    cmd = f"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa {user}@{ip}"
     
     try:
         child = pexpect.spawn(cmd, encoding='utf-8')
@@ -80,12 +88,12 @@ def connect_to_node(node_name, ip):
 
         if index == 0:
             # Password prompt
-            child.sendline(PASSWORD)
+            child.sendline(password)
         elif index == 1:
             # Fingerprint confirmation
             child.sendline('yes')
             child.expect('[Pp]assword:', timeout=30)
-            child.sendline(PASSWORD)
+            child.sendline(password)
         elif index == 2:
             print("Connection closed unexpectedly.")
             return
@@ -164,14 +172,15 @@ def main():
         print("No nodes with 'mgmt-ipv4' found in the topology.")
         sys.exit(1)
         
-
+    # target_node = args.node # REMOVED redundant assignment
     
     if not target_node:
         # Interactive selection
         print(f"\nAvailable nodes in {args.topology_file}:")
         node_list = sorted(nodes.keys())
         for idx, name in enumerate(node_list):
-            print(f"{idx + 1}. {name} ({nodes[name]})")
+            data = nodes[name]
+            print(f"{idx + 1}. {name} ({data['ip']}) [{data['kind']}]")
             
         while True:
             try:

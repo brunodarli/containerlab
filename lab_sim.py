@@ -16,6 +16,7 @@ CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 TOOLS = {
     "lab_sim": "lab_sim.py",
     "lab_connect": "lab_connect.py",
+    "lc": "lab_connect.py",
     "vxlan_setup": "vxlan_setup.py"
 }
 
