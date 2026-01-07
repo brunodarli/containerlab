@@ -88,7 +88,7 @@ def install_tools():
             break
             
     if completion_dst_dir:
-        dst = os.path.join(completion_dst_dir, "lab_connect")
+        dst = os.path.join(completion_dst_dir, "lab_tools")
         try:
             shutil.copy(completion_src, dst)
             print(f"  Installed completion script to {dst}")

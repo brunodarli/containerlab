@@ -44,4 +44,32 @@ except: pass
     return 0
 }
 
+_lab_sim_completions()
+{
+    local cur prev
+    cur=${COMP_WORDS[COMP_CWORD]}
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+
+    # Complete flags
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "-i -d" -- ${cur}) )
+        return 0
+    fi
+
+    # Complete .yaml files and directories
+    # simpler approach: rely on default readline filename completion but filter needed?
+    # Let's use compgen for yaml and directories
+    # Note: dealing with spaces in filenames in bash compliant scripts is hard, simpler approximation here
+    
+    local IFS=$'\n'
+    local suggestions
+    suggestions=$(compgen -f -X "!*.yaml" -- "${cur}")
+    local dirs
+    dirs=$(compgen -d -- "${cur}")
+    
+    COMPREPLY=( $(compgen -W "${suggestions} ${dirs}" -- ${cur}) )
+    return 0
+}
+
 complete -F _lab_connect_completions lab_connect
+complete -F _lab_sim_completions lab_sim
