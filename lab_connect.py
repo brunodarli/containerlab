@@ -103,7 +103,7 @@ def connect_to_node(node_name, ip):
 
 import json
 
-CONFIG_DIR = os.path.expanduser("~/.lab_sim")
+CONFIG_DIR = "/etc/lab_sim"
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 
 def get_active_topology():

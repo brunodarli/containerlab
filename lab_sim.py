@@ -8,9 +8,8 @@ import shutil
 import subprocess
 
 # Configuration
-APP_DIR = os.path.dirname(os.path.abspath(__file__))
-HOME_DIR = os.path.expanduser("~")
-CONFIG_DIR = os.path.join(HOME_DIR, ".lab_sim")
+APP_DIR = os.path.dirname(os.path.realpath(__file__))
+CONFIG_DIR = "/etc/lab_sim"
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 
 # Tools to process

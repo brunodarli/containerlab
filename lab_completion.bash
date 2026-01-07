@@ -10,7 +10,7 @@ _lab_connect_completions()
     prev=${COMP_WORDS[COMP_CWORD-1]}
 
     # Config location
-    local config_file="$HOME/.lab_sim/config.json"
+    local config_file="/etc/lab_sim/config.json"
     
     # Check if config exists
     if [[ ! -f "$config_file" ]]; then
