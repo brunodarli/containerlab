@@ -56,18 +56,13 @@ _lab_sim_completions()
         return 0
     fi
 
-    # Complete .yaml files and directories
-    # simpler approach: rely on default readline filename completion but filter needed?
-    # Let's use compgen for yaml and directories
-    # Note: dealing with spaces in filenames in bash compliant scripts is hard, simpler approximation here
+    # Complete .yaml files and directories using plusdirs to enable traversal
+    # -o plusdirs: Adds directory names to the output
+    # -f: Generate filenames
+    # -X: Exclude files not matching pattern
     
     local IFS=$'\n'
-    local suggestions
-    suggestions=$(compgen -f -X "!*.yaml" -- "${cur}")
-    local dirs
-    dirs=$(compgen -d -- "${cur}")
-    
-    COMPREPLY=( $(compgen -W "${suggestions} ${dirs}" -- ${cur}) )
+    COMPREPLY=( $(compgen -o plusdirs -f -X "!*.yaml" -- "${cur}") )
     return 0
 }
 
