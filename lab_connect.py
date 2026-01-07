@@ -164,7 +164,7 @@ def main():
         print("No nodes with 'mgmt-ipv4' found in the topology.")
         sys.exit(1)
         
-    target_node = args.node
+
     
     if not target_node:
         # Interactive selection
