@@ -139,6 +139,7 @@ interface Loopback0
  ipv6 address 2620:FC7:2000::10/128
 !
 interface eth0/1
+no shut
  description *** to Y-PE3 GE3 ***
  ip address 2.200.11.1 255.255.255.0
  negotiation auto

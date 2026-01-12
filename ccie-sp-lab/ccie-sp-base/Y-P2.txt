@@ -66,16 +66,19 @@ interface Loopback0
  ipv6 address 2620:fc7:2000::4/128
 !
 interface GigabitEthernet0/0/0/0
+no shut
  description *** to Y-P1 GE0 ***
  ipv4 address 2.200.5.2 255.255.255.0
  ipv6 address 2620:fc7:2005::2/64
 !
 interface GigabitEthernet0/0/0/1
+no shut
  description *** to Y-PE4 GE1 ***
  ipv4 address 2.200.4.2 255.255.255.0
  ipv6 address 2620:fc7:2004::2/64
 !
 interface GigabitEthernet0/0/0/2
+no shut
  description *** to Y-PE6 GE1 ***
  ipv4 address 2.200.8.2 255.255.255.0
  ipv6 address 2620:fc7:2008::2/64
