@@ -18,6 +18,10 @@ CREDENTIALS = {
     'cisco_iol': ('admin', 'admin'),
 }
 
+CONFIG_DIR = "/etc/lab_sim"
+CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
+EXTRA_HOSTS_FILE = os.path.join(CONFIG_DIR, "extra_hosts.json")
+
 def parse_topology(topo_file):
     """
     Parses the .clab.yaml file and returns a dictionary of {node_name: {'ip': mgmt_ipv4, 'kind': kind}}.
@@ -37,7 +41,19 @@ def parse_topology(topo_file):
     except Exception as e:
         print(f"Error parsing topology file: {e}")
         sys.exit(1)
-        
+    
+    # Load extra hosts
+    if os.path.exists(EXTRA_HOSTS_FILE):
+        try:
+            with open(EXTRA_HOSTS_FILE, 'r') as f:
+                extra = json.load(f)
+                for name, ip in extra.items():
+                    if name not in nodes_map:
+                         nodes_map[name] = {'ip': ip, 'kind': 'default'}
+        except Exception as e:
+            # Just ignore if we can't read it
+            pass
+
     return nodes_map
 
 def resize_window(child):
@@ -111,8 +127,6 @@ def connect_to_node(node_name, node_data):
 
 import json
 
-CONFIG_DIR = "/etc/lab_sim"
-CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 
 def get_active_topology():
     if not os.path.exists(CONFIG_FILE):

@@ -11,6 +11,15 @@ import subprocess
 APP_DIR = os.path.dirname(os.path.realpath(__file__))
 CONFIG_DIR = "/etc/lab_sim"
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
+EXTRA_HOSTS_FILE = os.path.join(CONFIG_DIR, "extra_hosts.json")
+
+# Extra Hosts to manually map
+EXTRA_HOSTS = {
+    "y-pe3": "10.253.11.103",
+    "y-pe4": "10.253.11.104",
+    "y-ce3": "10.253.11.203",
+    "y-ce4": "10.253.11.204"
+}
 
 # Tools to process
 TOOLS = {
@@ -115,6 +124,11 @@ def deploy_lab(topo_file):
     config = load_config()
     config["active_topology"] = os.path.abspath(topo_file)
     save_config(config)
+
+    # Save extra hosts for lab_connect
+    ensure_config_dir()
+    with open(EXTRA_HOSTS_FILE, 'w') as f:
+        json.dump(EXTRA_HOSTS, f, indent=4)
 
     # 1. Install checks (symlinks)
     # We do a quick check if they exist, if not we try to install?
