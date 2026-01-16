@@ -14,11 +14,6 @@ topology:
 
   nodes:
   #Ruby AS-400
-    Clould_Provider:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.254
-      startup-config: ccie-sp-base/Clould_Provider.txt
 
     w-pe1:
       kind: xrd
@@ -90,9 +85,6 @@ topology:
 
     - endpoints: [w-pe3:Gi0-0-0-4, w-ce4:Gi0-0-0-0]
 
-    - endpoints: [w-pe1:Gi0-0-0-4, Clould_Provider:e0/2]
-
-    - endpoints: [host:ubuntu-1_id17, Clould_Provider:e0/1]
 
     
 
