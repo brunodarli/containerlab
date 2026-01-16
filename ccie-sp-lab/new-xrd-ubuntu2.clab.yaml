@@ -88,7 +88,7 @@ topology:
     - endpoints: [w-pe2:Gi0-0-0-4, w-ce3:Gi0-0-0-0]
     - endpoints: [w-pe3:Gi0-0-0-3, w-ce2:Gi0-0-0-1]
 
-    - endpoints: [w-pe3:Gi0-0-0-4, w-ce4:e0/1]
+    - endpoints: [w-pe3:Gi0-0-0-4, w-ce4:Gi0-0-0-0]
 
     - endpoints: [w-pe1:Gi0-0-0-4, Clould_Provider:e0/2]
 
