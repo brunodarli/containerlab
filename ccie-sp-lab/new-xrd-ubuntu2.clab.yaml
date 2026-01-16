@@ -22,51 +22,50 @@ topology:
 
     w-pe1:
       kind: xrd
-      mgmt-ipv4: 172.31.0.81
+      mgmt-ipv4: 172.31.0.103
       startup-config: ccie-sp-base/W-PE1.txt
 
     w-pe2:
       kind: xrd
-      mgmt-ipv4: 172.31.0.82
+      mgmt-ipv4: 172.31.0.104
       startup-config: ccie-sp-base/W-PE2.txt
 
     w-pe3:
       kind: xrd
-      mgmt-ipv4: 172.31.0.83
+      mgmt-ipv4: 172.31.0.105
       startup-config: ccie-sp-base/W-PE3.txt
 
     w-p1:
       kind: xrd
-      mgmt-ipv4: 172.31.0.91
+      mgmt-ipv4: 172.31.0.101
       startup-config: ccie-sp-base/W-P1.txt
 
     w-p2:
       kind: xrd
-      mgmt-ipv4: 172.31.0.92
+      mgmt-ipv4: 172.31.0.102
       startup-config: ccie-sp-base/W-P2.txt
 
     w-ce1:
       kind: xrd
-      mgmt-ipv4: 172.31.0.111
+      mgmt-ipv4: 172.31.0.110
       startup-config: ccie-sp-base/W-CE1.txt
 
+    w-ce2:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.111
+      startup-config: ccie-sp-base/W-CE2.txt
+
     w-ce3:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.113
+      kind: xrd
+      mgmt-ipv4: 172.31.0.112
       startup-config: ccie-sp-base/W-CE3.txt
 
     w-ce4:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.114
+      kind: xrd
+      mgmt-ipv4: 172.31.0.113
       startup-config: ccie-sp-base/W-CE4.txt
 
-    w-ce2:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.112
-      startup-config: ccie-sp-base/W-CE2.txt
+    
 
 
   links:
@@ -86,8 +85,8 @@ topology:
 
     - endpoints: [w-pe1:Gi0-0-0-3, w-ce1:Gi0-0-0-1]
     - endpoints: [w-pe2:Gi0-0-0-5, w-ce1:Gi0-0-0-2]
-    - endpoints: [w-pe2:Gi0-0-0-4, w-ce3:e0/1]
-    - endpoints: [w-pe3:Gi0-0-0-3, w-ce2:e0/1]
+    - endpoints: [w-pe2:Gi0-0-0-4, w-ce3:Gi0-0-0-0]
+    - endpoints: [w-pe3:Gi0-0-0-3, w-ce2:Gi0-0-0-1]
 
     - endpoints: [w-pe3:Gi0-0-0-4, w-ce4:e0/1]
 

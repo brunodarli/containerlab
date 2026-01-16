@@ -1,54 +1,40 @@
-hostname {{ .Hostname }}
+hostname W-CE3
+logging console debugging
+logging monitor debugging
+username cisco
+ group root-lr
+ group cisco-support
+ secret 5 $1$RC8d$2eeX3Aox1YZo5UAYUyfRV0
 !
-no aaa new-model
-!
-ip domain name lab
-!
-ip cef
-!
-ipv6 unicast-routing
-!
-no ip domain lookup
-!
-username admin privilege 15 secret admin
-!
-vrf definition clab-mgmt
- description clab-mgmt
- address-family ipv4
- !
- address-family ipv6
+vrf MGMT
+ address-family ipv4 unicast
  !
 !
-interface Ethernet0/0
-{{ if .IsL2Node }}
- no switchport
-{{ end }}
- vrf forwarding clab-mgmt
- description clab-mgmt
- ip address {{ .MgmtIPv4Addr }} {{ .MgmtIPv4SubnetMask }}
- ipv6 address {{ .MgmtIPv6Addr }}/{{ .MgmtIPv6PrefixLen }}
- no shutdown
-!{{ range $index, $item := .DataIFaces }}
-interface Ethernet{{ .Slot }}/{{ .Port }}
-{{- if .IPv4Addr }}
- ip address {{ .IPv4Addr }} {{ .IPv4Mask }}
-{{- end }}
-{{- if .IPv6Addr }}
- ipv6 address {{ .IPv6Addr }}
-{{- end }}
- no shutdown
-!{{ end }}
-ip forward-protocol nd
+line console
+ exec-timeout 1440 0
+ width 0
 !
-ip route vrf clab-mgmt 0.0.0.0 0.0.0.0 Ethernet0/0 {{ .MgmtIPv4GW }}
-ipv6 route vrf clab-mgmt ::/0 Ethernet0/0 {{ .MgmtIPv6GW }}
+line default
+ exec-timeout 1440 0
+ width 0
 !
-ip ssh version 2
-crypto key generate rsa modulus 2048
+vty-pool default 0 99 line-template default
 !
-line vty 0 4
- login local
- transport input ssh
+interface Loopback0
+ ipv4 address 172.0.4.3 255.255.255.255
+ ipv6 address 2620:fc7:172:4000::3/128
 !
-{{ .PartialCfg }}
-end
+interface MgmtEth0/RP0/CPU0/0
+ vrf MGMT
+ ipv4 address 172.31.0.112 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 172.4.42.3 255.255.255.0
+ ipv6 address 2620:fc7:172:4420::3/64
+!
+route-policy PASS
+  pass
+end-policy
+!
+ssh server vrf MGMT
+ssh server vrf default
