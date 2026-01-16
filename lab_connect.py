@@ -112,9 +112,11 @@ def connect_to_node(node_name, node_data):
             child.sendline(password)
         elif index == 2:
             print("Connection closed unexpectedly.")
+            print(f"Output before verify: {child.before}")
             return
         elif index == 3:
             print("Connection timed out.")
+            print(f"Output before timeout: {child.before}")
             return
 
         # Hand over control to the user
