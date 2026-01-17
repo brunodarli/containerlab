@@ -6,6 +6,7 @@ import argparse
 import json
 import shutil
 import subprocess
+import time
 
 # Configuration
 APP_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -163,7 +164,22 @@ def deploy_lab(topo_file):
             if result.returncode == 0 and result.stdout.strip():
                 c_ids = result.stdout.strip().split()
                 print(f"  Force removing {len(c_ids)} stuck containers...")
-                subprocess.run(["sudo", "docker", "rm", "-f"] + c_ids, check=False)
+                
+                # Try removal
+                rm_cmd = ["sudo", "docker", "rm", "-f"] + c_ids
+                rm_result = subprocess.run(rm_cmd, capture_output=True, text=True)
+                
+                # Check for "No such container" ghost state
+                if rm_result.returncode != 0 and "No such container" in rm_result.stderr:
+                    print("  ! Detected Docker daemon inconsistency (ghost containers).")
+                    print("  ! Restarting Docker daemon to clear state...")
+                    run_command(["sudo", "systemctl", "restart", "docker"])
+                    print("  Waiting 10s for Docker to restart...")
+                    time.sleep(10)
+                    
+                    # Retry removal
+                    print("  Retrying removal of stuck containers...")
+                    subprocess.run(rm_cmd, check=False)
             else:
                 print("  No stuck containers found.")
         except Exception as e:
