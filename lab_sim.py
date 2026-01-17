@@ -149,9 +149,25 @@ def deploy_lab(topo_file):
     deploy_cmd = ["sudo", "containerlab", "deploy", "-t", topo_file, "--reconfigure"]
 
     if not run_command(deploy_cmd):
-        print("\nDeploy failed. Attempting cleanup and retry...")
-        # Attempt cleanup
+        print("\nDeploy failed. Attempting aggressive cleanup and retry...")
+        
+        # 1. Standard destroy
         run_command(["sudo", "containerlab", "destroy", "-t", topo_file, "--cleanup"], check=False)
+        
+        # 2. Aggressive Docker Cleanup
+        print("  Checking for stuck containers...")
+        try:
+            # Find all containers with label=containerlab
+            check_cmd = ["sudo", "docker", "ps", "-a", "-q", "-f", "label=containerlab"]
+            result = subprocess.run(check_cmd, capture_output=True, text=True)
+            if result.returncode == 0 and result.stdout.strip():
+                c_ids = result.stdout.strip().split()
+                print(f"  Force removing {len(c_ids)} stuck containers...")
+                subprocess.run(["sudo", "docker", "rm", "-f"] + c_ids, check=False)
+            else:
+                print("  No stuck containers found.")
+        except Exception as e:
+            print(f"  Warning during manual cleanup: {e}")
 
         print("\nRetrying deployment...")
         if not run_command(deploy_cmd):
