@@ -146,9 +146,17 @@ def deploy_lab(topo_file):
 
     # 2. Deploy Containerlab
     print("\n[Step 1] Deploying Containerlab topology...")
-    if not run_command(["sudo", "containerlab", "deploy", "-t", topo_file, "--reconfigure"]):
-        print("Deploy failed.")
-        sys.exit(1)
+    deploy_cmd = ["sudo", "containerlab", "deploy", "-t", topo_file, "--reconfigure"]
+
+    if not run_command(deploy_cmd):
+        print("\nDeploy failed. Attempting cleanup and retry...")
+        # Attempt cleanup
+        run_command(["sudo", "containerlab", "destroy", "-t", topo_file, "--cleanup"], check=False)
+
+        print("\nRetrying deployment...")
+        if not run_command(deploy_cmd):
+            print("Deploy failed after retry.")
+            sys.exit(1)
 
     # 3. VXLAN Setup
     print("\n[Step 2] Setting up VXLANs...")
