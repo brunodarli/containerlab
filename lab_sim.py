@@ -145,6 +145,12 @@ def deploy_lab(topo_file):
     # Use logic: Attempt install.
     install_tools()
 
+    # 1.5 Bring up host interfaces
+    print("\n[Step 0] Configuring Host Interfaces...")
+    for i in range(4, 10):
+        intf = f"ens{i}"
+        run_command(["sudo", "ip", "link", "set", intf, "up"], check=False)
+
     # 2. Deploy Containerlab
     print("\n[Step 1] Deploying Containerlab topology...")
     deploy_cmd = ["sudo", "containerlab", "deploy", "-t", topo_file, "--reconfigure"]
