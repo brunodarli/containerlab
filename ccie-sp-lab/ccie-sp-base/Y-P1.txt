@@ -85,7 +85,8 @@ route-policy PASS
 end-policy
 !
 router static address-family ipv4 unicast 0.0.0.0/0 10.5.105.1
-router ospf 1 apply-group CCIE-OSPF
+router ospf 1 
+apply-group CCIE-OSPF
 router ospf 1 router-id 2.0.200.3
 router ospf 1 mpls ldp auto-config
 router ospf 1 redistribute connected

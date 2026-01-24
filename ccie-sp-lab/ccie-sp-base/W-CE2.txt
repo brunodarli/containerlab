@@ -1,6 +1,11 @@
 hostname W-CE2
 logging console debugging
 logging monitor debugging
+
+username clab
+ group root-lr
+ password clab@123
+
 username cisco
  group root-lr
  group cisco-support

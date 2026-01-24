@@ -6,6 +6,10 @@ username cisco
  group cisco-support
  secret 5 $1$RC8d$2eeX3Aox1YZo5UAYUyfRV0
 !
+username clab
+ group root-lr
+ password clab@123
+
 vrf MGMT
  address-family ipv4 unicast
  !

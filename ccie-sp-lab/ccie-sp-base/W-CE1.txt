@@ -6,6 +6,11 @@ username clab
  group cisco-support
  secret clab@123
 !
+username cisco
+ group root-lr
+ group cisco-support
+ secret 5 $1$RC8d$2eeX3Aox1YZo5UAYUyfRV0
+!
 grpc
 {{ if .Env.CLAB_MGMT_VRF }} vrf {{ .Env.CLAB_MGMT_VRF }}{{end}}
  port 9339
