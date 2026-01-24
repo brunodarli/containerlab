@@ -69,10 +69,10 @@ nodes:
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
           - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
 
-          - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
-
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-xrv-6.3.3.tar.gz -o /root/vrnetlab-cisco-xrv-6.3.3.tar.gz
           - docker load -i /root/vrnetlab-cisco-xrv-6.3.3.tar.gz
+
+          - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
 
           - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
           - echo "alias ssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
@@ -364,22 +364,23 @@ nodes:
           hostname: ubuntu-2
           ssh_pwauth: True
           ssh_authorized_keys:
-              - your-ssh-pubkey-line-goes-here
+             - your-ssh-pubkey-line-goes-here
 
           runcmd:
-          #- sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
-          - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+          - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
           - add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-          - echo "deb [trusted=yes] https://apt.fury.io/netdevops/ /" | tee -a /etc/apt/sources.list.d/netdevops.list
+          - echo "deb [trusted=yes] https://netdevops.fury.site/apt/ /" | tee -a /etc/apt/sources.list.d/netdevops_fury_site_apt.list
           - apt-get update -y
+          - apt-get install -y openjdk-17-jdk gobgpd xsltproc ant make
           - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
-          - apt-get install -y containerlab bridge-utils expect
+          - apt-get install -y containerlab bridge-utils
           - mkdir -p /etc/systemd/system/docker.service.d/
           - echo '[Service]' > /etc/systemd/system/docker.service.d/http-proxy.conf
           - echo 'Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "HTTPS_PROXY=http://proxy.esl.cisco.com:80/" "NO_PROXY=.cisco.com"' >> /etc/systemd/system/docker.service.d/http-proxy.conf
           - systemctl daemon-reload
           - systemctl start docker
           - systemctl enable docker
+          - systemctl restart docker
           - usermod -a -G docker ubuntu
           - containerlab completion bash > /etc/bash_completion.d/containerlab
           - apt-get install -y tftpd-hpa
@@ -390,26 +391,37 @@ nodes:
           - echo 'fs.inotify.max_user_watches' = 64000 >> /etc/sysctl.conf
           - echo 'net.bridge.bridge-nf-call-iptables' = 0 >> /etc/sysctl.conf
           - echo 'net.bridge.bridge-nf-call-ip6tables' = 0 >> /etc/sysctl.conf
+          - echo 'net.ipv6.conf.ens3.disable_ipv6' = 1 >> /etc/sysctl.conf
+          - echo 'net.ipv6.conf.ens4.disable_ipv6' = 1 >> /etc/sysctl.conf
           - sysctl -p
-          - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.14 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
-
+          - ip link set up dev ens3
+          - ip link set up dev ens4
+          - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.19 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:80
           - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
           - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
-
-          - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
-          - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
-
+          - curl http://jtac-iosxr-1.cisco.com/nso/nso-6.1.16.linux.x86_64.installer.bin -o /root/nso-6.1.16.linux.x86_64.installer.bin
+          - sh /root/nso-6.1.16.linux.x86_64.installer.bin /home/ubuntu/ncs-6.1
+          - echo 'source ~/ncs-6.1/ncsrc' >> /home/ubuntu/.profile
+          - bash -c 'source /home/ubuntu/ncs-6.1/ncsrc; ncs-setup --dest /home/ubuntu/ncs-run;'
+          - curl http://jtac-iosxr-1.cisco.com/nso/ncs-6.1.16-cisco-iosxr-7.67.signed.bin -o /root/ncs-6.1.16-cisco-iosxr-7.67.signed.bin
+          - cd /root; sh ncs-6.1.16-cisco-iosxr-7.67.signed.bin; cd -;
+          - cp /root/ncs-6.1.16-cisco-iosxr-7.67.tar.gz /home/ubuntu/ncs-run/packages/
+          - curl http://jtac-iosxr-1.cisco.com/nso/config/ccie_sp_nso_config.xml -o /home/ubuntu/ncs-run/ncs-cdb/Z-ccie.xml
+          - bash -c 'source /home/ubuntu/ncs-6.1/ncsrc; cd /home/ubuntu/ncs-run/packages/; ncs-make-package --service-skeleton python-and-template CCIE-NSO-l3vpn; cd -;'
+          - curl http://jtac-iosxr-1.cisco.com/nso/packages/CCIE-NSO-l3vpn/CCIE-NSO-l3vpn.yang -o /home/ubuntu/ncs-run/packages/CCIE-NSO-l3vpn/src/yang/CCIE-NSO-l3vpn.yang
+          - curl http://jtac-iosxr-1.cisco.com/nso/packages/CCIE-NSO-l3vpn/CCIE-NSO-l3vpn-template.xml -o /home/ubuntu/ncs-run/packages/CCIE-NSO-l3vpn/templates/CCIE-NSO-l3vpn-template.xml
+          - curl http://jtac-iosxr-1.cisco.com/nso/packages/CCIE-NSO-l3vpn/CCIE-NSO-l3vpn.py -o /home/ubuntu/ncs-run/packages/CCIE-NSO-l3vpn/python/CCIE_NSO_l3vpn/main.py
+          - bash -c 'export HOME=/root/; source /home/ubuntu/ncs-6.1/ncsrc; cd /home/ubuntu/ncs-run/packages/CCIE-NSO-l3vpn/src/; make; cd -;'
+          - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
+          - echo "alias ssh-quiet='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - echo "alias scp-quiet='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - echo "alias sftp-quiet='sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - git clone https://gitlab-cxj.cisco.com/rsakaguc/xrd-topology.git /home/ubuntu/xrd-topology
+          - git clone https://gitlab-cxj.cisco.com/jtac-xr/jtac-iosxr-tools.git /home/ubuntu/jtac-iosxr-tools
+          - echo "alias clab-ssh-port-forwarding='python3 /home/ubuntu/jtac-iosxr-tools/jtac_iosxr_tools/cml/clab_ssh_port_forwarding.py'" >> /home/ubuntu/.bash_aliases
+          - chown -R ubuntu:ubuntu /home/ubuntu
           - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
 
-          - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
-          - echo "alias ssh='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
-          - git clone https://gitlab-sjc.cisco.com/jtac-xr/xrd_lab.git /home/ubuntu/xrd_lab
-          - mkdir /home/ubuntu/radkit
-          - chown -R ubuntu:ubuntu /home/ubuntu
-          - docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
-
-          - ip link set ens3 up
-          - ip addr add 10.253.11.12/24 dev ens3
 
           write_files:
           - path: /etc/apt/apt.conf
@@ -424,13 +436,24 @@ nodes:
               noproxy = "localhost,127.0.0.1,.cisco.com,10.70.69.134,10.70.69.1"
             owner: root:root
             permissions: '0644'
-          - path: /root/.gitconfig
+          - path: /etc/gitconfig
             content: |
               [http "https://github.com"]
                   proxy = http://proxy.esl.cisco.com:80
             owner: root:root
             permissions: '0644'
-
+          - path: /etc/ssh/ssh_config.d/cml-iosxr.conf
+            content: |
+              # Backward compatibility for old IOS-XR
+              Host *
+                  ServerAliveInterval 120
+                  StrictHostKeyChecking=no
+                  UserKnownHostsFile=/dev/null
+                  KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+                  HostkeyAlgorithms=+ssh-rsa
+                  Ciphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
+            owner: root:root
+            permissions: '0644'
       - name: network-config
         content: |-
           #network-config
@@ -524,7 +547,7 @@ nodes:
     cpu_limit: null
     cpus: null
     data_volume: null
-    hide_links: false
+    hide_links: true
     id: n6
     image_definition: null
     label: unmanaged-switch-0
@@ -532,8 +555,8 @@ nodes:
     parameters: {}
     ram: null
     tags: []
-    x: 680
-    y: 200
+    x: 640
+    y: 280
     interfaces:
       - id: i0
         label: port0
@@ -617,9 +640,6 @@ nodes:
           - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
           - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
 
-          - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-xrv-6.6.1.tar.gz -o /root/vrnetlab-cisco-xrv-6.6.1.tar.gz
-          - docker load -i /root/vrnetlab-cisco-xrv-6.6.1.tar.gz
-
           - curl http://jtac-iosxr-1.cisco.com/xrd/vrnetlab-cisco-iol-17.16.1a.tar.gz -o /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
           - docker load -i /root/vrnetlab-cisco-iol-17.16.1a.tar.gz
 
@@ -634,6 +654,13 @@ nodes:
 
           - ip link set ens3 up
           - ip addr add 10.253.11.13/24 dev ens3
+
+          - ip link set up dev ens4
+          - ip link set up dev ens5
+          - ip link set up dev ens6
+          - ip link set up dev ens7
+          - ip link set up dev ens8
+          - ip link set up dev ens9
 
           write_files:
           - path: /etc/apt/apt.conf
@@ -742,6 +769,868 @@ nodes:
         mac_address: null
         type: physical
         slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+
+          hostname Y-PE3
+          group CCIE-OSPF
+           router ospf '.*'
+            address-family ipv4 unicast
+            area '.*'
+             mpls traffic-eng
+            !
+            mpls traffic-eng router-id Loopback0
+            mpls traffic-eng multicast-intact
+            mpls traffic-eng ldp-sync-update
+           !
+          end-group
+          logging console disable
+          telnet vrf MGMT ipv4 server max-servers 100
+          telnet vrf default ipv4 server max-servers 100
+          domain lookup disable
+          username clab
+           group root-lr
+           group cisco-support
+           secret 5 $1$ZpD8$khzgqCKQzZD8AGvvX9rhc1
+          !
+          vrf MGMT
+           address-family ipv4 unicast
+           !
+          !
+          vrf YELLOW
+           address-family ipv4 unicast
+            import route-target
+             200:2
+            !
+            export route-target
+             200:2
+            !
+           !
+           address-family ipv6 unicast
+            import route-target
+             200:2
+            !
+            export route-target
+             200:2
+            !
+           !
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          ipv4 access-list ssm
+           10 permit ipv4 239.232.0.0/16 any
+          !
+          interface Loopback0
+           ipv4 address 2.0.200.6 255.255.255.255
+           ipv6 address 2620:fc7:2000::6/128
+          !
+          interface MgmtEth0/0/CPU0/0
+           vrf MGMT
+           ipv4 address 10.253.11.103 255.255.255.0
+          !
+          interface GigabitEthernet0/0/0/0
+           ipv4 address 2.200.2.3 255.255.255.0
+           ipv6 address 2620:fc7:2002::3/64
+          !
+          interface GigabitEthernet0/0/0/1
+           ipv4 address 2.200.6.3 255.255.255.0
+           ipv6 address 2620:fc7:2006::3/64
+          !
+          interface GigabitEthernet0/0/0/2
+           ipv4 address 2.200.3.3 255.255.255.0
+           ipv6 address 2620:fc7:2003::3/64
+          !
+          interface GigabitEthernet0/0/0/3
+           ipv4 address 2.200.11.3 255.255.255.0
+           ipv6 address 2620:fc7:2011::3/64
+          !
+          interface GigabitEthernet0/0/0/4
+           ipv4 address 2.40.2.3 255.255.255.0
+           ipv6 address 2620:fc7:2402::3/64
+          !
+          interface GigabitEthernet0/0/0/5
+           description "Conn-CE3-G2"
+           vrf YELLOW
+           ipv4 address 172.200.30.3 255.255.255.0
+           ipv6 address 2620:fc7:172:2030::3/64
+          !
+          route-policy PASS
+            pass
+          end-policy
+          !
+          router ospf 1
+           apply-group CCIE-OSPF
+           router-id 2.0.200.6
+           mpls ldp auto-config
+           area 0
+            interface Loopback0
+            !
+            interface GigabitEthernet0/0/0/0
+            !
+            interface GigabitEthernet0/0/0/1
+            !
+            interface GigabitEthernet0/0/0/2
+            !
+            interface GigabitEthernet0/0/0/3
+            !
+           !
+           vrf YELLOW
+            redistribute bgp 200 route-policy PASS
+            address-family ipv4 unicast
+            area 0
+             interface GigabitEthernet0/0/0/5
+             !
+            !
+           !
+          !
+          router ospfv3 1
+           area 0
+            interface Loopback0
+            !
+            interface GigabitEthernet0/0/0/0
+            !
+            interface GigabitEthernet0/0/0/1
+            !
+            interface GigabitEthernet0/0/0/2
+            !
+            interface GigabitEthernet0/0/0/3
+            !
+           !
+           address-family ipv6
+          !
+          router ospfv3 200
+           vrf YELLOW
+            redistribute bgp 200 route-policy PASS
+            area 0
+             interface GigabitEthernet0/0/0/5
+             !
+            !
+           !
+          !
+          router bgp 200
+           bgp router-id 2.0.200.6
+           address-family vpnv4 unicast
+           !
+           address-family vpnv6 unicast
+           !
+           !
+           neighbor-group IBGP-VPN
+            remote-as 200
+            update-source Loopback0
+            address-family vpnv4 unicast
+            !
+            address-family vpnv6 unicast
+            !
+           !
+           neighbor 2.0.200.9
+            use neighbor-group IBGP-VPN
+           !
+           neighbor 2.0.200.10
+            use neighbor-group IBGP-VPN
+           !
+           vrf YELLOW
+            rd 200:2
+            address-family ipv4 unicast
+             redistribute ospf 1
+            !
+            address-family ipv6 unicast
+             redistribute ospfv3 200
+            !
+           !
+          !
+          mpls ldp
+          !
+          !
+          ssh server vrf MGMT
+          ssh server vrf default
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n9
+    image_definition: null
+    label: y-pe3
+    node_definition: iosxrv
+    parameters: {}
+    ram: null
+    tags: []
+    x: 800
+    y: 560
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: GigabitEthernet0/0/0/3
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i6
+        label: GigabitEthernet0/0/0/4
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i7
+        label: GigabitEthernet0/0/0/5
+        mac_address: null
+        type: physical
+        slot: 6
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+
+          hostname Y-PE4
+          group CCIE-OSPF
+           router ospf '.*'
+            address-family ipv4 unicast
+            area '.*'
+             mpls traffic-eng
+            !
+            mpls traffic-eng router-id Loopback0
+            mpls traffic-eng multicast-intact
+            mpls traffic-eng ldp-sync-update
+           !
+          end-group
+          logging console disable
+          telnet vrf MGMT ipv4 server max-servers 100
+          telnet vrf default ipv4 server max-servers 100
+          domain lookup disable
+          username clab
+           group root-lr
+           group cisco-support
+           secret 5 $1$ah0u$p4iqoLTHM8y7VZFu0EU26.
+          !
+          vrf MGMT
+           address-family ipv4 unicast
+           !
+          !
+          vrf YELLOW
+           address-family ipv4 unicast
+            import route-target
+             200:2
+            !
+            export route-target
+             200:2
+            !
+           !
+           address-family ipv6 unicast
+            import route-target
+             200:2
+            !
+            export route-target
+             200:2
+            !
+           !
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          interface Loopback0
+           ipv4 address 2.0.200.7 255.255.255.255
+           ipv6 address 2620:fc7:2000::7/128
+          !
+          interface MgmtEth0/0/CPU0/0
+           vrf MGMT
+           ipv4 address 10.253.11.104 255.255.255.0
+          !
+          interface GigabitEthernet0/0/0/0
+           ipv4 address 2.200.6.4 255.255.255.0
+           ipv6 address 2620:fc7:2006::4/64
+          !
+          interface GigabitEthernet0/0/0/1
+           ipv4 address 2.200.4.4 255.255.255.0
+           ipv6 address 2620:fc7:2004::4/64
+          !
+          interface GigabitEthernet0/0/0/2
+           description "Conn-CE2-G2"
+           vrf YELLOW
+           ipv4 address 172.200.24.4 255.255.255.0
+           ipv6 address 2620:fc7:172:2024::4/64
+          !
+          interface GigabitEthernet0/0/0/3
+           description "Conn-CE4-G2"
+           vrf YELLOW
+           ipv4 address 172.200.40.4 255.255.255.0
+           ipv6 address 2620:fc7:172:2040::4/64
+          !
+          route-policy PASS
+            pass
+          end-policy
+          !
+
+          router ospf 1
+           apply-group CCIE-OSPF
+           router-id 2.0.200.7
+           mpls ldp auto-config
+           area 0
+            interface Loopback0
+            !
+            interface GigabitEthernet0/0/0/0
+            !
+            interface GigabitEthernet0/0/0/1
+            !
+           !
+           vrf YELLOW
+            redistribute bgp 200 route-policy PASS
+            address-family ipv4 unicast
+            area 0
+             interface GigabitEthernet0/0/0/3
+             !
+            !
+           !
+          !
+          router ospfv3 1
+           area 0
+            interface Loopback0
+            !
+            interface GigabitEthernet0/0/0/0
+            !
+            interface GigabitEthernet0/0/0/1
+            !
+           !
+           address-family ipv6
+          !
+          router ospfv3 200
+           vrf YELLOW
+            redistribute bgp 200 route-policy PASS
+            area 0
+             interface GigabitEthernet0/0/0/3
+             !
+            !
+           !
+          !
+          router bgp 200
+
+           bgp router-id 2.0.200.7
+           address-family vpnv4 unicast
+           !
+           address-family vpnv6 unicast
+           !
+
+           !
+           neighbor-group IBGP-VPN
+            remote-as 200
+            update-source Loopback0
+            address-family vpnv4 unicast
+            !
+            address-family vpnv6 unicast
+            !
+
+            !
+           !
+           neighbor 2.0.200.9
+            use neighbor-group IBGP-VPN
+           !
+           neighbor 2.0.200.10
+            use neighbor-group IBGP-VPN
+           !
+           vrf YELLOW
+            rd 200:2
+            address-family ipv4 unicast
+             redistribute ospf 1
+            !
+            address-family ipv6 unicast
+             redistribute ospfv3 200
+            !
+
+            !
+            neighbor 172.200.24.2
+             remote-as 2000
+             address-family ipv4 unicast
+              route-policy PASS in
+              route-policy PASS out
+              as-override
+              site-of-origin 2000:22
+             !
+            !
+            neighbor 2620:fc7:172:2024::2
+             remote-as 2000
+             address-family ipv6 unicast
+              route-policy PASS in
+              route-policy PASS out
+              as-override
+              site-of-origin 2000:22
+             !
+            !
+           !
+          !
+          mpls ldp
+          !
+          ssh server vrf MGMT
+          ssh server vrf default
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n10
+    image_definition: null
+    label: y-pe4
+    node_definition: iosxrv
+    parameters: {}
+    ram: null
+    tags: []
+    x: 960
+    y: 560
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: GigabitEthernet0/0/0/3
+        mac_address: null
+        type: physical
+        slot: 4
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 2100 bytes
+          !
+          ! Last configuration change at 00:00:08 UTC Fri Jan 23 2026
+          !
+          version 17.16
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          !
+          hostname y-ce3
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition MGMT
+           !
+           address-family ipv4
+           exit-address-family
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          no ip domain lookup
+          ip domain name lab
+          ip cef
+          login on-success log
+          ipv6 unicast-routing
+          ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          memory free low-watermark processor 79983
+          !
+          !
+          spanning-tree mode rapid-pvst
+          !
+          !
+          username clab privilege 15 secret 9 $9$3Hdx4rHzwcuY9k$rx53L5pmeBsokZh28DAVPDfFVu3RjTvxrfE0zpyPybY
+          username admin privilege 15 secret 9 $9$LFG1Cw2nxvelrE$3p7eDLv01q/KFwa.qvt2/1DarTr6I29JTL1rAMMXDlI
+          !
+          !
+          !
+          !
+          !
+          lldp run
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback0
+           ip address 172.0.2.3 255.255.255.255
+           ipv6 address 2620:FC7:172:2000::3/128
+           ipv6 ospf 1 area 0
+          !
+          interface Ethernet0/0
+           vrf forwarding MGMT
+           ip address 10.253.11.203 255.255.255.0
+          !
+          interface Ethernet0/1
+           description *** to Y-CE4 GE1 ***
+           ip address 10.200.44.3 255.255.255.0
+
+           ipv6 address 2620:FC7:1020:4400::3/64
+           ipv6 ospf 1 area 0
+          !
+          interface Ethernet0/2
+           description *** to Y-PE3 GE5 ***
+           ip address 172.200.30.30 255.255.255.0
+
+           ipv6 address 2620:FC7:172:2030::30/64
+           ipv6 ospf 1 area 0
+          !
+          interface Ethernet0/3
+           no ip address
+           shutdown
+          !
+          router ospfv3 1
+           router-id 172.0.2.3
+           !
+           address-family ipv6 unicast
+           exit-address-family
+          !
+          router ospf 1
+           router-id 172.0.2.3
+           network 10.200.44.3 0.0.0.0 area 0
+           network 172.0.2.3 0.0.0.0 area 0
+           network 172.200.30.30 0.0.0.0 area 0
+          !
+          ip forward-protocol nd
+          ip forward-protocol udp
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          no logging btrace
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login local
+           transport input ssh
+          !
+          !
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n11
+    image_definition: null
+    label: y-ce3
+    node_definition: iol-xe
+    parameters: {}
+    ram: null
+    tags: []
+    x: 800
+    y: 720
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 2037 bytes
+          !
+          ! Last configuration change at 00:00:08 UTC Fri Jan 23 2026
+          !
+          version 17.16
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          !
+          hostname y-ce4
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition MGMT
+           !
+           address-family ipv4
+           exit-address-family
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          no ip domain lookup
+          ip domain name lab
+          ip cef
+          login on-success log
+          ipv6 unicast-routing
+          ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          memory free low-watermark processor 79983
+          !
+          !
+          spanning-tree mode rapid-pvst
+          !
+          !
+          username admin privilege 15 secret 9 $9$UTTKn3VGkB0IJk$2v.1R4L9Wt.UfXbTjnOl.SHxReDea2FIwJmK7Fpq0lU
+          username clab privilege 15 secret 9 $9$1LIzLPYBDxSA1E$au24hnkdxMUg8ozBLyqFjWESCCzWKTsByucIFh2LdC.
+          !
+          !
+          !
+          !
+          !
+          lldp run
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback0
+           ip address 172.0.2.4 255.255.255.255
+
+           ipv6 address 2620:FC7:172:2000::4/128
+           ipv6 ospf 1 area 0
+          !
+          interface Ethernet0/0
+           vrf forwarding MGMT
+           ip address 10.253.11.204 255.255.255.0
+          !
+          interface Ethernet0/1
+           description *** to Y-CE3 GE1 ***
+           ip address 10.200.44.4 255.255.255.0
+           ipv6 address 2620:FC7:1020:4400::4/64
+           ipv6 ospf 1 area 0
+          !
+          interface Ethernet0/2
+           description *** to Y-PE4 GE3 ***
+           ip address 172.200.40.40 255.255.255.0
+           ipv6 address 2620:FC7:172:2040::40/64
+           ipv6 ospf 1 area 0
+          !
+          interface Ethernet0/3
+           no ip address
+           shutdown
+          !
+          router ospfv3 1
+           router-id 172.0.2.4
+           !
+           address-family ipv6 unicast
+           exit-address-family
+          !
+          router ospf 1
+           router-id 172.0.2.4
+           network 10.200.44.4 0.0.0.0 area 0
+           network 172.0.2.4 0.0.0.0 area 0
+           network 172.200.40.40 0.0.0.0 area 0
+          !
+          ip forward-protocol nd
+          ip forward-protocol udp
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          no logging btrace
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login local
+           transport input ssh
+          !
+          !
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n12
+    image_definition: null
+    label: y-ce4
+    node_definition: iol-xe
+    parameters: {}
+    ram: null
+    tags: []
+    x: 960
+    y: 720
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
 links:
   - id: l0
     n1: n0
@@ -799,6 +1688,97 @@ links:
     i2: i0
     conditioning: {}
     label: ubuntu-3-ens2<->ext-conn-1_0_0_0-port
+  - id: l8
+    n1: n9
+    n2: n11
+    i1: i7
+    i2: i3
+    conditioning: {}
+    label: y-pe3-GigabitEthernet0/0/0/5<->y-ce3-Ethernet0/2
+  - id: l9
+    n1: n11
+    n2: n12
+    i1: i2
+    i2: i2
+    conditioning: {}
+    label: y-ce3-Ethernet0/1<->y-ce4-Ethernet0/1
+  - id: l10
+    n1: n12
+    n2: n10
+    i1: i3
+    i2: i5
+    conditioning: {}
+    label: y-ce4-Ethernet0/2<->y-pe4-GigabitEthernet0/0/0/3
+  - id: l11
+    n1: n10
+    n2: n7
+    i1: i3
+    i2: i3
+    conditioning: {}
+    label: y-pe4-GigabitEthernet0/0/0/1<->ubuntu-3-ens5
+  - id: l12
+    n1: n10
+    n2: n7
+    i1: i4
+    i2: i2
+    conditioning: {}
+    label: y-pe4-GigabitEthernet0/0/0/2<->ubuntu-3-ens4
+  - id: l13
+    n1: n9
+    n2: n7
+    i1: i4
+    i2: i4
+    conditioning: {}
+    label: y-pe3-GigabitEthernet0/0/0/2<->ubuntu-3-ens6
+  - id: l14
+    n1: n9
+    n2: n7
+    i1: i5
+    i2: i5
+    conditioning: {}
+    label: y-pe3-GigabitEthernet0/0/0/3<->ubuntu-3-ens7
+  - id: l15
+    n1: n10
+    n2: n9
+    i1: i2
+    i2: i3
+    conditioning: {}
+    label: y-pe4-GigabitEthernet0/0/0/0<->y-pe3-GigabitEthernet0/0/0/1
+  - id: l16
+    n1: n9
+    n2: n7
+    i1: i2
+    i2: i6
+    conditioning: {}
+    label: y-pe3-GigabitEthernet0/0/0/0<->ubuntu-3-ens8
+  - id: l17
+    n1: n9
+    n2: n6
+    i1: i1
+    i2: i4
+    conditioning: {}
+    label: y-pe3-MgmtEth0/0/CPU0/0<->unmanaged-switch-0-port4
+  - id: l18
+    n1: n10
+    n2: n6
+    i1: i1
+    i2: i5
+    conditioning: {}
+    label: y-pe4-MgmtEth0/0/CPU0/0<->unmanaged-switch-0-port5
+  - id: l19
+    n1: n11
+    n2: n6
+    i1: i1
+    i2: i6
+    conditioning: {}
+    label: y-ce3-Ethernet0/0<->unmanaged-switch-0-port6
+  - id: l20
+    n1: n12
+    n2: n6
+    i1: i1
+    i2: i7
+    conditioning: {}
+    label: y-ce4-Ethernet0/0<->unmanaged-switch-0-port7
 lab:
   description: ''
   notes: ''
