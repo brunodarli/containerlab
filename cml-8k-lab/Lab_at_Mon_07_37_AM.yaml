@@ -1,0 +1,2152 @@
+annotations: []
+smart_annotations: []
+nodes:
+  - boot_disk_size: null
+    configuration:
+      - name: iosxe_config.txt
+        content: "Building configuration...\n\nCurrent configuration : 6152 bytes\n\
+          !\n! Last configuration change at 13:46:22 UTC Tue Apr 21 2026\n!\nversion\
+          \ 17.3\nservice timestamps debug datetime msec\nservice timestamps log datetime\
+          \ msec\n! Call-home is enabled by Smart-Licensing.\nservice call-home\n\
+          platform qfp utilization monitor load 80\nplatform punt-keepalive disable-kernel-core\n\
+          platform console serial\n!\nhostname csr1000v-0\n!\nboot-start-marker\n\
+          boot-end-marker\n!\n!\nno logging console\n!\nno aaa new-model\n!\n!\n!\n\
+          !\n!\n!\n!\nno ip domain lookup\nip domain name cisco.com\n!\n!\n!\nlogin\
+          \ on-success log\n!\n!\n!\n!\n!\n!\n!\nsubscriber templating\n!\n!\n!\n\
+          !\n!\n!\nmultilink bundle-name authenticated\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\n!\n!\n!\n!\ncrypto pki trustpoint SLA-TrustPoint\n enrollment pkcs12\n\
+          \ revocation-check crl\n!\n!\ncrypto pki certificate chain SLA-TrustPoint\n\
+          \ certificate ca 01\n  30820321 30820209 A0030201 02020101 300D0609 2A864886\
+          \ F70D0101 0B050030\n  32310E30 0C060355 040A1305 43697363 6F312030 1E060355\
+          \ 04031317 43697363\n  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31\
+          \ 33303533 30313934\n  3834375A 170D3338 30353330 31393438 34375A30 32310E30\
+          \ 0C060355 040A1305\n  43697363 6F312030 1E060355 04031317 43697363 6F204C69\
+          \ 63656E73 696E6720\n  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101\
+          \ 05000382 010F0030\n  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6\
+          \ 17222EA1 F1EFF64D\n  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A\
+          \ 9CAE6388 8A38E520\n  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3\
+          \ 700A8BF7 D8F256EE\n  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7\
+          \ 104FDC5F EA2956AC\n  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3\
+          \ C0BD23CF 58BD7188\n  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F\
+          \ 539BA42B 42C68BB7\n  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4\
+          \ 5D5D5FB8 8F27D191\n  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B\
+          \ DF5F4368 95135E44\n  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F\
+          \ 0101FF04 04030201\n  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D\
+          \ 0E041604 1449DC85\n  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648\
+          \ 86F70D01 010B0500\n  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0\
+          \ 49631C78 240DA905\n  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB\
+          \ 9093D3B1 6C9E3D8B\n  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646\
+          \ 5575B146 8DFC66A8\n  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC\
+          \ 11BA9CD2 55A9232C\n  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86\
+          \ C71E3B49 1765308B\n  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229\
+          \ C37C1E69 39F08678\n  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A\
+          \ B623CDBD 230E3AFB\n  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE\
+          \ 0275156F 719BB2F0\n  D697DF7F 28\n  \tquit\n!\nlicense udi pid CSR1000V\
+          \ sn 9JU37G6W9UY\ndiagnostic bootup level minimal\nmemory free low-watermark\
+          \ processor 71464\n!\n!\nspanning-tree extend system-id\n!\n!\nredundancy\n\
+          !\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\ninterface GigabitEthernet1\n ip address 198.18.0.100 255.255.255.0\n\
+          \ negotiation auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet2\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet3\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet4\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet5\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet6\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet7\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet8\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet9\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet10\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet11\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet12\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet13\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet14\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet15\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet16\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet17\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet18\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet19\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet20\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet21\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet22\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet23\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet24\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet25\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet26\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\nip forward-protocol nd\nno ip http server\nip http secure-server\n\
+          !\nip ssh version 2\n!\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\n!\n!\n!\n!\n\
+          !\nline con 0\n exec-timeout 0 0\n stopbits 1\nline vty 0 4\n exec-timeout\
+          \ 0 0\n login\n transport input ssh\n!\ncall-home\n ! If contact email address\
+          \ in call-home is configured as sch-smart-licensing@cisco.com\n ! the email\
+          \ address configured in Cisco Smart License Portal will be used as contact\
+          \ email address to send SCH notifications.\n contact-email-addr sch-smart-licensing@cisco.com\n\
+          \ profile \"CiscoTAC-1\"\n  active\n  destination transport-method http\n\
+          !\n!\n!\n!\n!\nend"
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: csr1000v-0
+    node_definition: csr1000v
+    parameters: {}
+    ram: null
+    tags: []
+    x: -280
+    y: 80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet1
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet2
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet3
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet4
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: GigabitEthernet5
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i6
+        label: GigabitEthernet6
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i7
+        label: GigabitEthernet7
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i8
+        label: GigabitEthernet8
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i9
+        label: GigabitEthernet9
+        mac_address: null
+        type: physical
+        slot: 8
+      - id: i10
+        label: GigabitEthernet10
+        mac_address: null
+        type: physical
+        slot: 9
+      - id: i11
+        label: GigabitEthernet11
+        mac_address: null
+        type: physical
+        slot: 10
+      - id: i12
+        label: GigabitEthernet12
+        mac_address: null
+        type: physical
+        slot: 11
+      - id: i13
+        label: GigabitEthernet13
+        mac_address: null
+        type: physical
+        slot: 12
+      - id: i14
+        label: GigabitEthernet14
+        mac_address: null
+        type: physical
+        slot: 13
+      - id: i15
+        label: GigabitEthernet15
+        mac_address: null
+        type: physical
+        slot: 14
+      - id: i16
+        label: GigabitEthernet16
+        mac_address: null
+        type: physical
+        slot: 15
+      - id: i17
+        label: GigabitEthernet17
+        mac_address: null
+        type: physical
+        slot: 16
+      - id: i18
+        label: GigabitEthernet18
+        mac_address: null
+        type: physical
+        slot: 17
+      - id: i19
+        label: GigabitEthernet19
+        mac_address: null
+        type: physical
+        slot: 18
+      - id: i20
+        label: GigabitEthernet20
+        mac_address: null
+        type: physical
+        slot: 19
+      - id: i21
+        label: GigabitEthernet21
+        mac_address: null
+        type: physical
+        slot: 20
+      - id: i22
+        label: GigabitEthernet22
+        mac_address: null
+        type: physical
+        slot: 21
+      - id: i23
+        label: GigabitEthernet23
+        mac_address: null
+        type: physical
+        slot: 22
+      - id: i24
+        label: GigabitEthernet24
+        mac_address: null
+        type: physical
+        slot: 23
+      - id: i25
+        label: GigabitEthernet25
+        mac_address: null
+        type: physical
+        slot: 24
+      - id: i26
+        label: GigabitEthernet26
+        mac_address: null
+        type: physical
+        slot: 25
+  - boot_disk_size: null
+    configuration:
+      - name: iosxe_config.txt
+        content: "Building configuration...\n\nCurrent configuration : 6152 bytes\n\
+          !\n! Last configuration change at 13:46:23 UTC Tue Apr 21 2026\n!\nversion\
+          \ 17.3\nservice timestamps debug datetime msec\nservice timestamps log datetime\
+          \ msec\n! Call-home is enabled by Smart-Licensing.\nservice call-home\n\
+          platform qfp utilization monitor load 80\nplatform punt-keepalive disable-kernel-core\n\
+          platform console serial\n!\nhostname csr1000v-1\n!\nboot-start-marker\n\
+          boot-end-marker\n!\n!\nno logging console\n!\nno aaa new-model\n!\n!\n!\n\
+          !\n!\n!\n!\nno ip domain lookup\nip domain name cisco.com\n!\n!\n!\nlogin\
+          \ on-success log\n!\n!\n!\n!\n!\n!\n!\nsubscriber templating\n!\n!\n!\n\
+          !\n!\n!\nmultilink bundle-name authenticated\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\n!\n!\n!\n!\ncrypto pki trustpoint SLA-TrustPoint\n enrollment pkcs12\n\
+          \ revocation-check crl\n!\n!\ncrypto pki certificate chain SLA-TrustPoint\n\
+          \ certificate ca 01\n  30820321 30820209 A0030201 02020101 300D0609 2A864886\
+          \ F70D0101 0B050030\n  32310E30 0C060355 040A1305 43697363 6F312030 1E060355\
+          \ 04031317 43697363\n  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31\
+          \ 33303533 30313934\n  3834375A 170D3338 30353330 31393438 34375A30 32310E30\
+          \ 0C060355 040A1305\n  43697363 6F312030 1E060355 04031317 43697363 6F204C69\
+          \ 63656E73 696E6720\n  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101\
+          \ 05000382 010F0030\n  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6\
+          \ 17222EA1 F1EFF64D\n  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A\
+          \ 9CAE6388 8A38E520\n  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3\
+          \ 700A8BF7 D8F256EE\n  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7\
+          \ 104FDC5F EA2956AC\n  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3\
+          \ C0BD23CF 58BD7188\n  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F\
+          \ 539BA42B 42C68BB7\n  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4\
+          \ 5D5D5FB8 8F27D191\n  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B\
+          \ DF5F4368 95135E44\n  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F\
+          \ 0101FF04 04030201\n  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D\
+          \ 0E041604 1449DC85\n  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648\
+          \ 86F70D01 010B0500\n  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0\
+          \ 49631C78 240DA905\n  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB\
+          \ 9093D3B1 6C9E3D8B\n  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646\
+          \ 5575B146 8DFC66A8\n  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC\
+          \ 11BA9CD2 55A9232C\n  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86\
+          \ C71E3B49 1765308B\n  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229\
+          \ C37C1E69 39F08678\n  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A\
+          \ B623CDBD 230E3AFB\n  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE\
+          \ 0275156F 719BB2F0\n  D697DF7F 28\n  \tquit\n!\nlicense udi pid CSR1000V\
+          \ sn 9Q6B0YQCX1A\ndiagnostic bootup level minimal\nmemory free low-watermark\
+          \ processor 71464\n!\n!\nspanning-tree extend system-id\n!\n!\nredundancy\n\
+          !\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\ninterface GigabitEthernet1\n ip address 198.18.0.101 255.255.255.0\n\
+          \ negotiation auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet2\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet3\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet4\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet5\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet6\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet7\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet8\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet9\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet10\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet11\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet12\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet13\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet14\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet15\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet16\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet17\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet18\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet19\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet20\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet21\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet22\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet23\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet24\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\ninterface GigabitEthernet25\n no ip address\n shutdown\n negotiation\
+          \ auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet26\n\
+          \ no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop\
+          \ sysid\n!\nip forward-protocol nd\nno ip http server\nip http secure-server\n\
+          !\nip ssh version 2\n!\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\n!\n!\n!\n!\n\
+          !\nline con 0\n exec-timeout 0 0\n stopbits 1\nline vty 0 4\n exec-timeout\
+          \ 0 0\n login\n transport input ssh\n!\ncall-home\n ! If contact email address\
+          \ in call-home is configured as sch-smart-licensing@cisco.com\n ! the email\
+          \ address configured in Cisco Smart License Portal will be used as contact\
+          \ email address to send SCH notifications.\n contact-email-addr sch-smart-licensing@cisco.com\n\
+          \ profile \"CiscoTAC-1\"\n  active\n  destination transport-method http\n\
+          !\n!\n!\n!\n!\nend"
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: csr1000v-1
+    node_definition: csr1000v
+    parameters: {}
+    ram: null
+    tags: []
+    x: 0
+    y: 80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet1
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet2
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet3
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet4
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: GigabitEthernet5
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i6
+        label: GigabitEthernet6
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i7
+        label: GigabitEthernet7
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i8
+        label: GigabitEthernet8
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i9
+        label: GigabitEthernet9
+        mac_address: null
+        type: physical
+        slot: 8
+      - id: i10
+        label: GigabitEthernet10
+        mac_address: null
+        type: physical
+        slot: 9
+      - id: i11
+        label: GigabitEthernet11
+        mac_address: null
+        type: physical
+        slot: 10
+      - id: i12
+        label: GigabitEthernet12
+        mac_address: null
+        type: physical
+        slot: 11
+      - id: i13
+        label: GigabitEthernet13
+        mac_address: null
+        type: physical
+        slot: 12
+      - id: i14
+        label: GigabitEthernet14
+        mac_address: null
+        type: physical
+        slot: 13
+      - id: i15
+        label: GigabitEthernet15
+        mac_address: null
+        type: physical
+        slot: 14
+      - id: i16
+        label: GigabitEthernet16
+        mac_address: null
+        type: physical
+        slot: 15
+      - id: i17
+        label: GigabitEthernet17
+        mac_address: null
+        type: physical
+        slot: 16
+      - id: i18
+        label: GigabitEthernet18
+        mac_address: null
+        type: physical
+        slot: 17
+      - id: i19
+        label: GigabitEthernet19
+        mac_address: null
+        type: physical
+        slot: 18
+      - id: i20
+        label: GigabitEthernet20
+        mac_address: null
+        type: physical
+        slot: 19
+      - id: i21
+        label: GigabitEthernet21
+        mac_address: null
+        type: physical
+        slot: 20
+      - id: i22
+        label: GigabitEthernet22
+        mac_address: null
+        type: physical
+        slot: 21
+      - id: i23
+        label: GigabitEthernet23
+        mac_address: null
+        type: physical
+        slot: 22
+      - id: i24
+        label: GigabitEthernet24
+        mac_address: null
+        type: physical
+        slot: 23
+      - id: i25
+        label: GigabitEthernet25
+        mac_address: null
+        type: physical
+        slot: 24
+      - id: i26
+        label: GigabitEthernet26
+        mac_address: null
+        type: physical
+        slot: 25
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |-
+          !! IOS XR Configuration 24.3.1
+          hostname 8102-10
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: 8102-10
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: -520
+    y: 80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: Hu0/0/0/3
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i6
+        label: Hu0/0/0/4
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i7
+        label: Hu0/0/0/5
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i8
+        label: Hu0/0/0/6
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i9
+        label: Hu0/0/0/7
+        mac_address: null
+        type: physical
+        slot: 8
+      - id: i10
+        label: Hu0/0/0/8
+        mac_address: null
+        type: physical
+        slot: 9
+      - id: i11
+        label: Hu0/0/0/9
+        mac_address: null
+        type: physical
+        slot: 10
+      - id: i12
+        label: Hu0/0/0/10
+        mac_address: null
+        type: physical
+        slot: 11
+      - id: i13
+        label: Hu0/0/0/11
+        mac_address: null
+        type: physical
+        slot: 12
+      - id: i14
+        label: Hu0/0/0/12
+        mac_address: null
+        type: physical
+        slot: 13
+      - id: i15
+        label: Hu0/0/0/13
+        mac_address: null
+        type: physical
+        slot: 14
+      - id: i16
+        label: Hu0/0/0/14
+        mac_address: null
+        type: physical
+        slot: 15
+      - id: i17
+        label: Hu0/0/0/15
+        mac_address: null
+        type: physical
+        slot: 16
+      - id: i18
+        label: Hu0/0/0/16
+        mac_address: null
+        type: physical
+        slot: 17
+      - id: i19
+        label: Hu0/0/0/17
+        mac_address: null
+        type: physical
+        slot: 18
+      - id: i20
+        label: Hu0/0/0/18
+        mac_address: null
+        type: physical
+        slot: 19
+      - id: i21
+        label: Hu0/0/0/19
+        mac_address: null
+        type: physical
+        slot: 20
+      - id: i22
+        label: Hu0/0/0/20
+        mac_address: null
+        type: physical
+        slot: 21
+      - id: i23
+        label: Hu0/0/0/21
+        mac_address: null
+        type: physical
+        slot: 22
+      - id: i24
+        label: Hu0/0/0/22
+        mac_address: null
+        type: physical
+        slot: 23
+      - id: i25
+        label: Hu0/0/0/23
+        mac_address: null
+        type: physical
+        slot: 24
+      - id: i26
+        label: Hu0/0/0/24
+        mac_address: null
+        type: physical
+        slot: 25
+      - id: i27
+        label: Hu0/0/0/25
+        mac_address: null
+        type: physical
+        slot: 26
+      - id: i28
+        label: Hu0/0/0/26
+        mac_address: null
+        type: physical
+        slot: 27
+      - id: i29
+        label: Hu0/0/0/27
+        mac_address: null
+        type: physical
+        slot: 28
+      - id: i30
+        label: Hu0/0/0/28
+        mac_address: null
+        type: physical
+        slot: 29
+      - id: i31
+        label: Hu0/0/0/29
+        mac_address: null
+        type: physical
+        slot: 30
+      - id: i32
+        label: Hu0/0/0/30
+        mac_address: null
+        type: physical
+        slot: 31
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    image_definition: null
+    label: 8102-12
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: -160
+    y: -120
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: Hu0/0/0/3
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i6
+        label: Hu0/0/0/4
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i7
+        label: Hu0/0/0/5
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i8
+        label: Hu0/0/0/6
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i9
+        label: Hu0/0/0/7
+        mac_address: null
+        type: physical
+        slot: 8
+      - id: i10
+        label: Hu0/0/0/8
+        mac_address: null
+        type: physical
+        slot: 9
+      - id: i11
+        label: Hu0/0/0/9
+        mac_address: null
+        type: physical
+        slot: 10
+      - id: i12
+        label: Hu0/0/0/10
+        mac_address: null
+        type: physical
+        slot: 11
+      - id: i13
+        label: Hu0/0/0/11
+        mac_address: null
+        type: physical
+        slot: 12
+      - id: i14
+        label: Hu0/0/0/12
+        mac_address: null
+        type: physical
+        slot: 13
+      - id: i15
+        label: Hu0/0/0/13
+        mac_address: null
+        type: physical
+        slot: 14
+      - id: i16
+        label: Hu0/0/0/14
+        mac_address: null
+        type: physical
+        slot: 15
+      - id: i17
+        label: Hu0/0/0/15
+        mac_address: null
+        type: physical
+        slot: 16
+      - id: i18
+        label: Hu0/0/0/16
+        mac_address: null
+        type: physical
+        slot: 17
+      - id: i19
+        label: Hu0/0/0/17
+        mac_address: null
+        type: physical
+        slot: 18
+      - id: i20
+        label: Hu0/0/0/18
+        mac_address: null
+        type: physical
+        slot: 19
+      - id: i21
+        label: Hu0/0/0/19
+        mac_address: null
+        type: physical
+        slot: 20
+      - id: i22
+        label: Hu0/0/0/20
+        mac_address: null
+        type: physical
+        slot: 21
+      - id: i23
+        label: Hu0/0/0/21
+        mac_address: null
+        type: physical
+        slot: 22
+      - id: i24
+        label: Hu0/0/0/22
+        mac_address: null
+        type: physical
+        slot: 23
+      - id: i25
+        label: Hu0/0/0/23
+        mac_address: null
+        type: physical
+        slot: 24
+      - id: i26
+        label: Hu0/0/0/24
+        mac_address: null
+        type: physical
+        slot: 25
+      - id: i27
+        label: Hu0/0/0/25
+        mac_address: null
+        type: physical
+        slot: 26
+      - id: i28
+        label: Hu0/0/0/26
+        mac_address: null
+        type: physical
+        slot: 27
+      - id: i29
+        label: Hu0/0/0/27
+        mac_address: null
+        type: physical
+        slot: 28
+      - id: i30
+        label: Hu0/0/0/28
+        mac_address: null
+        type: physical
+        slot: 29
+      - id: i31
+        label: Hu0/0/0/29
+        mac_address: null
+        type: physical
+        slot: 30
+      - id: i32
+        label: Hu0/0/0/30
+        mac_address: null
+        type: physical
+        slot: 31
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    image_definition: null
+    label: 8102-11
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: 200
+    y: 80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: Hu0/0/0/3
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i6
+        label: Hu0/0/0/4
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i7
+        label: Hu0/0/0/5
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i8
+        label: Hu0/0/0/6
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i9
+        label: Hu0/0/0/7
+        mac_address: null
+        type: physical
+        slot: 8
+      - id: i10
+        label: Hu0/0/0/8
+        mac_address: null
+        type: physical
+        slot: 9
+      - id: i11
+        label: Hu0/0/0/9
+        mac_address: null
+        type: physical
+        slot: 10
+      - id: i12
+        label: Hu0/0/0/10
+        mac_address: null
+        type: physical
+        slot: 11
+      - id: i13
+        label: Hu0/0/0/11
+        mac_address: null
+        type: physical
+        slot: 12
+      - id: i14
+        label: Hu0/0/0/12
+        mac_address: null
+        type: physical
+        slot: 13
+      - id: i15
+        label: Hu0/0/0/13
+        mac_address: null
+        type: physical
+        slot: 14
+      - id: i16
+        label: Hu0/0/0/14
+        mac_address: null
+        type: physical
+        slot: 15
+      - id: i17
+        label: Hu0/0/0/15
+        mac_address: null
+        type: physical
+        slot: 16
+      - id: i18
+        label: Hu0/0/0/16
+        mac_address: null
+        type: physical
+        slot: 17
+      - id: i19
+        label: Hu0/0/0/17
+        mac_address: null
+        type: physical
+        slot: 18
+      - id: i20
+        label: Hu0/0/0/18
+        mac_address: null
+        type: physical
+        slot: 19
+      - id: i21
+        label: Hu0/0/0/19
+        mac_address: null
+        type: physical
+        slot: 20
+      - id: i22
+        label: Hu0/0/0/20
+        mac_address: null
+        type: physical
+        slot: 21
+      - id: i23
+        label: Hu0/0/0/21
+        mac_address: null
+        type: physical
+        slot: 22
+      - id: i24
+        label: Hu0/0/0/22
+        mac_address: null
+        type: physical
+        slot: 23
+      - id: i25
+        label: Hu0/0/0/23
+        mac_address: null
+        type: physical
+        slot: 24
+      - id: i26
+        label: Hu0/0/0/24
+        mac_address: null
+        type: physical
+        slot: 25
+      - id: i27
+        label: Hu0/0/0/25
+        mac_address: null
+        type: physical
+        slot: 26
+      - id: i28
+        label: Hu0/0/0/26
+        mac_address: null
+        type: physical
+        slot: 27
+      - id: i29
+        label: Hu0/0/0/27
+        mac_address: null
+        type: physical
+        slot: 28
+      - id: i30
+        label: Hu0/0/0/28
+        mac_address: null
+        type: physical
+        slot: 29
+      - id: i31
+        label: Hu0/0/0/29
+        mac_address: null
+        type: physical
+        slot: 30
+      - id: i32
+        label: Hu0/0/0/30
+        mac_address: null
+        type: physical
+        slot: 31
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 1249 bytes
+          !
+          ! Last configuration change at 13:46:23 UTC Tue Apr 21 2026
+          !
+          version 17.16
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          !
+          hostname iol-0
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          no ip domain lookup
+          ip domain name cisco.com
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          memory free low-watermark processor 79983
+          !
+          !
+          spanning-tree mode rapid-pvst
+          !
+          !
+          username clab privilege 15 password 0 clab@123
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           ip address 198.18.0.200 255.255.255.0
+          !
+          interface Ethernet0/1
+           no ip address
+           shutdown
+          !
+          interface Ethernet0/2
+           no ip address
+           shutdown
+          !
+          interface Ethernet0/3
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/0
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/1
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/2
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/3
+           no ip address
+           shutdown
+          !
+          ip forward-protocol nd
+          ip forward-protocol udp
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          no logging btrace
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login
+           transport input ssh
+          !
+          !
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n5
+    image_definition: null
+    label: iol-0
+    node_definition: iol-xe
+    parameters: {}
+    ram: null
+    tags: []
+    x: -520
+    y: 240
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: Ethernet1/0
+        mac_address: null
+        type: physical
+        slot: 4
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 1157 bytes
+          !
+          ! Last configuration change at 13:46:25 UTC Tue Apr 21 2026
+          !
+          version 17.16
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          !
+          hostname iol-1
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          memory free low-watermark processor 79983
+          !
+          !
+          spanning-tree mode rapid-pvst
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           ip address 198.18.0.201 255.255.255.0
+          !
+          interface Ethernet0/1
+           no ip address
+           shutdown
+          !
+          interface Ethernet0/2
+           no ip address
+           shutdown
+          !
+          interface Ethernet0/3
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/0
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/1
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/2
+           no ip address
+           shutdown
+          !
+          interface Ethernet1/3
+           no ip address
+           shutdown
+          !
+          ip forward-protocol nd
+          ip forward-protocol udp
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          no logging btrace
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login
+           transport input ssh
+          !
+          !
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n6
+    image_definition: null
+    label: iol-1
+    node_definition: iol-xe
+    parameters: {}
+    ram: null
+    tags: []
+    x: 200
+    y: 240
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: Ethernet1/0
+        mac_address: null
+        type: physical
+        slot: 4
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+          Tue Apr 21 13:46:28.807 UTC
+          Building configuration...
+          !! IOS XR Configuration 6.3.1
+          !! Last configuration change at Tue Apr 21 13:46:28 2026 by cisco
+          !
+          hostname xrv-13
+          logging console disable
+          username clab
+           group root-lr
+           password 7 00071F07067B5A545C
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          interface MgmtEth0/0/CPU0/0
+           ipv4 address 198.18.0.13 255.255.255.0
+          !
+          interface GigabitEthernet0/0/0/0
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/1
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/2
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/3
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/4
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/5
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/6
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/7
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/8
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/9
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/10
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/11
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/12
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/13
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/14
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/15
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/16
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/17
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/18
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/19
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/20
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/21
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/22
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/23
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/24
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/25
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/26
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/27
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/28
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/29
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/30
+           shutdown
+          !
+          interface GigabitEthernet0/0/0/31
+           shutdown
+          !
+          ssh server v2
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n7
+    image_definition: iosxrv-6-3-1
+    label: xrv-13
+    node_definition: iosxrv
+    parameters: {}
+    ram: null
+    tags: []
+    x: -129
+    y: 259
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: GigabitEthernet0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: GigabitEthernet0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: GigabitEthernet0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i5
+        label: GigabitEthernet0/0/0/3
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i6
+        label: GigabitEthernet0/0/0/4
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i7
+        label: GigabitEthernet0/0/0/5
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i8
+        label: GigabitEthernet0/0/0/6
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i9
+        label: GigabitEthernet0/0/0/7
+        mac_address: null
+        type: physical
+        slot: 8
+      - id: i10
+        label: GigabitEthernet0/0/0/8
+        mac_address: null
+        type: physical
+        slot: 9
+      - id: i11
+        label: GigabitEthernet0/0/0/9
+        mac_address: null
+        type: physical
+        slot: 10
+      - id: i12
+        label: GigabitEthernet0/0/0/9
+        mac_address: null
+        type: physical
+        slot: 11
+      - id: i13
+        label: GigabitEthernet0/0/0/10
+        mac_address: null
+        type: physical
+        slot: 12
+      - id: i14
+        label: GigabitEthernet0/0/0/11
+        mac_address: null
+        type: physical
+        slot: 13
+      - id: i15
+        label: GigabitEthernet0/0/0/12
+        mac_address: null
+        type: physical
+        slot: 14
+      - id: i16
+        label: GigabitEthernet0/0/0/13
+        mac_address: null
+        type: physical
+        slot: 15
+      - id: i17
+        label: GigabitEthernet0/0/0/14
+        mac_address: null
+        type: physical
+        slot: 16
+      - id: i18
+        label: GigabitEthernet0/0/0/15
+        mac_address: null
+        type: physical
+        slot: 17
+      - id: i19
+        label: GigabitEthernet0/0/0/16
+        mac_address: null
+        type: physical
+        slot: 18
+      - id: i20
+        label: GigabitEthernet0/0/0/17
+        mac_address: null
+        type: physical
+        slot: 19
+      - id: i21
+        label: GigabitEthernet0/0/0/18
+        mac_address: null
+        type: physical
+        slot: 20
+      - id: i22
+        label: GigabitEthernet0/0/0/19
+        mac_address: null
+        type: physical
+        slot: 21
+      - id: i23
+        label: GigabitEthernet0/0/0/20
+        mac_address: null
+        type: physical
+        slot: 22
+      - id: i24
+        label: GigabitEthernet0/0/0/21
+        mac_address: null
+        type: physical
+        slot: 23
+      - id: i25
+        label: GigabitEthernet0/0/0/22
+        mac_address: null
+        type: physical
+        slot: 24
+      - id: i26
+        label: GigabitEthernet0/0/0/23
+        mac_address: null
+        type: physical
+        slot: 25
+      - id: i27
+        label: GigabitEthernet0/0/0/24
+        mac_address: null
+        type: physical
+        slot: 26
+      - id: i28
+        label: GigabitEthernet0/0/0/25
+        mac_address: null
+        type: physical
+        slot: 27
+      - id: i29
+        label: GigabitEthernet0/0/0/26
+        mac_address: null
+        type: physical
+        slot: 28
+      - id: i30
+        label: GigabitEthernet0/0/0/27
+        mac_address: null
+        type: physical
+        slot: 29
+      - id: i31
+        label: GigabitEthernet0/0/0/28
+        mac_address: null
+        type: physical
+        slot: 30
+      - id: i32
+        label: GigabitEthernet0/0/0/29
+        mac_address: null
+        type: physical
+        slot: 31
+      - id: i33
+        label: GigabitEthernet0/0/0/30
+        mac_address: null
+        type: physical
+        slot: 32
+  - boot_disk_size: null
+    configuration:
+      - name: user-data
+        content: |-
+          #cloud-config
+          password: cisco
+          chpasswd: { expire: False }
+          hostname: xrd
+          ssh_pwauth: True
+          ssh_authorized_keys:
+             - your-ssh-pubkey-line-goes-here
+
+          runcmd:
+          #- sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+          - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+          - add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          - echo "deb [trusted=yes] https://apt.fury.io/netdevops/ /" | tee -a /etc/apt/sources.list.d/netdevops.list
+          - apt-get update -y
+          - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
+          - apt-get install -y containerlab bridge-utils
+          - mkdir -p /etc/systemd/system/docker.service.d/
+          - echo '[Service]' > /etc/systemd/system/docker.service.d/http-proxy.conf
+          - echo 'Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "HTTPS_PROXY=http://proxy.esl.cisco.com:80/" "NO_PROXY=.cisco.com"' >> /etc/systemd/system/docker.service.d/http-proxy.conf
+          - systemctl daemon-reload
+          - systemctl start docker
+          - systemctl enable docker
+          - systemctl restart docker
+          - usermod -a -G docker ubuntu
+          - containerlab completion bash > /etc/bash_completion.d/containerlab
+          - echo 'fs.inotify.max_user_instances=64000' >> /etc/sysctl.conf
+          - echo 'fs.inotify.max_user_watches=64000' >> /etc/sysctl.conf
+          - echo 'net.bridge.bridge-nf-call-iptables=0' >> /etc/sysctl.conf
+          - echo 'net.bridge.bridge-nf-call-ip6tables=0' >> /etc/sysctl.conf
+          - echo 'net.core.netdev_max_backlog=300000' >> /etc/sysctl.conf
+          - echo 'net.core.optmem_max=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.rmem_default=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.rmem_max=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.wmem_default=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.wmem_max=67108864' >> /etc/sysctl.conf
+          - echo 'net.ipv4.udp_mem=1124736 10000000 67108864' >> /etc/sysctl.conf
+          - sysctl -p
+          - apt-get install -y tftpd-hpa chrony
+          - chmod go+w /srv/tftp/
+          - sed -i "s/--secure/--secure --create/" /etc/default/tftpd-hpa
+          - systemctl restart tftpd-hpa.service
+          - sed -i "/# See http:\/\/www\.pool\.ntp\.org\/join\.html for more information\./a\server 172.18.108.14 iburst\nserver 172.18.108.15 iburst" /etc/chrony/chrony.conf
+          - sed -i "/^pool .*/s/^/#/" /etc/chrony/chrony.conf
+          - echo "\n# NTP access list\nallow 172.31.0.0/24" >> /etc/chrony/chrony.conf
+          - systemctl restart chrony
+          - systemctl restart rsyslog
+          - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.17 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:80
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-24.3.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-24.3.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-24.3.2
+          - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
+          - echo "alias ssh-quiet='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - echo "alias scp-quiet='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - echo "alias sftp-quiet='sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - git clone https://gitlab-cxj.cisco.com/jtac-xr/xrd_lab.git /home/ubuntu/xrd_lab
+          - git clone https://gitlab-cxj.cisco.com/jtac-xr/jtac-iosxr-tools.git /home/ubuntu/jtac-iosxr-tools
+          - echo "alias clab-ssh-port-forwarding='python3 /home/ubuntu/jtac-iosxr-tools/jtac_iosxr_tools/cml/clab_ssh_port_forwarding.py'" >> /home/ubuntu/.bash_aliases
+          - mkdir /home/ubuntu/radkit
+          - chown -R ubuntu:ubuntu /home/ubuntu
+          #- docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
+
+          write_files:
+          - path: /etc/apt/apt.conf
+            content: |
+              Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
+              Acquire::https::Proxy "http://proxy.esl.cisco.com:80";
+            owner: root:root
+            permissions: '0644'
+          - path: /root/.curlrc
+            content: |
+              proxy = "http://proxy.esl.cisco.com:80"
+              noproxy = "localhost,127.0.0.1,.cisco.com,10.70.69.134,10.70.69.1"
+            owner: root:root
+            permissions: '0644'
+          - path: /etc/gitconfig
+            content: |
+              [http "https://github.com"]
+                  proxy = http://proxy.esl.cisco.com:80
+            owner: root:root
+            permissions: '0644'
+          - path: /etc/ssh/ssh_config.d/cml-iosxr.conf
+            content: |
+              # Backward compatibility for old IOS-XR
+              Host *
+                  ServerAliveInterval 120
+                  StrictHostKeyChecking=no
+                  UserKnownHostsFile=/dev/null
+                  KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+                  HostkeyAlgorithms=+ssh-rsa
+                  Ciphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
+            owner: root:root
+            permissions: '0644'
+          - path: /etc/rsyslog.d/90-udp.conf
+            content: |
+              # Global setting
+              global(
+                  net.enableDNS="off"
+              )
+
+              # UDP listener
+              module(load="imudp")
+
+              # UDP rulesets
+              # UDP ruleset for syslog-udp
+              ruleset(name="syslog-udp"){
+                  action(
+                      type="omfile"
+                      file="/var/log/syslog-udp.log"
+                      fileOwner="syslog"
+                      fileGroup="adm"
+                  )
+              }
+
+              # Start up listener at UDP port 514
+              input(
+                  type="imudp"
+                  port="514"
+                  rcvbufSize="512k"
+                  ruleset="syslog-udp"
+              )
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n8
+    image_definition: null
+    label: Radkit-server
+    node_definition: ubuntu
+    parameters: {}
+    ram: null
+    tags: []
+    x: -560
+    y: -80
+    interfaces:
+      - id: i0
+        label: ens2
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i1
+        label: ens3
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i2
+        label: ens4
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i3
+        label: ens5
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i4
+        label: ens6
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i5
+        label: ens7
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i6
+        label: ens8
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i7
+        label: ens9
+        mac_address: null
+        type: physical
+        slot: 7
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: true
+    id: n9
+    image_definition: null
+    label: unmanaged-switch-0
+    node_definition: unmanaged_switch
+    parameters: {}
+    ram: null
+    tags: []
+    x: -360
+    y: -80
+    interfaces:
+      - id: i0
+        label: port0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i1
+        label: port1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i2
+        label: port2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i3
+        label: port3
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i4
+        label: port4
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i5
+        label: port5
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i6
+        label: port6
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i7
+        label: port7
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i8
+        label: port8
+        mac_address: null
+        type: physical
+        slot: 8
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n10
+    image_definition: null
+    label: ext-conn-0
+    node_definition: external_connector
+    parameters: {}
+    ram: null
+    tags: []
+    x: -720
+    y: -80
+    interfaces:
+      - id: i0
+        label: port
+        mac_address: null
+        type: physical
+        slot: 0
+links:
+  - id: l0
+    n1: n2
+    n2: n0
+    i1: i2
+    i2: i2
+    conditioning: {}
+    label: 8102-0-Hu0/0/0/0<->csr1000v-0-GigabitEthernet2
+  - id: l1
+    n1: n3
+    n2: n1
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: 8102-1-Hu0/0/0/1<->csr1000v-1-GigabitEthernet2
+  - id: l2
+    n1: n4
+    n2: n1
+    i1: i2
+    i2: i3
+    conditioning: {}
+    label: 8102-2-Hu0/0/0/0<->csr1000v-1-GigabitEthernet3
+  - id: l3
+    n1: n7
+    n2: n0
+    i1: i2
+    i2: i4
+    conditioning: {}
+    label: xrv-0-GigabitEthernet0/0/0/0<->csr1000v-0-GigabitEthernet4
+  - id: l4
+    n1: n7
+    n2: n1
+    i1: i3
+    i2: i4
+    conditioning: {}
+    label: xrv-0-GigabitEthernet0/0/0/1<->csr1000v-1-GigabitEthernet4
+  - id: l5
+    n1: n5
+    n2: n2
+    i1: i2
+    i2: i3
+    conditioning: {}
+    label: iol-0-Ethernet0/1<->8102-10-Hu0/0/0/1
+  - id: l6
+    n1: n3
+    n2: n0
+    i1: i32
+    i2: i26
+    conditioning: {}
+    label: 8102-12-Hu0/0/0/30<->csr1000v-0-GigabitEthernet26
+  - id: l7
+    n1: n3
+    n2: n1
+    i1: i31
+    i2: i26
+    conditioning: {}
+    label: 8102-12-Hu0/0/0/29<->csr1000v-1-GigabitEthernet26
+  - id: l8
+    n1: n1
+    n2: n7
+    i1: i25
+    i2: i33
+    conditioning: {}
+    label: csr1000v-1-GigabitEthernet25<->xrv-0-GigabitEthernet0/0/0/30
+  - id: l9
+    n1: n7
+    n2: n0
+    i1: i32
+    i2: i25
+    conditioning: {}
+    label: xrv-0-GigabitEthernet0/0/0/29<->csr1000v-0-GigabitEthernet25
+  - id: l10
+    n1: n2
+    n2: n0
+    i1: i32
+    i2: i24
+    conditioning: {}
+    label: 8102-10-Hu0/0/0/30<->csr1000v-0-GigabitEthernet24
+  - id: l11
+    n1: n4
+    n2: n1
+    i1: i32
+    i2: i24
+    conditioning: {}
+    label: 8102-11-Hu0/0/0/30<->csr1000v-1-GigabitEthernet24
+  - id: l12
+    n1: n0
+    n2: n3
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: csr1000v-0-GigabitEthernet3<->8102-12-Hu0/0/0/0
+  - id: l13
+    n1: n5
+    n2: n2
+    i1: i5
+    i2: i4
+    conditioning: {}
+    label: iol-0-Ethernet1/0<->8102-10-Hu0/0/0/2
+  - id: l14
+    n1: n6
+    n2: n4
+    i1: i5
+    i2: i3
+    conditioning: {}
+    label: iol-1-Ethernet1/0<->8102-11-Hu0/0/0/1
+  - id: l15
+    n1: n1
+    n2: n0
+    i1: i5
+    i2: i5
+    conditioning: {}
+    label: csr1000v-1-GigabitEthernet5<->csr1000v-0-GigabitEthernet5
+  - id: l16
+    n1: n2
+    n2: n9
+    i1: i1
+    i2: i0
+    conditioning: {}
+    label: 8102-10-MgmtEth0/RP0/CPU0/0<->unmanaged-switch-0-port0
+  - id: l17
+    n1: n3
+    n2: n9
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: 8102-12-MgmtEth0/RP0/CPU0/0<->unmanaged-switch-0-port1
+  - id: l18
+    n1: n0
+    n2: n9
+    i1: i1
+    i2: i2
+    conditioning: {}
+    label: csr1000v-0-GigabitEthernet1<->unmanaged-switch-0-port2
+  - id: l19
+    n1: n1
+    n2: n9
+    i1: i1
+    i2: i3
+    conditioning: {}
+    label: csr1000v-1-GigabitEthernet1<->unmanaged-switch-0-port3
+  - id: l20
+    n1: n4
+    n2: n9
+    i1: i1
+    i2: i4
+    conditioning: {}
+    label: 8102-11-MgmtEth0/RP0/CPU0/0<->unmanaged-switch-0-port4
+  - id: l21
+    n1: n6
+    n2: n9
+    i1: i1
+    i2: i5
+    conditioning: {}
+    label: iol-1-Ethernet0/0<->unmanaged-switch-0-port5
+  - id: l22
+    n1: n7
+    n2: n9
+    i1: i1
+    i2: i6
+    conditioning: {}
+    label: xrv-13-MgmtEth0/0/CPU0/0<->unmanaged-switch-0-port6
+  - id: l23
+    n1: n5
+    n2: n9
+    i1: i1
+    i2: i7
+    conditioning: {}
+    label: iol-0-Ethernet0/0<->unmanaged-switch-0-port7
+  - id: l24
+    n1: n8
+    n2: n9
+    i1: i7
+    i2: i8
+    conditioning: {}
+    label: Radkit-server-ens9<->unmanaged-switch-0-port8
+  - id: l25
+    n1: n8
+    n2: n10
+    i1: i0
+    i2: i0
+    conditioning: {}
+    label: Radkit-server-ens2<->ext-conn-0-port
+lab:
+  description: ''
+  notes: ''
+  title: Lab at Mon 07:37 AM
+  version: 0.3.0
