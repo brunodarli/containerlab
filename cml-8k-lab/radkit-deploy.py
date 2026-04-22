@@ -39,7 +39,13 @@ expect "superadmin's password:"
 send "Cisco123!\\r"
 expect eof
 """
-    result = subprocess.run(['expect', '-c', expect_script], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    try:
+        result = subprocess.run(['expect', '-c', expect_script], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    except FileNotFoundError:
+        error_msg = "[ERROR] The 'expect' utility is not installed. Please install it using 'sudo apt-get install expect -y' inside your VM and try again."
+        log(error_msg)
+        sys.exit(1)
+        
     with open(log_file, "a") as f:
         f.write(result.stdout)
         if not result.stdout.endswith('\n'):
