@@ -5,7 +5,7 @@ nodes:
     configuration:
       - name: iosxe_config.txt
         content: "Building configuration...\n\nCurrent configuration : 6152 bytes\n\
-          !\n! Last configuration change at 13:46:22 UTC Tue Apr 21 2026\n!\nversion\
+          !\n! Last configuration change at 18:09:46 UTC Fri Apr 24 2026\n!\nversion\
           \ 17.3\nservice timestamps debug datetime msec\nservice timestamps log datetime\
           \ msec\n! Call-home is enabled by Smart-Licensing.\nservice call-home\n\
           platform qfp utilization monitor load 80\nplatform punt-keepalive disable-kernel-core\n\
@@ -245,7 +245,7 @@ nodes:
     configuration:
       - name: iosxe_config.txt
         content: "Building configuration...\n\nCurrent configuration : 6152 bytes\n\
-          !\n! Last configuration change at 13:46:23 UTC Tue Apr 21 2026\n!\nversion\
+          !\n! Last configuration change at 18:09:46 UTC Fri Apr 24 2026\n!\nversion\
           \ 17.3\nservice timestamps debug datetime msec\nservice timestamps log datetime\
           \ msec\n! Call-home is enabled by Smart-Licensing.\nservice call-home\n\
           platform qfp utilization monitor load 80\nplatform punt-keepalive disable-kernel-core\n\
@@ -1032,9 +1032,9 @@ nodes:
         content: |-
           Building configuration...
 
-          Current configuration : 1249 bytes
+          Current configuration : 1255 bytes
           !
-          ! Last configuration change at 13:46:23 UTC Tue Apr 21 2026
+          ! Last configuration change at 18:09:49 UTC Fri Apr 24 2026
           !
           version 17.16
           service timestamps debug datetime msec
@@ -1159,7 +1159,7 @@ nodes:
           line aux 0
           line vty 0 4
            exec-timeout 0 0
-           login
+           login local
            transport input ssh
           !
           !
@@ -1215,9 +1215,9 @@ nodes:
         content: |-
           Building configuration...
 
-          Current configuration : 1157 bytes
+          Current configuration : 1255 bytes
           !
-          ! Last configuration change at 13:46:25 UTC Tue Apr 21 2026
+          ! Last configuration change at 18:09:49 UTC Fri Apr 24 2026
           !
           version 17.16
           service timestamps debug datetime msec
@@ -1244,6 +1244,8 @@ nodes:
           !
           !
           !
+          no ip domain lookup
+          ip domain name cisco.com
           ip cef
           login on-success log
           no ipv6 cef
@@ -1266,6 +1268,7 @@ nodes:
           spanning-tree mode rapid-pvst
           !
           !
+          username clab privilege 15 password 0 clab@123
           !
           !
           !
@@ -1339,7 +1342,7 @@ nodes:
           line aux 0
           line vty 0 4
            exec-timeout 0 0
-           login
+           login local
            transport input ssh
           !
           !
@@ -1389,316 +1392,6 @@ nodes:
         mac_address: null
         type: physical
         slot: 4
-  - boot_disk_size: null
-    configuration:
-      - name: iosxr_config.txt
-        content: |2-
-
-          Tue Apr 21 13:46:28.807 UTC
-          Building configuration...
-          !! IOS XR Configuration 6.3.1
-          !! Last configuration change at Tue Apr 21 13:46:28 2026 by cisco
-          !
-          hostname xrv-13
-          logging console disable
-          username clab
-           group root-lr
-           password 7 00071F07067B5A545C
-          !
-          line console
-           exec-timeout 0 0
-           absolute-timeout 0
-           session-timeout 0
-          !
-          line default
-           exec-timeout 0 0
-           absolute-timeout 0
-           session-timeout 0
-          !
-          interface MgmtEth0/0/CPU0/0
-           ipv4 address 198.18.0.13 255.255.255.0
-          !
-          interface GigabitEthernet0/0/0/0
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/1
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/2
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/3
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/4
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/5
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/6
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/7
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/8
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/9
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/10
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/11
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/12
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/13
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/14
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/15
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/16
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/17
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/18
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/19
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/20
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/21
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/22
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/23
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/24
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/25
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/26
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/27
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/28
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/29
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/30
-           shutdown
-          !
-          interface GigabitEthernet0/0/0/31
-           shutdown
-          !
-          ssh server v2
-          end
-    cpu_limit: null
-    cpus: null
-    data_volume: null
-    hide_links: false
-    id: n7
-    image_definition: iosxrv-6-3-1
-    label: xrv-13
-    node_definition: iosxrv
-    parameters: {}
-    ram: null
-    tags: []
-    x: -129
-    y: 259
-    interfaces:
-      - id: i0
-        label: Loopback0
-        mac_address: null
-        type: loopback
-      - id: i1
-        label: MgmtEth0/0/CPU0/0
-        mac_address: null
-        type: physical
-        slot: 0
-      - id: i2
-        label: GigabitEthernet0/0/0/0
-        mac_address: null
-        type: physical
-        slot: 1
-      - id: i3
-        label: GigabitEthernet0/0/0/1
-        mac_address: null
-        type: physical
-        slot: 2
-      - id: i4
-        label: GigabitEthernet0/0/0/2
-        mac_address: null
-        type: physical
-        slot: 3
-      - id: i5
-        label: GigabitEthernet0/0/0/3
-        mac_address: null
-        type: physical
-        slot: 4
-      - id: i6
-        label: GigabitEthernet0/0/0/4
-        mac_address: null
-        type: physical
-        slot: 5
-      - id: i7
-        label: GigabitEthernet0/0/0/5
-        mac_address: null
-        type: physical
-        slot: 6
-      - id: i8
-        label: GigabitEthernet0/0/0/6
-        mac_address: null
-        type: physical
-        slot: 7
-      - id: i9
-        label: GigabitEthernet0/0/0/7
-        mac_address: null
-        type: physical
-        slot: 8
-      - id: i10
-        label: GigabitEthernet0/0/0/8
-        mac_address: null
-        type: physical
-        slot: 9
-      - id: i11
-        label: GigabitEthernet0/0/0/9
-        mac_address: null
-        type: physical
-        slot: 10
-      - id: i12
-        label: GigabitEthernet0/0/0/9
-        mac_address: null
-        type: physical
-        slot: 11
-      - id: i13
-        label: GigabitEthernet0/0/0/10
-        mac_address: null
-        type: physical
-        slot: 12
-      - id: i14
-        label: GigabitEthernet0/0/0/11
-        mac_address: null
-        type: physical
-        slot: 13
-      - id: i15
-        label: GigabitEthernet0/0/0/12
-        mac_address: null
-        type: physical
-        slot: 14
-      - id: i16
-        label: GigabitEthernet0/0/0/13
-        mac_address: null
-        type: physical
-        slot: 15
-      - id: i17
-        label: GigabitEthernet0/0/0/14
-        mac_address: null
-        type: physical
-        slot: 16
-      - id: i18
-        label: GigabitEthernet0/0/0/15
-        mac_address: null
-        type: physical
-        slot: 17
-      - id: i19
-        label: GigabitEthernet0/0/0/16
-        mac_address: null
-        type: physical
-        slot: 18
-      - id: i20
-        label: GigabitEthernet0/0/0/17
-        mac_address: null
-        type: physical
-        slot: 19
-      - id: i21
-        label: GigabitEthernet0/0/0/18
-        mac_address: null
-        type: physical
-        slot: 20
-      - id: i22
-        label: GigabitEthernet0/0/0/19
-        mac_address: null
-        type: physical
-        slot: 21
-      - id: i23
-        label: GigabitEthernet0/0/0/20
-        mac_address: null
-        type: physical
-        slot: 22
-      - id: i24
-        label: GigabitEthernet0/0/0/21
-        mac_address: null
-        type: physical
-        slot: 23
-      - id: i25
-        label: GigabitEthernet0/0/0/22
-        mac_address: null
-        type: physical
-        slot: 24
-      - id: i26
-        label: GigabitEthernet0/0/0/23
-        mac_address: null
-        type: physical
-        slot: 25
-      - id: i27
-        label: GigabitEthernet0/0/0/24
-        mac_address: null
-        type: physical
-        slot: 26
-      - id: i28
-        label: GigabitEthernet0/0/0/25
-        mac_address: null
-        type: physical
-        slot: 27
-      - id: i29
-        label: GigabitEthernet0/0/0/26
-        mac_address: null
-        type: physical
-        slot: 28
-      - id: i30
-        label: GigabitEthernet0/0/0/27
-        mac_address: null
-        type: physical
-        slot: 29
-      - id: i31
-        label: GigabitEthernet0/0/0/28
-        mac_address: null
-        type: physical
-        slot: 30
-      - id: i32
-        label: GigabitEthernet0/0/0/29
-        mac_address: null
-        type: physical
-        slot: 31
-      - id: i33
-        label: GigabitEthernet0/0/0/30
-        mac_address: null
-        type: physical
-        slot: 32
   - boot_disk_size: null
     configuration:
       - name: user-data
@@ -1830,7 +1523,7 @@ nodes:
     cpus: null
     data_volume: null
     hide_links: false
-    id: n8
+    id: n7
     image_definition: null
     label: Radkit-server
     node_definition: ubuntu
@@ -1886,7 +1579,7 @@ nodes:
     cpus: null
     data_volume: null
     hide_links: true
-    id: n9
+    id: n8
     image_definition: null
     label: unmanaged-switch-0
     node_definition: unmanaged_switch
@@ -1947,7 +1640,7 @@ nodes:
     cpus: null
     data_volume: null
     hide_links: false
-    id: n10
+    id: n9
     image_definition: null
     label: ext-conn-0
     node_definition: external_connector
@@ -1956,6 +1649,208 @@ nodes:
     tags: []
     x: -720
     y: -80
+    interfaces:
+      - id: i0
+        label: port
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: user-data
+        content: |-
+          #cloud-config
+          password: cisco
+          chpasswd: { expire: False }
+          hostname: xrd
+          ssh_pwauth: True
+          ssh_authorized_keys:
+             - your-ssh-pubkey-line-goes-here
+
+          runcmd:
+          #- sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+          - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+          - add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          - echo "deb [trusted=yes] https://apt.fury.io/netdevops/ /" | tee -a /etc/apt/sources.list.d/netdevops.list
+          - apt-get update -y
+          - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
+          - apt-get install -y containerlab bridge-utils
+          - mkdir -p /etc/systemd/system/docker.service.d/
+          - echo '[Service]' > /etc/systemd/system/docker.service.d/http-proxy.conf
+          - echo 'Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "HTTPS_PROXY=http://proxy.esl.cisco.com:80/" "NO_PROXY=.cisco.com"' >> /etc/systemd/system/docker.service.d/http-proxy.conf
+          - systemctl daemon-reload
+          - systemctl start docker
+          - systemctl enable docker
+          - systemctl restart docker
+          - usermod -a -G docker ubuntu
+          - containerlab completion bash > /etc/bash_completion.d/containerlab
+          - echo 'fs.inotify.max_user_instances=64000' >> /etc/sysctl.conf
+          - echo 'fs.inotify.max_user_watches=64000' >> /etc/sysctl.conf
+          - echo 'net.bridge.bridge-nf-call-iptables=0' >> /etc/sysctl.conf
+          - echo 'net.bridge.bridge-nf-call-ip6tables=0' >> /etc/sysctl.conf
+          - echo 'net.core.netdev_max_backlog=300000' >> /etc/sysctl.conf
+          - echo 'net.core.optmem_max=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.rmem_default=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.rmem_max=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.wmem_default=67108864' >> /etc/sysctl.conf
+          - echo 'net.core.wmem_max=67108864' >> /etc/sysctl.conf
+          - echo 'net.ipv4.udp_mem=1124736 10000000 67108864' >> /etc/sysctl.conf
+          - sysctl -p
+          - apt-get install -y tftpd-hpa chrony
+          - chmod go+w /srv/tftp/
+          - sed -i "s/--secure/--secure --create/" /etc/default/tftpd-hpa
+          - systemctl restart tftpd-hpa.service
+          - sed -i "/# See http:\/\/www\.pool\.ntp\.org\/join\.html for more information\./a\server 172.18.108.14 iburst\nserver 172.18.108.15 iburst" /etc/chrony/chrony.conf
+          - sed -i "/^pool .*/s/^/#/" /etc/chrony/chrony.conf
+          - echo "\n# NTP access list\nallow 172.31.0.0/24" >> /etc/chrony/chrony.conf
+          - systemctl restart chrony
+          - systemctl restart rsyslog
+          - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.17 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:80
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
+          - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-24.3.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-24.3.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-7.11.2
+          - docker load -i /root/xrd-control-plane-container-x64.dockerv1.tgz-24.3.2
+          - echo 'export PATH=/home/ubuntu/xrd/scripts:/home/ubuntu/bin:$PATH' >> /home/ubuntu/.profile
+          - echo "alias ssh-quiet='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - echo "alias scp-quiet='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - echo "alias sftp-quiet='sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
+          - git clone https://gitlab-cxj.cisco.com/jtac-xr/xrd_lab.git /home/ubuntu/xrd_lab
+          - git clone https://gitlab-cxj.cisco.com/jtac-xr/jtac-iosxr-tools.git /home/ubuntu/jtac-iosxr-tools
+          - echo "alias clab-ssh-port-forwarding='python3 /home/ubuntu/jtac-iosxr-tools/jtac_iosxr_tools/cml/clab_ssh_port_forwarding.py'" >> /home/ubuntu/.bash_aliases
+          - mkdir /home/ubuntu/radkit
+          - chown -R ubuntu:ubuntu /home/ubuntu
+          #- docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
+
+          write_files:
+          - path: /etc/apt/apt.conf
+            content: |
+              Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
+              Acquire::https::Proxy "http://proxy.esl.cisco.com:80";
+            owner: root:root
+            permissions: '0644'
+          - path: /root/.curlrc
+            content: |
+              proxy = "http://proxy.esl.cisco.com:80"
+              noproxy = "localhost,127.0.0.1,.cisco.com,10.70.69.134,10.70.69.1"
+            owner: root:root
+            permissions: '0644'
+          - path: /etc/gitconfig
+            content: |
+              [http "https://github.com"]
+                  proxy = http://proxy.esl.cisco.com:80
+            owner: root:root
+            permissions: '0644'
+          - path: /etc/ssh/ssh_config.d/cml-iosxr.conf
+            content: |
+              # Backward compatibility for old IOS-XR
+              Host *
+                  ServerAliveInterval 120
+                  StrictHostKeyChecking=no
+                  UserKnownHostsFile=/dev/null
+                  KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+                  HostkeyAlgorithms=+ssh-rsa
+                  Ciphers=+aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
+            owner: root:root
+            permissions: '0644'
+          - path: /etc/rsyslog.d/90-udp.conf
+            content: |
+              # Global setting
+              global(
+                  net.enableDNS="off"
+              )
+
+              # UDP listener
+              module(load="imudp")
+
+              # UDP rulesets
+              # UDP ruleset for syslog-udp
+              ruleset(name="syslog-udp"){
+                  action(
+                      type="omfile"
+                      file="/var/log/syslog-udp.log"
+                      fileOwner="syslog"
+                      fileGroup="adm"
+                  )
+              }
+
+              # Start up listener at UDP port 514
+              input(
+                  type="imudp"
+                  port="514"
+                  rcvbufSize="512k"
+                  ruleset="syslog-udp"
+              )
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n10
+    image_definition: null
+    label: ubuntu-clab
+    node_definition: ubuntu
+    parameters: {}
+    ram: null
+    tags: []
+    x: -141
+    y: 275
+    interfaces:
+      - id: i0
+        label: ens2
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i1
+        label: ens3
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i2
+        label: ens4
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i3
+        label: ens5
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i4
+        label: ens6
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i5
+        label: ens7
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i6
+        label: ens8
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i7
+        label: ens9
+        mac_address: null
+        type: physical
+        slot: 7
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n11
+    image_definition: null
+    label: ext-conn-1
+    node_definition: external_connector
+    parameters: {}
+    ram: null
+    tags: []
+    x: -139
+    y: 410
     interfaces:
       - id: i0
         label: port
@@ -1985,166 +1880,152 @@ links:
     conditioning: {}
     label: 8102-2-Hu0/0/0/0<->csr1000v-1-GigabitEthernet3
   - id: l3
-    n1: n7
-    n2: n0
-    i1: i2
-    i2: i4
-    conditioning: {}
-    label: xrv-0-GigabitEthernet0/0/0/0<->csr1000v-0-GigabitEthernet4
-  - id: l4
-    n1: n7
-    n2: n1
-    i1: i3
-    i2: i4
-    conditioning: {}
-    label: xrv-0-GigabitEthernet0/0/0/1<->csr1000v-1-GigabitEthernet4
-  - id: l5
     n1: n5
     n2: n2
     i1: i2
     i2: i3
     conditioning: {}
     label: iol-0-Ethernet0/1<->8102-10-Hu0/0/0/1
-  - id: l6
+  - id: l4
     n1: n3
     n2: n0
     i1: i32
     i2: i26
     conditioning: {}
     label: 8102-12-Hu0/0/0/30<->csr1000v-0-GigabitEthernet26
-  - id: l7
+  - id: l5
     n1: n3
     n2: n1
     i1: i31
     i2: i26
     conditioning: {}
     label: 8102-12-Hu0/0/0/29<->csr1000v-1-GigabitEthernet26
-  - id: l8
-    n1: n1
-    n2: n7
-    i1: i25
-    i2: i33
-    conditioning: {}
-    label: csr1000v-1-GigabitEthernet25<->xrv-0-GigabitEthernet0/0/0/30
-  - id: l9
-    n1: n7
-    n2: n0
-    i1: i32
-    i2: i25
-    conditioning: {}
-    label: xrv-0-GigabitEthernet0/0/0/29<->csr1000v-0-GigabitEthernet25
-  - id: l10
+  - id: l6
     n1: n2
     n2: n0
     i1: i32
     i2: i24
     conditioning: {}
     label: 8102-10-Hu0/0/0/30<->csr1000v-0-GigabitEthernet24
-  - id: l11
+  - id: l7
     n1: n4
     n2: n1
     i1: i32
     i2: i24
     conditioning: {}
     label: 8102-11-Hu0/0/0/30<->csr1000v-1-GigabitEthernet24
-  - id: l12
+  - id: l8
     n1: n0
     n2: n3
     i1: i3
     i2: i2
     conditioning: {}
     label: csr1000v-0-GigabitEthernet3<->8102-12-Hu0/0/0/0
-  - id: l13
+  - id: l9
     n1: n5
     n2: n2
     i1: i5
     i2: i4
     conditioning: {}
     label: iol-0-Ethernet1/0<->8102-10-Hu0/0/0/2
-  - id: l14
+  - id: l10
     n1: n6
     n2: n4
     i1: i5
     i2: i3
     conditioning: {}
     label: iol-1-Ethernet1/0<->8102-11-Hu0/0/0/1
-  - id: l15
+  - id: l11
     n1: n1
     n2: n0
     i1: i5
     i2: i5
     conditioning: {}
     label: csr1000v-1-GigabitEthernet5<->csr1000v-0-GigabitEthernet5
-  - id: l16
+  - id: l12
     n1: n2
-    n2: n9
+    n2: n8
     i1: i1
     i2: i0
     conditioning: {}
     label: 8102-10-MgmtEth0/RP0/CPU0/0<->unmanaged-switch-0-port0
-  - id: l17
+  - id: l13
     n1: n3
-    n2: n9
+    n2: n8
     i1: i1
     i2: i1
     conditioning: {}
     label: 8102-12-MgmtEth0/RP0/CPU0/0<->unmanaged-switch-0-port1
-  - id: l18
+  - id: l14
     n1: n0
-    n2: n9
+    n2: n8
     i1: i1
     i2: i2
     conditioning: {}
     label: csr1000v-0-GigabitEthernet1<->unmanaged-switch-0-port2
-  - id: l19
+  - id: l15
     n1: n1
-    n2: n9
+    n2: n8
     i1: i1
     i2: i3
     conditioning: {}
     label: csr1000v-1-GigabitEthernet1<->unmanaged-switch-0-port3
-  - id: l20
+  - id: l16
     n1: n4
-    n2: n9
+    n2: n8
     i1: i1
     i2: i4
     conditioning: {}
     label: 8102-11-MgmtEth0/RP0/CPU0/0<->unmanaged-switch-0-port4
-  - id: l21
+  - id: l17
     n1: n6
-    n2: n9
+    n2: n8
     i1: i1
     i2: i5
     conditioning: {}
     label: iol-1-Ethernet0/0<->unmanaged-switch-0-port5
-  - id: l22
-    n1: n7
-    n2: n9
-    i1: i1
-    i2: i6
-    conditioning: {}
-    label: xrv-13-MgmtEth0/0/CPU0/0<->unmanaged-switch-0-port6
-  - id: l23
+  - id: l18
     n1: n5
-    n2: n9
+    n2: n8
     i1: i1
     i2: i7
     conditioning: {}
     label: iol-0-Ethernet0/0<->unmanaged-switch-0-port7
-  - id: l24
-    n1: n8
-    n2: n9
+  - id: l19
+    n1: n7
+    n2: n8
     i1: i7
     i2: i8
     conditioning: {}
     label: Radkit-server-ens9<->unmanaged-switch-0-port8
-  - id: l25
-    n1: n8
-    n2: n10
+  - id: l20
+    n1: n7
+    n2: n9
     i1: i0
     i2: i0
     conditioning: {}
     label: Radkit-server-ens2<->ext-conn-0-port
+  - id: l21
+    n1: n10
+    n2: n1
+    i1: i7
+    i2: i4
+    conditioning: {}
+    label: ubuntu-clab-ens9<->csr1000v-1-GigabitEthernet4
+  - id: l22
+    n1: n10
+    n2: n0
+    i1: i6
+    i2: i4
+    conditioning: {}
+    label: ubuntu-clab-ens8<->csr1000v-0-GigabitEthernet4
+  - id: l23
+    n1: n11
+    n2: n10
+    i1: i0
+    i2: i0
+    conditioning: {}
+    label: ext-conn-1-port<->ubuntu-clab-ens2
 lab:
   description: ''
   notes: ''
