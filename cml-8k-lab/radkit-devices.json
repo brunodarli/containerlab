@@ -42,17 +42,31 @@
     }
   },
   {
-    "name": "xrv-13",
-    "host": "198.18.0.13",
+    "name": "xrd-13",
+    "host": "172.31.0.100",
     "deviceType": "IOS_XR",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "y",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "ubuntu-clab",
+    "host": "192.168.255.100",
+    "deviceType": "LINUX",
     "labels": [],
     "enabled": true,
     "jumphostUuid": "x",
     "terminal": {
       "port": 22,
       "connectionMethod": "SSH",
-      "username": "clab",
-      "password": "clab@123"
+      "username": "ubuntu",
+      "password": "cisco"
     }
   },
   {

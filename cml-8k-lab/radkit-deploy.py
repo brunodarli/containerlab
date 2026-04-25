@@ -63,7 +63,12 @@ def main():
         log("Respinning RadKit container...")
         log("Stopping existing 'radkit' container...")
         run_command("docker stop radkit", check=False)
-        run_command("docker rm radkit", check=False)
+        run_command("docker rm -v radkit", check=False)
+        
+        log("Removing existing 'radkit' volume data...")
+        run_command("sudo rm -rf /home/ubuntu/radkit", check=False)
+        run_command("mkdir -p /home/ubuntu/radkit", check=False)
+        run_command("sudo chown ubuntu:ubuntu /home/ubuntu/radkit", check=False)
         
         log("Starting new 'radkit' container...")
         base64_pw = base64.b64encode(b"Cisco123!").decode("utf-8")
@@ -139,6 +144,24 @@ def main():
 
     log(f"Captured ubuntu0 UUID: {ubuntu0_uuid}")
 
+    # STEP 5.5: Create ubuntu-clab jump host and capture UUID
+    log("Creating ubuntu-clab jump host...")
+    cmd = f"radkit-control device create ubuntu-clab 192.168.255.100 Linux --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --jumphost {ubuntu0_uuid} --active true"
+    ubuntu_clab_output = run_with_password(cmd)
+    
+    log("ubuntu-clab created. Output:")
+    log(ubuntu_clab_output)
+
+    # Extract UUID
+    match = re.search(r'"uuid":\s*"([^"]*)', ubuntu_clab_output)
+    if match:
+        ubuntu_clab_uuid = match.group(1)
+    else:
+        log("Failed to capture ubuntu-clab UUID. Exiting.")
+        sys.exit(1)
+
+    log(f"Captured ubuntu-clab UUID: {ubuntu_clab_uuid}")
+
     # STEP 6: Update local radkit-devices.json
     log("Updating jumphostUuid values in local radkit-devices.json...")
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -166,6 +189,8 @@ def main():
         elif isinstance(obj, dict):
             if obj.get("jumphostUuid") == "x":
                 obj["jumphostUuid"] = ubuntu0_uuid
+            elif obj.get("jumphostUuid") == "y":
+                obj["jumphostUuid"] = ubuntu_clab_uuid
             for value in obj.values():
                 update_jumphost(value)
 

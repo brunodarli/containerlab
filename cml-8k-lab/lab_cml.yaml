@@ -1722,8 +1722,23 @@ nodes:
           - mkdir /home/ubuntu/radkit
           - chown -R ubuntu:ubuntu /home/ubuntu
           #- docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
+          - netplan apply
 
           write_files:
+          - path: /etc/netplan/99-ens2.yaml
+            content: |
+              network:
+                version: 2
+                ethernets:
+                  ens2:
+                    dhcp4: false
+                    addresses:
+                      - 192.168.255.100/24
+                    routes:
+                      - to: default
+                        via: 192.168.255.1
+            owner: root:root
+            permissions: '0644'
           - path: /etc/apt/apt.conf
             content: |
               Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
