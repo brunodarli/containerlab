@@ -1,0 +1,21 @@
+name: xrd-lab
+
+mgmt:
+  network: clab_mgmt
+  ipv4-subnet: 172.31.0.0/24
+  external-access: false
+
+topology:
+  kinds:
+    xrd:
+      kind: cisco_xrd
+      image: xrd-control-plane:24.3.2  
+
+  nodes:
+    xrd-13:
+      kind: xrd
+      mgmt-ipv4: 172.31.0.100
+
+  links:
+    - endpoints: ["xrd-13:Gi0-0-0-1", "macvlan:ens8"]
+    - endpoints: ["xrd-13:Gi0-0-0-2", "macvlan:ens9"]

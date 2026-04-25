@@ -1737,6 +1737,9 @@ nodes:
                     routes:
                       - to: default
                         via: 192.168.255.1
+                    nameservers:
+                      addresses:
+                        - 192.168.255.1
             owner: root:root
             permissions: '0644'
           - path: /etc/apt/apt.conf
