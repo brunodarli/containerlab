@@ -146,7 +146,7 @@ def main():
 
     # STEP 5.5: Create ubuntu-clab jump host and capture UUID
     log("Creating ubuntu-clab jump host...")
-    cmd = f"radkit-control device create ubuntu-clab 192.168.255.100 Linux --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --jumphost {ubuntu0_uuid} --active true"
+    cmd = f"radkit-control device create ubuntu-clab 192.168.255.100 Linux --terminal-connection-method SSH --terminal-username ubuntu --terminal-password cisco --jumphost-uuid {ubuntu0_uuid} --active true"
     ubuntu_clab_output = run_with_password(cmd)
     
     log("ubuntu-clab created. Output:")
