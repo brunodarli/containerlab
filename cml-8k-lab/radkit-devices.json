@@ -98,6 +98,20 @@
     }
   },
   {
+    "name": "csr1000v-2",
+    "host": "198.18.0.102",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
     "name": "iol-0",
     "host": "198.18.0.200",
     "deviceType": "IOS_XE",
@@ -114,6 +128,20 @@
   {
     "name": "iol-1",
     "host": "198.18.0.201",
+    "deviceType": "IOS_XE",
+    "labels": [],
+    "enabled": true,
+    "jumphostUuid": "x",
+    "terminal": {
+      "port": 22,
+      "connectionMethod": "SSH",
+      "username": "clab",
+      "password": "clab@123"
+    }
+  },
+  {
+    "name": "iol-2",
+    "host": "198.18.0.202",
     "deviceType": "IOS_XE",
     "labels": [],
     "enabled": true,
