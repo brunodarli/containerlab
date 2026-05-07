@@ -1455,6 +1455,7 @@ nodes:
           - echo "alias sftp-quiet='sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
           - git clone https://gitlab-cxj.cisco.com/jtac-xr/xrd_lab.git /home/ubuntu/xrd_lab
           - git clone https://gitlab-cxj.cisco.com/jtac-xr/jtac-iosxr-tools.git /home/ubuntu/jtac-iosxr-tools
+          - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
           - echo "alias clab-ssh-port-forwarding='python3 /home/ubuntu/jtac-iosxr-tools/jtac_iosxr_tools/cml/clab_ssh_port_forwarding.py'" >> /home/ubuntu/.bash_aliases
           - mkdir /home/ubuntu/radkit
           - chown -R ubuntu:ubuntu /home/ubuntu
@@ -1718,6 +1719,8 @@ nodes:
           - echo "alias sftp-quiet='sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'" >> /home/ubuntu/.bash_aliases
           - git clone https://gitlab-cxj.cisco.com/jtac-xr/xrd_lab.git /home/ubuntu/xrd_lab
           - git clone https://gitlab-cxj.cisco.com/jtac-xr/jtac-iosxr-tools.git /home/ubuntu/jtac-iosxr-tools
+          - git clone https://github.com/brunodarli/containerlab /home/ubuntu/containerlab --config http.https://github.com.proxy=http://proxy.esl.cisco.com:8080
+
           - echo "alias clab-ssh-port-forwarding='python3 /home/ubuntu/jtac-iosxr-tools/jtac_iosxr_tools/cml/clab_ssh_port_forwarding.py'" >> /home/ubuntu/.bash_aliases
           - mkdir /home/ubuntu/radkit
           - chown -R ubuntu:ubuntu /home/ubuntu
