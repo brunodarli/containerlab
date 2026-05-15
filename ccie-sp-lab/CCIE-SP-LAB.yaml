@@ -81,10 +81,18 @@ nodes:
           - chown -R ubuntu:ubuntu /home/ubuntu
           - docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
 
-          - ip link set ens3 up
-          - ip addr add 10.253.11.11/24 dev ens3
-
           write_files:
+          - path: /etc/netplan/99-ens3.yaml
+            content: |
+              network:
+                version: 2
+                ethernets:
+                  ens3:
+                    dhcp4: false
+                    addresses:
+                      - 10.253.11.11/24
+            owner: root:root
+            permissions: '0644'
           - path: /etc/apt/apt.conf
             content: |
               Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
@@ -111,9 +119,6 @@ nodes:
             ethernets:
               ens2:
                 dhcp4: true
-              ens3:
-                addresses:
-                  - 10.253.11.11/24
     cpu_limit: 100
     cpus: 11
     data_volume: 0
@@ -244,10 +249,18 @@ nodes:
           - chown -R ubuntu:ubuntu /home/ubuntu
           - docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
 
-          - ip link set ens3 up
-          - ip addr add 10.253.11.10/24 dev ens3
-
           write_files:
+          - path: /etc/netplan/99-ens3.yaml
+            content: |
+              network:
+                version: 2
+                ethernets:
+                  ens3:
+                    dhcp4: false
+                    addresses:
+                      - 10.253.11.10/24
+            owner: root:root
+            permissions: '0644'
           - path: /etc/apt/apt.conf
             content: |
               Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
@@ -274,9 +287,6 @@ nodes:
             ethernets:
               ens2:
                 dhcp4: true
-              ens3:
-                addresses:
-                  - 10.253.11.10/24
     cpu_limit: 100
     cpus: 11
     data_volume: null
@@ -394,7 +404,6 @@ nodes:
           - echo 'net.ipv6.conf.ens3.disable_ipv6' = 1 >> /etc/sysctl.conf
           - echo 'net.ipv6.conf.ens4.disable_ipv6' = 1 >> /etc/sysctl.conf
           - sysctl -p
-          - ip link set up dev ens3
           - ip link set up dev ens4
           - git clone https://github.com/ios-xr/xrd-tools.git /home/ubuntu/xrd -b v1.1.19 --config http.https://github.com.proxy=http://proxy.esl.cisco.com:80
           - curl http://jtac-iosxr-1.cisco.com/xrd/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2 -o /root/xrd-control-plane-container-x64.dockerv1.tgz-7.9.2
@@ -424,6 +433,17 @@ nodes:
 
 
           write_files:
+          - path: /etc/netplan/99-ens3.yaml
+            content: |
+              network:
+                version: 2
+                ethernets:
+                  ens3:
+                    dhcp4: false
+                    addresses:
+                      - 10.253.11.12/24
+            owner: root:root
+            permissions: '0644'
           - path: /etc/apt/apt.conf
             content: |
               Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
@@ -462,9 +482,6 @@ nodes:
             ethernets:
               ens2:
                 dhcp4: true
-              ens3:
-                addresses:
-                  - 10.253.11.12/24
     cpu_limit: 100
     cpus: 11
     data_volume: null
@@ -652,9 +669,6 @@ nodes:
           - chown -R ubuntu:ubuntu /home/ubuntu
           - docker run -d --restart always -p 8081:8081 -v /home/ubuntu/radkit:/radkit -e RADKIT_SERVICE_SUPERADMIN_PASSWORD_BASE64="$( echo -n 'Cisco123!' | base64 )" -e RADKIT_CLOUD_CLIENT_PROXY_URL=http://proxy.esl.cisco.com:80 -e RADKIT_SERVICE_CLI_RUN_FORCE=1 --name radkit containers.cisco.com/radkit/radkit-service:1.6.12
 
-          - ip link set ens3 up
-          - ip addr add 10.253.11.13/24 dev ens3
-
           - ip link set up dev ens4
           - ip link set up dev ens5
           - ip link set up dev ens6
@@ -663,6 +677,17 @@ nodes:
           - ip link set up dev ens9
 
           write_files:
+          - path: /etc/netplan/99-ens3.yaml
+            content: |
+              network:
+                version: 2
+                ethernets:
+                  ens3:
+                    dhcp4: false
+                    addresses:
+                      - 10.253.11.13/24
+            owner: root:root
+            permissions: '0644'
           - path: /etc/apt/apt.conf
             content: |
               Acquire::http::Proxy "http://proxy.esl.cisco.com:80";
@@ -689,9 +714,6 @@ nodes:
             ethernets:
               ens2:
                 dhcp4: true
-              ens3:
-                addresses:
-                  - 10.253.11.13/24
     cpu_limit: 100
     cpus: 11
     data_volume: null
