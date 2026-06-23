@@ -22,6 +22,23 @@ CONFIG_DIR = "/etc/lab_sim"
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 EXTRA_HOSTS_FILE = os.path.join(CONFIG_DIR, "extra_hosts.json")
 
+# Hardcoded CML Nodes
+CML_NODES = {
+    'y-pe3': '10.253.11.103',
+    'y-pe4': '10.253.11.104',
+    'y-ce3': '10.253.11.33',
+    'y-ce4': '10.253.11.34',
+    'y-p1': '10.253.11.101',
+    'y-p2': '10.253.11.102',
+    'y-rr1': '10.253.11.151',
+    'y-rr2': '10.253.11.152',
+    'y-ce1': '10.253.11.31',
+    'y-ce2': '10.253.11.32',
+    'y-ce5': '10.253.11.35',
+    'y-pe5': '10.253.11.105',
+    'y-pe6': '10.253.11.106',
+}
+
 def parse_topology(topo_file):
     """
     Parses the .clab.yaml file and returns a dictionary of {node_name: {'ip': mgmt_ipv4, 'kind': kind}}.
@@ -53,6 +70,11 @@ def parse_topology(topo_file):
         except Exception as e:
             # Just ignore if we can't read it
             pass
+
+    # Inject CML Nodes
+    for name, ip in CML_NODES.items():
+        if name not in nodes_map:
+            nodes_map[name] = {'ip': ip, 'kind': 'default'}
 
     return nodes_map
 

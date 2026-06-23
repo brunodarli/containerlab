@@ -14,42 +14,6 @@ topology:
 
   nodes:
 
-    y-p1:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.101
-      startup-config: ccie-sp-base/Y-P1.txt
-    
-    y-p2:
-      kind: xrd
-      mgmt-ipv4: 172.31.0.102
-      startup-config: ccie-sp-base/Y-P2.txt
-
-
-    y-rr1:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.151
-      startup-config: ccie-sp-base/Y-RR1.txt
-    
-    y-rr2:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.152
-      startup-config: ccie-sp-base/Y-RR2.txt
-
-    y-pe5:
-      kind: cisco_csr1000v
-      image: vrnetlab/cisco_csr1000v:17.03.08
-      mgmt-ipv4: 172.31.0.105
-      startup-config: ccie-sp-base/Y-PE5-csr.txt
-
-    y-pe6:
-      kind: cisco_csr1000v
-      image: vrnetlab/cisco_csr1000v:17.03.08
-      mgmt-ipv4: 172.31.0.106
-      startup-config: ccie-sp-base/Y-PE6-csr.txt
-
-   
     y-asbr1:
       kind: xrd
       mgmt-ipv4: 172.31.0.141
@@ -60,58 +24,21 @@ topology:
       mgmt-ipv4: 172.31.0.142
       startup-config: ccie-sp-base/Y-ASBR2.txt
 
-    y-ce1:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.31
-      startup-config: ccie-sp-base/Y-CE1.txt
-    
-    y-ce2:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.32
-      startup-config: ccie-sp-base/Y-CE2.txt
-
-
-
-
-    y-ce5:
-      kind: cisco_iol
-      image: vrnetlab/cisco_iol:17.16.1a
-      mgmt-ipv4: 172.31.0.35
-      startup-config: ccie-sp-base/Y-CE5.txt
-
-
   links:
   ## Garnet AS-200 Links
 
-    - endpoints: [y-p1:Gi0-0-0-2, y-p2:Gi0-0-0-0]
-    - endpoints: [y-p1:Gi0-0-0-1, macvlan:ens6]
-    - endpoints: [y-p1:Gi0-0-0-4, y-rr1:e0/1]
-    - endpoints: [y-p1:Gi0-0-0-3, y-pe5:eth10]
-    - type: macvlan
-      host-interface: ens7
-      endpoint:
-        node: y-rr2
-        interface: e0/1
-      mode: passthru
-    - endpoints: [y-pe5:eth11, y-pe6:eth11]
-    - endpoints: [y-pe6:eth10, y-p2:Gi0-0-0-2]
-
-    - endpoints: [y-p1:Gi0-0-0-0, y-asbr1:Gi0-0-0-0]
-    - endpoints: [macvlan:ens8, y-asbr2:Gi0-0-0-0]
-
-    - endpoints: [y-p2:Gi0-0-0-1, macvlan:ens5]
-    
-    - endpoints: [y-pe5:eth12, y-ce1:e0/1]
-    - endpoints: [y-pe6:eth12, y-ce1:e0/2]
-    - endpoints: [y-pe6:eth14, y-ce5:e0/1]
-    - endpoints: [y-pe6:eth13, y-ce2:e0/1]
     - type: macvlan
       host-interface: ens4
       endpoint:
-        node: y-ce2
-        interface: e0/2
+        node: y-asbr1
+        interface: Gi0-0-0-0
+      mode: passthru
+
+    - type: macvlan
+      host-interface: ens5
+      endpoint:
+        node: y-asbr2
+        interface: Gi0-0-0-0
       mode: passthru
 
     - endpoints: [y-asbr1:Gi0-0-0-1, y-asbr2:Gi0-0-0-1]
@@ -121,5 +48,3 @@ topology:
     - endpoints: [y-asbr1:Gi0-0-0-2, host:ubuntu-0_id1011]
     - endpoints: [y-asbr2:Gi0-0-0-2, host:ubuntu-0_id1012]
     - endpoints: [y-asbr1:Gi0-0-0-3, host:ubuntu-1_id17]
-
-
