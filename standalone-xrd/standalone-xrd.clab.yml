@@ -1,0 +1,7 @@
+name: standalone-xrd
+
+topology:
+  nodes:
+    xrd1:
+      kind: cisco_xrd
+      image: ios-xr/xrd-control-plane:24.2.21
