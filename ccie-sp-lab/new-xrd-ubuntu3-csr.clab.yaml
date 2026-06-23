@@ -88,25 +88,25 @@ topology:
     - endpoints: [y-p1:Gi0-0-0-2, y-p2:Gi0-0-0-0]
     - endpoints: [y-p1:Gi0-0-0-1, macvlan:ens6]
     - endpoints: [y-p1:Gi0-0-0-4, y-rr1:e0/1]
-    - endpoints: [y-p1:Gi0-0-0-3, y-pe5:g11]
+    - endpoints: [y-p1:Gi0-0-0-3, y-pe5:eth10]
     - type: macvlan
       host-interface: ens7
       endpoint:
         node: y-rr2
         interface: e0/1
       mode: passthru
-    - endpoints: [y-pe5:g12, y-pe6:g12]
-    - endpoints: [y-pe6:g11, y-p2:Gi0-0-0-2]
+    - endpoints: [y-pe5:eth11, y-pe6:eth11]
+    - endpoints: [y-pe6:eth10, y-p2:Gi0-0-0-2]
 
     - endpoints: [y-p1:Gi0-0-0-0, y-asbr1:Gi0-0-0-0]
     - endpoints: [macvlan:ens8, y-asbr2:Gi0-0-0-0]
 
     - endpoints: [y-p2:Gi0-0-0-1, macvlan:ens5]
     
-    - endpoints: [y-pe5:g13, y-ce1:e0/1]
-    - endpoints: [y-pe6:g13, y-ce1:e0/2]
-    - endpoints: [y-pe6:g15, y-ce5:e0/1]
-    - endpoints: [y-pe6:g14, y-ce2:e0/1]
+    - endpoints: [y-pe5:eth12, y-ce1:e0/1]
+    - endpoints: [y-pe6:eth12, y-ce1:e0/2]
+    - endpoints: [y-pe6:eth14, y-ce5:e0/1]
+    - endpoints: [y-pe6:eth13, y-ce2:e0/1]
     - type: macvlan
       host-interface: ens4
       endpoint:
